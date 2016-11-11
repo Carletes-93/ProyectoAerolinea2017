@@ -1,0 +1,303 @@
+/*
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+	body
+	{
+	}
+
+	body,input,textarea,select
+	{
+	}
+
+	header
+	{
+		margin-bottom: 1em;
+	}
+	
+		header h2
+		{
+			font-size: 3em;
+		}
+
+		header .byline
+		{
+			font-size: 1.7em;
+		}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		padding: 8em 0 3em 0;
+	}
+
+	.homepage #header
+	{
+		padding: 16em 0 12em 0;
+	}
+
+/*********************************************************************************/
+/* Main                                                                          */
+/*********************************************************************************/
+
+	#main
+	{
+		padding: 3em 0em;
+	}
+	
+        #main header
+	{
+		text-align: center;
+	}
+        
+	.homepage #content header h2
+	{
+		padding: 0.70em 0em;
+		font-size: 2.2em;
+	}
+        
+        .btn_iyv p
+        {
+                margin-top: 10px;
+        }
+        
+        .btn_iyv input
+        {
+                margin-right: 20px;
+                margin-left: 10px;
+                
+        }
+        
+        .desactivado
+        {
+                background-color: #666666;
+                color: #ffffff;
+                cursor: default;
+        }
+        
+        .activado
+        {
+                cursor: pointer;
+        }
+        
+        #tablavuelo
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 450px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+                margin-bottom: 10px;
+        }
+        
+        .tablavueloIda
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 650px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .tablavueloVuelta
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 650px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .datospasajeros
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 450px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .serviciospasajeros
+        {
+                margin: 0 auto;
+                text-align: left;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .tablabebe
+        {
+                margin: 0 auto;
+                text-align: left;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .tablatarjetasantiguas
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 650px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .tarjetanueva
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 650px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .pagadorantiguo
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 450px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .pagadornuevo
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 450px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .asientospasajeros
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 450px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .resumen
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 500px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+        .trbebe
+        {
+                display: none;
+                
+        }
+        
+        th
+        {
+                font-weight: bold;
+        }
+        
+        thead
+        {
+                font-weight: bold;
+        }
+        
+        .datepicker
+        {
+                margin-top: 5px;
+        }
+        
+        hr
+        {
+                margin: 5px;
+                padding: 0;
+        }
+        
+        .datos
+        {
+                margin: 0 auto;
+                text-align: center;
+        }
+        
+        #contenido
+        {
+                margin: 0 auto;
+                text-align: center;
+        }
+        
+        #contenidoresumen
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 900px;
+        }
+        
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+	
+	#footer
+	{
+		padding: 6em 0em;
+	}
+	
+/*********************************************************************************/
+/* Featured                                                                      */
+/*********************************************************************************/
+	
+	#featured
+	{
+		padding: 6em 0em;
+	}
+	
+	#featured h3
+	{
+		padding: 1.5em 0em;
+		font-size: 1.6em;
+	}
+
+	#featured header
+	{
+		margin-bottom: 3em;
+	}
+	
+	#featured p
+	{
+		line-height: 2em;
+		font-size: 1.2em;
+	}	

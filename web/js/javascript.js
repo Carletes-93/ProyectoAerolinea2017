@@ -120,10 +120,8 @@ function AJAXCrearObjeto() {
 //Aeropuertos
 var aeropuertos = [
     'Madrid',
-    'Valencia',
     'Paris',
     'Berlin',
-    'Roma',
     'Londres'
 ];
 

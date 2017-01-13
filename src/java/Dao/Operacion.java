@@ -66,10 +66,12 @@ public class Operacion {
         }
         
         
-        PreparedStatement sentenciavuelos = conex.prepareStatement("SELECT v.*, ABS(DATEDIFF(v.FECHA, ?)) AS fecha FROM vuelo v WHERE v.CONEXION = ? AND v.ASIENTOS_LIBRES >= ? ORDER BY fecha");
+        PreparedStatement sentenciavuelos = conex.prepareStatement("SELECT v.*, ABS(DATEDIFF(v.FECHA, ?)) AS fecha FROM vuelo v WHERE v.CONEXION = ? AND v.ASIENTOS_LIBRES >= ? AND ABS(DATEDIFF(v.FECHA, ?)) <= 3 AND ABS(DATEDIFF(v.FECHA, ?)) >= -3 ORDER BY fecha");
         sentenciavuelos.setString(1, fechavuelo);
         sentenciavuelos.setInt(2, conexion);
         sentenciavuelos.setInt(3, num_viajeros);
+        sentenciavuelos.setString(4, fechavuelo);
+        sentenciavuelos.setString(5, fechavuelo);
         
         ResultSet resultado4 = sentenciavuelos.executeQuery();
         
@@ -135,10 +137,12 @@ public class Operacion {
         }
         
         
-        PreparedStatement sentenciavuelos = conex.prepareStatement("SELECT v.*, ABS(DATEDIFF(v.FECHA, ?)) AS fecha FROM vuelo v WHERE v.CONEXION = ? AND v.ASIENTOS_LIBRES >= ? ORDER BY fecha");
+        PreparedStatement sentenciavuelos = conex.prepareStatement("SELECT v.*, ABS(DATEDIFF(v.FECHA, ?)) AS fecha FROM vuelo v WHERE v.CONEXION = ? AND v.ASIENTOS_LIBRES >= ? AND ABS(DATEDIFF(v.FECHA, ?)) <= 3 AND ABS(DATEDIFF(v.FECHA, ?)) >=-3 ORDER BY fecha");
         sentenciavuelos.setString(1, fechavuelo);
         sentenciavuelos.setInt(2, conexion);
         sentenciavuelos.setInt(3, num_viajeros);
+        sentenciavuelos.setString(4, fechavuelo);
+        sentenciavuelos.setString(5, fechavuelo);
         
         ResultSet resultado4 = sentenciavuelos.executeQuery();
         
@@ -544,7 +548,7 @@ public class Operacion {
                 PreparedStatement sentenciaocuvuelta;
                 if(!reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().isEmpty()){
                     if(reserva.getaPasajerosAdultos().get(j).getBebe()!=null){
-                        sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO, BEBE) VALUES(?, 'IDA', ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                        sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO, BEBE) VALUES(?, 'VUELTA', ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                         sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
                         sentenciaocuvuelta.setInt(2, reserva.getaPasajerosAdultos().get(j).getCodigo_pasajero());
                         sentenciaocuvuelta.setInt(3, reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta());

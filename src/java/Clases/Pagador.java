@@ -16,6 +16,7 @@ public class Pagador {
     private String nombre;
     private String apellidos;
     private String nif;
+    private String email;
     private String pass;
     private LocalDate fecha_nac;
     private String poblacion;
@@ -104,6 +105,14 @@ public class Pagador {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     @Override

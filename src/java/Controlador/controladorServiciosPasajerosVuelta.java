@@ -53,8 +53,8 @@ public class controladorServiciosPasajerosVuelta extends HttpServlet {
         HttpSession session=request.getSession(true);
         ArrayList<Pasajero> aPasajerosAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos");
         ArrayList<Pasajero> aPasajerosNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos");
+        ArrayList<Bebe> aPasajerosBebes = (ArrayList<Bebe>) session.getAttribute("pasajerosbebes");
         ArrayList<Servicio> aServicios = (ArrayList<Servicio>) session.getAttribute("servicios");
-        Servicio servbebe=null;
         
         String name = "serv";
         String namen = "servn";
@@ -69,14 +69,16 @@ public class controladorServiciosPasajerosVuelta extends HttpServlet {
             for (int u = 0; u < servicios.length; u++) {
                 aServiciosVuelta.add(aServicios.get(servicios[u]));
             }
-            if(aPasajerosAdultos.get(i).getBebe()!=null){
-                for (int l = 0; l < aServicios.size(); l++) {
-                    if(aServicios.get(l).getNombre().equals("Bebe")){
-                        servbebe=aServicios.get(l);
+            if (!aPasajerosBebes.isEmpty()) {
+                for(int b = 0; b < aPasajerosBebes.size(); b++){
+                    if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
+                        aPasajerosBebes.get(b).setTutor_vuelta(aPasajerosAdultos.get(i));
+                        for(int s = 0; s < aServicios.size(); s++){
+                            if(aServicios.get(s).getNombre().equals("Bebe")){
+                                aServiciosVuelta.add(aServicios.get(s));
+                            }
+                        }
                     }
-                }
-                if(servbebe!=null){
-                    aServiciosVuelta.add(servbebe);
                 }
             }
             aPasajerosAdultos.get(i).setaServiciosVuelta(aServiciosVuelta);

@@ -84,6 +84,14 @@
         <servlet-name>controladorPagadorFacturar</servlet-name>
         <servlet-class>Controlador.controladorPagadorFacturar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>controladorCargarOrigenes</servlet-name>
+        <servlet-class>Controlador.controladorCargarOrigenes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controladorCargarDestinos</servlet-name>
+        <servlet-class>Controlador.controladorCargarDestinos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/dispatcher</url-pattern>
@@ -167,6 +175,14 @@
     <servlet-mapping>
         <servlet-name>controladorPagadorFacturar</servlet-name>
         <url-pattern>/controladorPagadorFacturar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controladorCargarOrigenes</servlet-name>
+        <url-pattern>/controladorCargarOrigenes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controladorCargarDestinos</servlet-name>
+        <url-pattern>/controladorCargarDestinos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

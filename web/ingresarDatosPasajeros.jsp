@@ -9,6 +9,7 @@
 
 <% int numadultos =(Integer) session.getAttribute("numadultos"); %>
 <% int numninos =(Integer) session.getAttribute("numninos"); %>
+<% int numbebes =(Integer) session.getAttribute("numbebes"); %>
 
 <html>
 	<head>
@@ -185,6 +186,61 @@
                                                             </tr>
                                                         </table>
                                                         <% if(numninos>0){%>
+                                                        <hr>
+                                                        <% }%>
+                                                    </div>
+                                                <% }%>
+                                            <% }%>
+                                            <% if(numbebes!=0){%>
+                                                <% for(int i=1; i<=numbebes;i++){%>
+                                                    <div class="datos">
+                                                        <h3>Datos pasajero Bebe <% out.print(i); %></h3>
+                                                        <table class="datospasajeros">
+                                                            <tr>
+                                                                <th>
+                                                                    Tratamiento
+                                                                </th>
+                                                                <td>
+                                                                    <select  name="<% out.print("bebe"+i); %>">
+                                                                        <option value="Mr">Mr.</option>
+                                                                        <option value="Ms">Ms.</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    Nombre
+                                                                </th>
+                                                                <td>
+                                                                    <input type="text" name="<% out.print("nombebe"+i); %>" required>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    Apellidos
+                                                                </th>
+                                                                <td>
+                                                                    <input type="text" name="<% out.print("apelbebe"+i); %>" required>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    NIF
+                                                                </th>
+                                                                <td>
+                                                                    <input type="text" name="<% out.print("nifbebe"+i); %>" required>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>
+                                                                    Fecha de nacimiento
+                                                                </th>
+                                                                <td>
+                                                                    <input type="text" name="<% out.print("nacbebe"+i); %>" class="datepickernac" required>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <% if(numbebes>0){%>
                                                         <hr>
                                                         <% }%>
                                                     </div>

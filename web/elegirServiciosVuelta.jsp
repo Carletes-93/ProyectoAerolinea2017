@@ -4,6 +4,7 @@
     Author     : Carlos
 --%>
 
+<%@page import="Clases.Bebe"%>
 <%@page import="Clases.Pasajero"%>
 <%@page import="Clases.Servicio"%>
 <%@page import="java.util.ArrayList"%>
@@ -12,6 +13,7 @@
 
 <% ArrayList<Pasajero> aPasajerosAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos"); %>
 <% ArrayList<Pasajero> aPasajerosNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos"); %>
+<% ArrayList<Bebe> aPasajerosBebes = (ArrayList<Bebe>) session.getAttribute("pasajerosbebes"); %>
 <% ArrayList<Servicio> aServicios = (ArrayList<Servicio>) session.getAttribute("servicios"); %>
 
 <html>
@@ -107,6 +109,30 @@
                                                             <% }%>
                                                         </table>
                                                         <% if(aPasajerosNinos.size()>0){%>
+                                                        <hr>
+                                                        <% }%>
+                                                    </div>
+                                                <% }%>
+                                            <% }%>
+                                            <% if(aPasajerosBebes != null){%>
+                                                <% for(int i=0; i<aPasajerosBebes.size(); i++){%>
+                                                    <div class="datos">
+                                                        <h3>Tutos del bebe <% out.print(aPasajerosBebes.get(i).getNombre()+" "+aPasajerosBebes.get(i).getApellidos()); %></h3>
+                                                        <table class="serviciospasajeros">
+                                                            <tr>
+                                                                <td>
+                                                                    Tutor:  
+                                                                </td>
+                                                                <td>
+                                                                    <select id="<% out.print("bebe"+i); %>" name="<% out.print("bebe"+i); %>">
+                                                                        <% for(int u = 0; u < aPasajerosAdultos.size(); u++){ %>
+                                                                        <option value="<% out.print(aPasajerosAdultos.get(i).getNif()); %>" ><% out.print(aPasajerosAdultos.get(i).getNombre()); %> <% out.print(aPasajerosAdultos.get(i).getApellidos()); %></option>
+                                                                        <% } %>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <% if(aPasajerosBebes.size()>0){%>
                                                         <hr>
                                                         <% }%>
                                                     </div>

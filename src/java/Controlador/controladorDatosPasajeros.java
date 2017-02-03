@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Clases.Bebe;
 import Clases.Conexion;
 import Clases.Pasajero;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class controladorDatosPasajeros extends HttpServlet {
         HttpSession session=request.getSession(true);
         int numadultos = (Integer) session.getAttribute("numadultos");
         int numninos = (Integer) session.getAttribute("numninos");
+        int numbebes = (Integer) session.getAttribute("numbebes");
         String adult = "adulto";
         String nino = "niño";
         
@@ -66,9 +68,14 @@ public class controladorDatosPasajeros extends HttpServlet {
         String dn = "nifnino";
         String cn = "caducnino";
         String fn = "nacnino";
+        String nb = "nombebe";
+        String ab = "apelbebe";
+        String db = "nifbebe";
+        String fb = "nacbebe";
         
         ArrayList<Pasajero> aPasajerosAdultos = new ArrayList();
         ArrayList<Pasajero> aPasajerosNinos = new ArrayList();
+        ArrayList<Bebe> aPasajerosBebes = new ArrayList();
         
         switch(request.getParameter("datospasajeros")){
             case "datospasajeros":
@@ -103,8 +110,21 @@ public class controladorDatosPasajeros extends HttpServlet {
                     }
                 }
                 
+                if(numbebes>0){
+                    for (int i = 1; i <= numbebes; i++) {
+                        Bebe b1 = new Bebe();
+                        b1.setNombre(request.getParameter(nb+String.valueOf(i)));
+                        b1.setApellidos(request.getParameter(ab+String.valueOf(i)));
+                        b1.setNif(request.getParameter(db+String.valueOf(i)));
+                        LocalDate fecha_nac = LocalDate.parse(request.getParameter(fb+String.valueOf(i)), formato);
+                        b1.setFecha_nac(fecha_nac);
+                        aPasajerosBebes.add(b1);
+                    }
+                }
+                
                 session.setAttribute("pasajerosadultos", aPasajerosAdultos);
                 session.setAttribute("pasajerosninos", aPasajerosNinos);
+                session.setAttribute("pasajerosbebes", aPasajerosBebes);
                 
                 requestdisp = servletcont.getRequestDispatcher("/controladorCargarServicios");
                 requestdisp.forward(request, response);

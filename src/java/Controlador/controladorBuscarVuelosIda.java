@@ -47,6 +47,7 @@ public class controladorBuscarVuelosIda extends HttpServlet {
         String fecha=request.getParameter("FECHA_IDA");
         int adultos = Integer.parseInt(request.getParameter("ADULTOS"));
         int ninos = Integer.parseInt(request.getParameter("NINOS"));
+        int bebes = Integer.parseInt(request.getParameter("BEBES"));
         int num_viajeros=adultos+ninos;
         
         
@@ -75,6 +76,7 @@ public class controladorBuscarVuelosIda extends HttpServlet {
             session.setAttribute("vuelosida", vuelosida);
             session.setAttribute("numadultos", adultos);
             session.setAttribute("numninos", ninos);
+            session.setAttribute("numbebes", bebes);
             
             response.sendRedirect("eleccionVuelo.jsp");
         }

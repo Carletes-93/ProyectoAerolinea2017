@@ -49,6 +49,7 @@ public class controladorBuscarVuelosIdaVuelta extends HttpServlet {
         String fechavuelta=request.getParameter("FECHA_VUELTA");
         int adultos = Integer.parseInt(request.getParameter("ADULTOS"));
         int ninos = Integer.parseInt(request.getParameter("NINOS"));
+        int bebes = Integer.parseInt(request.getParameter("BEBES"));
         int num_viajeros=adultos+ninos;
         
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -88,6 +89,7 @@ public class controladorBuscarVuelosIdaVuelta extends HttpServlet {
             session.setAttribute("vuelosvuelta", vuelosvuelta);
             session.setAttribute("numadultos", adultos);
             session.setAttribute("numninos", ninos);
+            session.setAttribute("numbebes", bebes);
             
             response.sendRedirect("eleccionVuelo.jsp");
         }
@@ -98,18 +100,6 @@ public class controladorBuscarVuelosIdaVuelta extends HttpServlet {
             response.sendRedirect("errorSQL.jsp");
         }
         
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet controladorBuscarVuelosIdaVuelta</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet controladorBuscarVuelosIdaVuelta at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

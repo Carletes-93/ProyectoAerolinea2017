@@ -4,6 +4,7 @@
     Author     : Carlos
 --%>
 
+<%@page import="Clases.Bebe"%>
 <%@page import="Clases.Pasajero"%>
 <%@page import="Clases.Servicio"%>
 <%@page import="java.util.ArrayList"%>
@@ -12,6 +13,7 @@
 
 <% ArrayList<Pasajero> aPasajerosAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos"); %>
 <% ArrayList<Pasajero> aPasajerosNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos"); %>
+<% ArrayList<Bebe> aPasajerosBebes = (ArrayList<Bebe>) session.getAttribute("pasajerosbebes"); %>
 <% ArrayList<Servicio> aServicios = (ArrayList<Servicio>) session.getAttribute("servicios"); %>
 
 <html>
@@ -75,11 +77,7 @@
                                                         <table class="serviciospasajeros">
                                                             <% for(int u=0; u<aServicios.size(); u++){%> 
                                                                 <% if (aServicios.get(u).getNombre().equals("Bebe")){%>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <input onchange="datosBebe(this.id)" id="<% out.print(i); %>" type="checkbox" name="<% out.print("serv"+i); %>" value="<% out.print(u); %>"><span title="<% out.print(aServicios.get(u).getDescripcion()); %>"><% out.print(aServicios.get(u).getNombre()); %> (<% out.print(aServicios.get(u).getPrecio()); %>€).</span>
-                                                                        </td>
-                                                                    </tr>
+                                                                    
                                                                 <% } else{%>
                                                                     <tr>
                                                                         <td>
@@ -88,49 +86,6 @@
                                                                     </tr>
                                                                 <% }%>
                                                             <% }%>
-                                                                <tr class="trbebe" id="<% out.print("servt"+i); %>">
-                                                                    <td>
-                                                                        <table class="tablabebe">
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align: center;">
-                                                                                    Datos bebe:
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    Nombre:
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" id="nombebe" name="<% out.print("nombebe"+i); %>">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    Apellidos:
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" id="apebebe" name="<% out.print("apebebe"+i); %>">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    Nif:
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" id="nifbebe" name="<% out.print("nifbebe"+i); %>">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    Fecha Nacimiento:
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" class="datepickerbebe" name="<% out.print("fechabebe"+i); %>">
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
                                                         </table>
                                                         <% if(aPasajerosAdultos.size()>0){%>
                                                         <hr>
@@ -154,6 +109,30 @@
                                                             <% }%>
                                                         </table>
                                                         <% if(aPasajerosNinos.size()>0){%>
+                                                        <hr>
+                                                        <% }%>
+                                                    </div>
+                                                <% }%>
+                                            <% }%>
+                                            <% if(aPasajerosBebes != null){%>
+                                                <% for(int i=0; i<aPasajerosBebes.size(); i++){%>
+                                                    <div class="datos">
+                                                        <h3>Tutos del bebe <% out.print(aPasajerosBebes.get(i).getNombre()+" "+aPasajerosBebes.get(i).getApellidos()); %></h3>
+                                                        <table class="serviciospasajeros">
+                                                            <tr>
+                                                                <td>
+                                                                    Tutor:  
+                                                                </td>
+                                                                <td>
+                                                                    <select id="<% out.print("bebe"+i); %>" name="<% out.print("bebe"+i); %>">
+                                                                        <% for(int u = 0; u < aPasajerosAdultos.size(); u++){ %>
+                                                                        <option value="<% out.print(aPasajerosAdultos.get(i).getNif()); %>" ><% out.print(aPasajerosAdultos.get(i).getNombre()); %> <% out.print(aPasajerosAdultos.get(i).getApellidos()); %></option>
+                                                                        <% } %>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <% if(aPasajerosBebes.size()>0){%>
                                                         <hr>
                                                         <% }%>
                                                     </div>

@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 public class controladorServiciosPasajerosIda extends HttpServlet {
 
     Connection Conex;
+
     @Override
     public void init() throws ServletException {
         try {
@@ -41,51 +42,58 @@ public class controladorServiciosPasajerosIda extends HttpServlet {
         } catch (SQLException sqle) {
         }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         ServletContext servletcont = getServletContext();
         RequestDispatcher requestdisp;
-        
+
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        HttpSession session=request.getSession(true);
+        HttpSession session = request.getSession(true);
         ArrayList<Pasajero> aPasajerosAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos");
         ArrayList<Pasajero> aPasajerosNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos");
+        ArrayList<Bebe> aPasajerosBebes = (ArrayList<Bebe>) session.getAttribute("pasajerosbebes");
         ArrayList<Servicio> aServicios = (ArrayList<Servicio>) session.getAttribute("servicios");
-        
+
         String name = "serv";
         String namen = "servn";
-        
+
         for (int i = 0; i < aPasajerosAdultos.size(); i++) {
             ArrayList<Servicio> aServiciosIda = new ArrayList();
-            String[] serv = request.getParameterValues(name+i);
+            String[] serv = request.getParameterValues(name + i);
             int[] servicios = new int[serv.length];
             for (int j = 0; j < servicios.length; j++) {
-                servicios[j]=Integer.parseInt(serv[j]);
+                servicios[j] = Integer.parseInt(serv[j]);
             }
             for (int u = 0; u < servicios.length; u++) {
-                if(aServicios.get(servicios[u]).getNombre().equals("Bebe")){
-                    String nombebe=request.getParameter("nombebe"+i);
-                    String apebebe=request.getParameter("apebebe"+i);
-                    String nifbebe=request.getParameter("nifbebe"+i);
-                    LocalDate fechabebe = LocalDate.parse(request.getParameter("fechabebe"+i), formato);
-                    Bebe b1 = new Bebe(nombebe, apebebe, nifbebe, fechabebe);
-                    aPasajerosAdultos.get(i).setBebe(b1);
-                }
                 aServiciosIda.add(aServicios.get(servicios[u]));
             }
+
+            if (!aPasajerosBebes.isEmpty()) {
+                for(int b = 0; b < aPasajerosBebes.size(); b++){
+                    if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
+                        aPasajerosBebes.get(b).setTutor_ida(aPasajerosAdultos.get(i));
+                        for(int s = 0; s < aServicios.size(); s++){
+                            if(aServicios.get(s).getNombre().equals("Bebe")){
+                                aServiciosIda.add(aServicios.get(s));
+                            }
+                        }
+                    }
+                }
+            }
+
             aPasajerosAdultos.get(i).setaServiciosIda(aServiciosIda);
         }
-        
-        if(!aPasajerosNinos.isEmpty()){
+
+        if (!aPasajerosNinos.isEmpty()) {
             for (int i = 0; i < aPasajerosNinos.size(); i++) {
                 ArrayList<Servicio> aServiciosIda = new ArrayList();
-                String[] serv = request.getParameterValues(namen+i);
+                String[] serv = request.getParameterValues(namen + i);
                 int[] servicios = new int[serv.length];
                 for (int j = 0; j < servicios.length; j++) {
-                    servicios[j]=Integer.parseInt(serv[j]);
+                    servicios[j] = Integer.parseInt(serv[j]);
                 }
                 for (int u = 0; u < servicios.length; u++) {
                     aServiciosIda.add(aServicios.get(servicios[u]));
@@ -93,15 +101,15 @@ public class controladorServiciosPasajerosIda extends HttpServlet {
                 aPasajerosNinos.get(i).setaServiciosIda(aServiciosIda);
             }
         }
-        
-        if(session.getAttribute("Vuelo_vuelta_elegido") == null){
+
+        if (session.getAttribute("Vuelo_vuelta_elegido") == null) {
             requestdisp = servletcont.getRequestDispatcher("/controladorCargarAsientos");
             requestdisp.forward(request, response);
         }
-        if(session.getAttribute("Vuelo_vuelta_elegido")!= null){
+        if (session.getAttribute("Vuelo_vuelta_elegido") != null) {
             response.sendRedirect("elegirServiciosVuelta.jsp");
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

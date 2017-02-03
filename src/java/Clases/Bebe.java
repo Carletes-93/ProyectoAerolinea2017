@@ -17,6 +17,8 @@ public class Bebe {
     private String apellidos;
     private String nif;
     private LocalDate fecha_nac;
+    private Pasajero tutor_ida;
+    private Pasajero tutor_vuelta;
 
     public Bebe() {
     }
@@ -66,6 +68,22 @@ public class Bebe {
 
     public void setFecha_nac(LocalDate fecha_nac) {
         this.fecha_nac = fecha_nac;
+    }
+
+    public Pasajero getTutor_ida() {
+        return tutor_ida;
+    }
+
+    public void setTutor_ida(Pasajero tutor_ida) {
+        this.tutor_ida = tutor_ida;
+    }
+
+    public Pasajero getTutor_vuelta() {
+        return tutor_vuelta;
+    }
+
+    public void setTutor_vuelta(Pasajero tutor_vuelta) {
+        this.tutor_vuelta = tutor_vuelta;
     }
 
     @Override

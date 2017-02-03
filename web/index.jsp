@@ -66,8 +66,8 @@
                                                 <table id="tablavuelo">
                                                     <tr>
                                                         <td>
-                                                            <select id="origen" name="ORIGEN" onchange="mostrarDestino()">
-
+                                                            <select id="origen" name="ORIGEN" onchange="cargarDestinos(this.value)">
+                                                                <option value="Origen">Origen</option>
                                                             </select>
                                                         </td>
                                                         <td>
@@ -79,7 +79,7 @@
 
                                                         </td>
                                                         <td>
-                                                            <select id="adultos" name="ADULTOS" onchange="cambiarninos()">
+                                                            <select id="adultos" name="ADULTOS" onchange="cambiarninosbebes()">
                                                                 <option value="1">1 Adultos (+18)</option>
                                                                 <option value="2">2 Adultos (+18)</option>
                                                                 <option value="3">3 Adultos (+18)</option>
@@ -103,12 +103,29 @@
                                                         <td>
                                                             <select id="ninos" name="NINOS">
                                                                 <option value="0" selected="selected">0 Niños (2-17)</option>
-                                                                <option value="1">1 Niños (2-17)</option>
+                                                                <option value="1">1 Niño (2-17)</option>
                                                                 <option value="2">2 Niños (2-17)</option>
                                                                 <option value="3">3 Niños (2-17)</option>
                                                                 <option value="4">4 Niños (2-17)</option>
                                                                 <option value="5">5 Niños (2-17)</option>
                                                                 <option value="6">6 Niños (2-17)</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            
+                                                        </td>
+                                                        <td>
+                                                            
+                                                        </td>
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            <select id="bebes" name="BEBES">
+                                                                <option value="0" selected="selected">0 Bebes (0-2)</option>
+                                                                <option value="1">1 Bebe (0-2)</option>
                                                             </select>
                                                         </td>
                                                     </tr>

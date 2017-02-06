@@ -23,6 +23,7 @@ public class Reserva {
     private LocalDateTime fecha;
     private ArrayList<Pasajero> aPasajerosAdultos = new ArrayList();
     private ArrayList<Pasajero> aPasajerosNinos = new ArrayList();
+    private ArrayList<Bebe> aPasajerosBebes = new ArrayList();
     private int precio_total;
 
     public Reserva() {
@@ -123,6 +124,14 @@ public class Reserva {
 
     public void setPrecio_total(int precio_total) {
         this.precio_total = precio_total;
+    }
+
+    public ArrayList<Bebe> getaPasajerosBebes() {
+        return aPasajerosBebes;
+    }
+
+    public void setaPasajerosBebes(ArrayList<Bebe> aPasajerosBebes) {
+        this.aPasajerosBebes = aPasajerosBebes;
     }
     
     @Override

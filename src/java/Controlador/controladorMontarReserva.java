@@ -47,6 +47,7 @@ public class controladorMontarReserva extends HttpServlet {
         Vuelo vuelo_vuelta = (Vuelo) session.getAttribute("Vuelo_vuelta_elegido");
         ArrayList<Pasajero> aAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos");
         ArrayList<Pasajero> aNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos");
+        ArrayList<Bebe> aBebes = (ArrayList<Bebe>) session.getAttribute("pasajerosbebes");
         Pagador pagador = (Pagador) session.getAttribute("pagador");
         Tarjeta tarjeta = (Tarjeta) session.getAttribute("tarjeta elegida");
         int numero_viajeros = aAdultos.size() + aNinos.size();
@@ -57,6 +58,7 @@ public class controladorMontarReserva extends HttpServlet {
         reserva.setVuelo_vuelta(vuelo_vuelta);
         reserva.setaPasajerosAdultos(aAdultos);
         reserva.setaPasajerosNinos(aNinos);
+        reserva.setaPasajerosBebes(aBebes);
         reserva.setPagador(pagador);
         reserva.setTarjeta(tarjeta);
         reserva.setNum_viajeros(numero_viajeros);

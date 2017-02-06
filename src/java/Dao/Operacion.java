@@ -412,6 +412,7 @@ public class Operacion {
                     }
                 }
             }
+            
             //Pasajeros Niños
             if (!reserva.getaPasajerosNinos().isEmpty()) {
                 for (int i = 0; i < reserva.getaPasajerosNinos().size(); i++) {
@@ -443,7 +444,36 @@ public class Operacion {
                     }
                 }
             }
-
+            
+            //Bebes
+            if (!reserva.getaPasajerosBebes().isEmpty()) {
+                for (int i = 0; i < reserva.getaPasajerosBebes().size(); i++) {
+                    ArrayList aX = buscarBebe(conex, reserva.getaPasajerosBebes().get(i));
+                    Boolean x = (Boolean) aX.get(0);
+                    PreparedStatement sentenciapasajero;
+                    if (x) {
+                        reserva.getaPasajerosBebes().get(i).setCod_bebe((int) aX.get(1));
+                        String nombre = reserva.getaPasajerosBebes().get(i).getNombre();
+                        sentenciapasajero = conex.prepareStatement("UPDATE bebe SET bebe.NOMBRE=? WHERE bebe.NIF LIKE ?");
+                        sentenciapasajero.setString(1, nombre);
+                        sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNif());
+                    } else {
+                        sentenciapasajero = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                        sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
+                        sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getApellidos());
+                        sentenciapasajero.setString(3, reserva.getaPasajerosBebes().get(i).getNif());
+                        sentenciapasajero.setString(4, reserva.getaPasajerosBebes().get(i).getFecha_nac().toString());
+                    }
+                    sentenciapasajero.executeUpdate();
+                    if (!x) {
+                        ResultSet generatedIdpasajerobebe = sentenciapasajero.getGeneratedKeys();
+                        if (generatedIdpasajerobebe.next()) {
+                            reserva.getaPasajerosBebes().get(i).setCod_bebe(generatedIdpasajerobebe.getInt(1));
+                        }
+                    }
+                }
+            }
+            
             //Pagador
             PreparedStatement sentenciapagador;
             Boolean y = buscarPagador2(conex, reserva.getPagador());
@@ -518,30 +548,30 @@ public class Operacion {
             //Ocupacion y servicios Adultos
             for (int j = 0; j < reserva.getaPasajerosAdultos().size(); j++) {
                 //Bebe
-                if (reserva.getaPasajerosAdultos().get(j).getBebe() != null) {
-                    PreparedStatement sentenciabebe;
-                    ArrayList aX = buscarBebe(conex, reserva.getaPasajerosAdultos().get(j).getBebe());
-                    Boolean x = (Boolean) aX.get(0);
-                    if (x) {
-                        reserva.getaPasajerosAdultos().get(j).getBebe().setCod_bebe((int) aX.get(1));
-                        sentenciabebe = conex.prepareStatement("UPDATE bebe SET bebe.NIF=? WHERE bebe.NIF LIKE ?");
-                        sentenciabebe.setString(1, reserva.getaPasajerosAdultos().get(j).getBebe().getNif());
-                        sentenciabebe.setString(2, reserva.getaPasajerosAdultos().get(j).getBebe().getNif());
-                    } else {
-                        sentenciabebe = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                        sentenciabebe.setString(1, reserva.getaPasajerosAdultos().get(j).getBebe().getNombre());
-                        sentenciabebe.setString(2, reserva.getaPasajerosAdultos().get(j).getBebe().getApellidos());
-                        sentenciabebe.setString(3, reserva.getaPasajerosAdultos().get(j).getBebe().getNif());
-                        sentenciabebe.setString(4, reserva.getaPasajerosAdultos().get(j).getBebe().getFecha_nac().toString());
-                    }
-                    sentenciabebe.executeUpdate();
-                    if (!x) {
-                        ResultSet generatedIdbebe = sentenciabebe.getGeneratedKeys();
-                        if (generatedIdbebe.next()) {
-                            reserva.getaPasajerosAdultos().get(j).getBebe().setCod_bebe(generatedIdbebe.getInt(1));
-                        }
-                    }
-                }
+//                if (reserva.getaPasajerosAdultos().get(j).getBebe() != null) {
+//                    PreparedStatement sentenciabebe;
+//                    ArrayList aX = buscarBebe(conex, reserva.getaPasajerosAdultos().get(j).getBebe());
+//                    Boolean x = (Boolean) aX.get(0);
+//                    if (x) {
+//                        reserva.getaPasajerosAdultos().get(j).getBebe().setCod_bebe((int) aX.get(1));
+//                        sentenciabebe = conex.prepareStatement("UPDATE bebe SET bebe.NIF=? WHERE bebe.NIF LIKE ?");
+//                        sentenciabebe.setString(1, reserva.getaPasajerosAdultos().get(j).getBebe().getNif());
+//                        sentenciabebe.setString(2, reserva.getaPasajerosAdultos().get(j).getBebe().getNif());
+//                    } else {
+//                        sentenciabebe = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+//                        sentenciabebe.setString(1, reserva.getaPasajerosAdultos().get(j).getBebe().getNombre());
+//                        sentenciabebe.setString(2, reserva.getaPasajerosAdultos().get(j).getBebe().getApellidos());
+//                        sentenciabebe.setString(3, reserva.getaPasajerosAdultos().get(j).getBebe().getNif());
+//                        sentenciabebe.setString(4, reserva.getaPasajerosAdultos().get(j).getBebe().getFecha_nac().toString());
+//                    }
+//                    sentenciabebe.executeUpdate();
+//                    if (!x) {
+//                        ResultSet generatedIdbebe = sentenciabebe.getGeneratedKeys();
+//                        if (generatedIdbebe.next()) {
+//                            reserva.getaPasajerosAdultos().get(j).getBebe().setCod_bebe(generatedIdbebe.getInt(1));
+//                        }
+//                    }
+//                }
                 //OcupacionIda
                 PreparedStatement sentenciaocuida;
                 if (reserva.getaPasajerosAdultos().get(j).getBebe() != null) {

@@ -111,6 +111,14 @@
                                                 </tr>
                                                 <tr>
                                                     <th>
+                                                        Correo electronico
+                                                    </th>
+                                                    <td>
+                                                        <input type="email" name="email" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
                                                         Contraseña
                                                     </th>
                                                     <td>

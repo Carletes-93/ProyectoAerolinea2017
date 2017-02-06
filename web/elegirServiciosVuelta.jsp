@@ -76,7 +76,7 @@
                                                         <h3>Servicios de <% out.print(aPasajerosAdultos.get(i).getNombre()+" "+aPasajerosAdultos.get(i).getApellidos()); %></h3>
                                                         <table class="serviciospasajeros">
                                                             <% for(int u=0; u<aServicios.size(); u++){%> 
-                                                                <% if (aServicios.get(u).getNombre().equals("Bebe")){%>
+                                                                <% if (aServicios.get(u).getNombre().equals("Bebe") || aServicios.get(u).getNombre().equals("Asiento reservado")){%>
                                                                     
                                                                 <% } else{%>
                                                                     <tr>

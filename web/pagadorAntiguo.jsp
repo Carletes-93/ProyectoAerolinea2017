@@ -63,10 +63,10 @@
                                             <table class="pagadorantiguo">
                                                 <tr>
                                                     <th>
-                                                        NIF
+                                                        Correo electronico
                                                     </th>
                                                     <td>
-                                                        <input type="text" name="nif" required>
+                                                        <input type="text" name="correo" required>
                                                     </td>
                                                 </tr>
                                                 <tr>

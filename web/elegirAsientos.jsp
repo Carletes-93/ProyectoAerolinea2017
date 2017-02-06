@@ -70,86 +70,94 @@
                                         <form action="controladorAsientosPasajeros" name="form6">
                                             <% if(aPasajerosAdultos !=null){%>
                                                 <% for(int i=0; i<aPasajerosAdultos.size(); i++){%>
-                                                    <div class="datos">
-                                                        <h3>Asiento de <% out.print(aPasajerosAdultos.get(i).getNombre()+" "+aPasajerosAdultos.get(i).getApellidos()); %></h3>
-                                                        <table class="asientospasajeros">
-                                                            <tr>
-                                                                <td>
-                                                                    Asiento de ida: &nbsp;
-                                                                </td>
-                                                                <td>
-                                                                    <select name="<% out.print("asientoidaadult"+i); %>">
-                                                                        <% for(int j=0; j<aAsientosIda.size(); j++){ %>
-                                                                            <% if(aAsientosIda.get(j)==true){%>
-                                                                            <option value="<% out.print(j+1); %>"><% out.print(j+1); %></option>
-                                                                            <% }%>
-                                                                        <% }%>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                            <% if(!aAsientosVuelta.isEmpty()){%>
-                                                                <tr>
-                                                                    <td>
-                                                                        Asiento de vuelta: &nbsp;
-                                                                    </td>
-                                                                    <td>
-                                                                        <select name="<% out.print("asientovueltaadult"+i); %>">
-                                                                            <% for(int u=0; u<aAsientosVuelta.size(); u++){ %>
-                                                                                <% if(aAsientosVuelta.get(u)==true){%>
-                                                                                <option value="<% out.print(u+1); %>"><% out.print(u+1); %></option>
+                                                    <% for(int s = 0; s < aPasajerosAdultos.get(i).getaServiciosIda().size(); s++){ %>
+                                                        <% if(aPasajerosAdultos.get(i).getaServiciosIda().get(s).getNombre().equals("Asiento reservado")){ %>    
+                                                            <div class="datos">
+                                                                <h3>Asiento de <% out.print(aPasajerosAdultos.get(i).getNombre()+" "+aPasajerosAdultos.get(i).getApellidos()); %></h3>
+                                                                <table class="asientospasajeros">
+                                                                    <tr>
+                                                                        <td>
+                                                                            Asiento de ida: &nbsp;
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="<% out.print("asientoidaadult"+i); %>">
+                                                                                <% for(int j=0; j<aAsientosIda.size(); j++){ %>
+                                                                                    <% if(aAsientosIda.get(j)==true){%>
+                                                                                    <option value="<% out.print(j+1); %>"><% out.print(j+1); %></option>
+                                                                                    <% }%>
                                                                                 <% }%>
-                                                                            <% }%>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                            <% }%>
-                                                        </table>
-                                                        <% if(aPasajerosAdultos.size()>0){%>
-                                                        <hr>
-                                                        <% }%>
-                                                    </div>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% if(!aAsientosVuelta.isEmpty()){%>
+                                                                        <tr>
+                                                                            <td>
+                                                                                Asiento de vuelta: &nbsp;
+                                                                            </td>
+                                                                            <td>
+                                                                                <select name="<% out.print("asientovueltaadult"+i); %>">
+                                                                                    <% for(int u=0; u<aAsientosVuelta.size(); u++){ %>
+                                                                                        <% if(aAsientosVuelta.get(u)==true){%>
+                                                                                        <option value="<% out.print(u+1); %>"><% out.print(u+1); %></option>
+                                                                                        <% }%>
+                                                                                    <% }%>
+                                                                                </select>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% }%>
+                                                                </table>
+                                                                <% if(aPasajerosAdultos.size()>0){%>
+                                                                <hr>
+                                                                <% }%>
+                                                            </div>
+                                                        <% } %>
+                                                    <% } %>
                                                 <% }%>
                                             <% }%>
                                             <% if(aPasajerosNinos !=null){%>
                                                 <% for(int x=0; x<aPasajerosNinos.size(); x++){%>
-                                                    <div class="datos">
-                                                        <h3>Asiento de <% out.print(aPasajerosNinos.get(x).getNombre()+" "+aPasajerosNinos.get(x).getApellidos()); %></h3>
-                                                        <table class="asientospasajeros">
-                                                            <tr>
-                                                                <td>
-                                                                    Asiento de ida: &nbsp;
-                                                                </td>
-                                                                <td>
-                                                                    <select name="<% out.print("asientoidanino"+x); %>">
-                                                                        <% for(int n=0; n<aAsientosIda.size(); n++){ %>
-                                                                            <% if(aAsientosIda.get(n)==true){%>
-                                                                            <option value="<% out.print(n+1); %>"><% out.print(n+1); %></option>
-                                                                            <% }%>
-                                                                        <% }%>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>
-                                                            <% if(!aAsientosVuelta.isEmpty()){%>
-                                                                <tr>
-                                                                    <td>
-                                                                        Asiento de vuelta: &nbsp;
-                                                                    </td>
-                                                                    <td>
-                                                                        <select name="<% out.print("asientovueltanino"+x); %>">
-                                                                            <% for(int u=0; u<aAsientosVuelta.size(); u++){ %>
-                                                                                <% if(aAsientosVuelta.get(u)==true){%>
-                                                                                <option value="<% out.print(u+1); %>"><% out.print(u+1); %></option>
+                                                    <% for(int sn = 0; sn < aPasajerosNinos.get(x).getaServiciosIda().size(); sn++){ %>
+                                                        <% if(aPasajerosNinos.get(x).getaServiciosIda().get(sn).getNombre().equals("Asiento reservado")){ %>
+                                                            <div class="datos">
+                                                                <h3>Asiento de <% out.print(aPasajerosNinos.get(x).getNombre()+" "+aPasajerosNinos.get(x).getApellidos()); %></h3>
+                                                                <table class="asientospasajeros">
+                                                                    <tr>
+                                                                        <td>
+                                                                            Asiento de ida: &nbsp;
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="<% out.print("asientoidanino"+x); %>">
+                                                                                <% for(int n=0; n<aAsientosIda.size(); n++){ %>
+                                                                                    <% if(aAsientosIda.get(n)==true){%>
+                                                                                    <option value="<% out.print(n+1); %>"><% out.print(n+1); %></option>
+                                                                                    <% }%>
                                                                                 <% }%>
-                                                                            <% }%>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                            <% }%>
-                                                        </table>
-                                                        <% if(aPasajerosNinos.size()>0){%>
-                                                        <hr>
-                                                        <% }%>
-                                                    </div>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% if(!aAsientosVuelta.isEmpty()){%>
+                                                                        <tr>
+                                                                            <td>
+                                                                                Asiento de vuelta: &nbsp;
+                                                                            </td>
+                                                                            <td>
+                                                                                <select name="<% out.print("asientovueltanino"+x); %>">
+                                                                                    <% for(int u=0; u<aAsientosVuelta.size(); u++){ %>
+                                                                                        <% if(aAsientosVuelta.get(u)==true){%>
+                                                                                        <option value="<% out.print(u+1); %>"><% out.print(u+1); %></option>
+                                                                                        <% }%>
+                                                                                    <% }%>
+                                                                                </select>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% }%>
+                                                                </table>
+                                                                <% if(aPasajerosNinos.size()>0){%>
+                                                                <hr>
+                                                                <% }%>
+                                                            </div>
+                                                        <% } %>
+                                                    <% } %>        
                                                 <% }%>
                                             <% }%>
                                             <button type="submit" class="accion" name="asientospasajeros" value="asientospasajeros">

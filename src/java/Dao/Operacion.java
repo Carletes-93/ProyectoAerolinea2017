@@ -240,11 +240,11 @@ public class Operacion {
         return aBoolean;
     }
 
-    public Pagador buscarPagador(Connection conex, String nif, String pass) throws SQLException {
+    public Pagador buscarPagador(Connection conex, String correo, String pass) throws SQLException {
         Pagador p1 = new Pagador();
 
-        PreparedStatement sentenciapagador = conex.prepareStatement("SELECT pagador.* FROM pagador WHERE pagador.NIF LIKE ? AND pagador.PASS LIKE ?");
-        sentenciapagador.setString(1, nif);
+        PreparedStatement sentenciapagador = conex.prepareStatement("SELECT pagador.* FROM pagador WHERE pagador.EMAIL LIKE ? AND pagador.PASS LIKE ?");
+        sentenciapagador.setString(1, correo);
         sentenciapagador.setString(2, pass);
 
         ResultSet resultado = sentenciapagador.executeQuery();
@@ -253,6 +253,7 @@ public class Operacion {
             p1.setCodigo_pagador(resultado.getInt("CODIGO_PAGADOR"));
             p1.setNombre(resultado.getString("NOMBRE"));
             p1.setApellidos(resultado.getString("APELLIDOS"));
+            p1.setEmail(resultado.getString("EMAIL"));
             p1.setNif(resultado.getString("NIF"));
             p1.setPass(resultado.getString("PASS"));
             LocalDate fecha = LocalDate.parse(resultado.getString("FECHA_NAC"));
@@ -452,14 +453,15 @@ public class Operacion {
                 sentenciapagador.setString(2, reserva.getPagador().getDireccion());
                 sentenciapagador.setString(3, reserva.getPagador().getNif());
             } else {
-                sentenciapagador = conex.prepareStatement("INSERT INTO pagador (NIF, PASS, NOMBRE, APELLIDOS, FECHA_NAC, POBLACION, DIRECCION) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                sentenciapagador = conex.prepareStatement("INSERT INTO pagador (NIF, EMAIL, PASS, NOMBRE, APELLIDOS, FECHA_NAC, POBLACION, DIRECCION) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 sentenciapagador.setString(1, reserva.getPagador().getNif());
-                sentenciapagador.setString(2, reserva.getPagador().getPass());
-                sentenciapagador.setString(3, reserva.getPagador().getNombre());
-                sentenciapagador.setString(4, reserva.getPagador().getApellidos());
-                sentenciapagador.setString(5, reserva.getPagador().getFecha_nac().toString());
-                sentenciapagador.setString(6, reserva.getPagador().getPoblacion());
-                sentenciapagador.setString(7, reserva.getPagador().getDireccion());
+                sentenciapagador.setString(2, reserva.getPagador().getEmail());
+                sentenciapagador.setString(3, reserva.getPagador().getPass());
+                sentenciapagador.setString(4, reserva.getPagador().getNombre());
+                sentenciapagador.setString(5, reserva.getPagador().getApellidos());
+                sentenciapagador.setString(6, reserva.getPagador().getFecha_nac().toString());
+                sentenciapagador.setString(7, reserva.getPagador().getPoblacion());
+                sentenciapagador.setString(8, reserva.getPagador().getDireccion());
             }
             sentenciapagador.executeUpdate();
             if (!y) {

@@ -69,6 +69,17 @@ public class controladorServiciosPasajerosVuelta extends HttpServlet {
             for (int u = 0; u < servicios.length; u++) {
                 aServiciosVuelta.add(aServicios.get(servicios[u]));
             }
+            
+            for(int f = 0; f < aPasajerosAdultos.get(i).getaServiciosIda().size(); f++){
+                if(aPasajerosAdultos.get(i).getaServiciosIda().get(f).getNombre().equals("Asiento reservado")){
+                    for(int sv = 0; sv < aServicios.size(); sv++){
+                        if(aServicios.get(sv).getNombre().equals("Asiento reservado")){
+                            aServiciosVuelta.add(aServicios.get(sv));
+                        }
+                    }
+                }
+            }
+            
             if (!aPasajerosBebes.isEmpty()) {
                 for(int b = 0; b < aPasajerosBebes.size(); b++){
                     if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
@@ -92,9 +103,21 @@ public class controladorServiciosPasajerosVuelta extends HttpServlet {
                 for (int j = 0; j < servicios.length; j++) {
                     servicios[j]=Integer.parseInt(serv[j]);
                 }
+                
                 for (int u = 0; u < servicios.length; u++) {
                     aServiciosVuelta.add(aServicios.get(servicios[u]));
                 }
+                
+                for(int f = 0; f < aPasajerosNinos.get(i).getaServiciosIda().size(); f++){
+                if(aPasajerosNinos.get(i).getaServiciosIda().get(f).getNombre().equals("Asiento reservado")){
+                    for(int sv = 0; sv < aServicios.size(); sv++){
+                        if(aServicios.get(sv).getNombre().equals("Asiento reservado")){
+                            aServiciosVuelta.add(aServicios.get(sv));
+                        }
+                    }
+                }
+            }
+                
                 aPasajerosNinos.get(i).setaServiciosVuelta(aServiciosVuelta);
             }
         }

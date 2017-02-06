@@ -6,6 +6,7 @@
 package Controlador;
 
 import Clases.Conexion;
+import Clases.Pasajero;
 import Clases.Vuelo;
 import Dao.Operacion;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpSession;
 public class controladorCargarAsientos extends HttpServlet {
 
     Connection Conex;
+
     @Override
     public void init() throws ServletException {
         try {
@@ -36,43 +38,68 @@ public class controladorCargarAsientos extends HttpServlet {
         } catch (SQLException sqle) {
         }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        Operacion objop = new Operacion();
-        
-        HttpSession session=request.getSession(true);
-        Vuelo v_ida=(Vuelo)session.getAttribute("Vuelo_ida_elegido");
-        Vuelo v_vuelta=(Vuelo)session.getAttribute("Vuelo_vuelta_elegido");
-        
-        String h;
-        
-        ArrayList<Boolean> aBooleanIda = new ArrayList();
-        ArrayList<Boolean> aBooleanVuelta = new ArrayList();
-        
-        try{
-            int cod_vuelo_ida=v_ida.getCodigo_vuelo();
-            aBooleanIda=objop.sacarAsientosLibres(Conex, cod_vuelo_ida);
-            
-            if(v_vuelta!=null){
-                int cod_vuelo_vuelta=v_vuelta.getCodigo_vuelo();
-                
-                aBooleanVuelta=objop.sacarAsientosLibres(Conex, cod_vuelo_vuelta);
+
+        HttpSession session = request.getSession(true);
+        ArrayList<Pasajero> aPasajerosAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos");
+        ArrayList<Pasajero> aPasajerosNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos");
+        Boolean aradulto = false;
+        Boolean arnino = false;
+
+        for (int i = 0; i < aPasajerosAdultos.size(); i++) {
+            for (int u = 0; u < aPasajerosAdultos.get(i).getaServiciosIda().size(); u++) {
+                if (aPasajerosAdultos.get(i).getaServiciosIda().get(u).getNombre().equals("Asiento reservado")) {
+                    aradulto = true;
+                }
             }
-            
-            h="Hay asientos";
-        }catch(SQLException errsql){
-            h="Error SQL";
         }
-        
-        if(h.equals("Hay asientos")){
-            session.setAttribute("asientos ida", aBooleanIda);
-            session.setAttribute("asientos vuelta", aBooleanVuelta);
-            
-            response.sendRedirect("elegirAsientos.jsp");
+        for (int j = 0; j < aPasajerosNinos.size(); j++) {
+            for (int h = 0; h < aPasajerosNinos.get(j).getaServiciosIda().size(); h++) {
+                if (aPasajerosNinos.get(j).getaServiciosIda().get(h).getNombre().equals("Asiento reservado")) {
+                    arnino = true;
+                }
+            }
         }
+
+        if (!aradulto && !arnino) {
+            response.sendRedirect("procesoPagar.jsp");
+        } else {
+            Operacion objop = new Operacion();
+
+            Vuelo v_ida = (Vuelo) session.getAttribute("Vuelo_ida_elegido");
+            Vuelo v_vuelta = (Vuelo) session.getAttribute("Vuelo_vuelta_elegido");
+
+            String h;
+
+            ArrayList<Boolean> aBooleanIda = new ArrayList();
+            ArrayList<Boolean> aBooleanVuelta = new ArrayList();
+
+            try {
+                int cod_vuelo_ida = v_ida.getCodigo_vuelo();
+                aBooleanIda = objop.sacarAsientosLibres(Conex, cod_vuelo_ida);
+
+                if (v_vuelta != null) {
+                    int cod_vuelo_vuelta = v_vuelta.getCodigo_vuelo();
+
+                    aBooleanVuelta = objop.sacarAsientosLibres(Conex, cod_vuelo_vuelta);
+                }
+
+                h = "Hay asientos";
+            } catch (SQLException errsql) {
+                h = "Error SQL";
+            }
+
+            if (h.equals("Hay asientos")) {
+                session.setAttribute("asientos ida", aBooleanIda);
+                session.setAttribute("asientos vuelta", aBooleanVuelta);
+
+                response.sendRedirect("elegirAsientos.jsp");
+            }
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

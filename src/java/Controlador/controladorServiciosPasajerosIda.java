@@ -70,7 +70,7 @@ public class controladorServiciosPasajerosIda extends HttpServlet {
             for (int u = 0; u < servicios.length; u++) {
                 aServiciosIda.add(aServicios.get(servicios[u]));
             }
-
+            
             if (!aPasajerosBebes.isEmpty()) {
                 for(int b = 0; b < aPasajerosBebes.size(); b++){
                     if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){

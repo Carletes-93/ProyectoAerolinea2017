@@ -42,14 +42,14 @@ public class controladorBuscarPagador extends HttpServlet {
         
         Operacion objop = new Operacion();
         
-        String nif = request.getParameter("nif");
+        String correo = request.getParameter("correo");
         String pass = request.getParameter("pass");
         
         Pagador p1 = new Pagador();
         String h;
         
         try{
-            p1 = objop.buscarPagador(Conex, nif, pass);
+            p1 = objop.buscarPagador(Conex, correo, pass);
             
             h="Existe";
             

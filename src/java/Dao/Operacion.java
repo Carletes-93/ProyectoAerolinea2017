@@ -456,7 +456,7 @@ public class Operacion {
                         String nombre = reserva.getaPasajerosBebes().get(i).getNombre();
                         sentenciapasajero = conex.prepareStatement("UPDATE bebe SET bebe.NOMBRE=? WHERE bebe.NIF LIKE ?");
                         sentenciapasajero.setString(1, nombre);
-                        sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNif());
+                        sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getNif());
                     } else {
                         sentenciapasajero = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                         sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
@@ -545,6 +545,13 @@ public class Operacion {
             }
             sentenciareserva.executeUpdate();
 
+            //Actualizar plazas libres
+            PreparedStatement sentenciaplazaslibres;
+            sentenciaplazaslibres = conex.prepareStatement("UPDATE vuelo SET vuelo.ASIENTOS_LIBRES=vuelo.ASIENTOS_LIBRES-? WHERE vuelo.CODIGO_VUELO=?");
+            sentenciaplazaslibres.setInt(1, reserva.getNum_viajeros());
+            sentenciaplazaslibres.setInt(2, reserva.getVuelo_ida().getCodigo_vuelo());
+            sentenciaplazaslibres.executeUpdate();
+
             //Tutor
             if (!reserva.getaPasajerosBebes().isEmpty()) {
                 //Ida
@@ -553,6 +560,30 @@ public class Operacion {
                     String cod_reserva = reserva.getCod_reserva();
                     int cod_bebe = reserva.getaPasajerosBebes().get(bb).getCod_bebe();
                     int cod_tutor = reserva.getaPasajerosBebes().get(bb).getTutor_ida().getCodigo_pasajero();
+
+                    sentenciatutor = conex.prepareStatement("INSERT INTO tutor (COD_PASAJERO, COD_BEBE, COD_RESERVA, TIPO) VALUES(?, ?, ?, 'IDA')");
+                    sentenciatutor.setInt(1, cod_tutor);
+                    sentenciatutor.setInt(2, cod_bebe);
+                    sentenciatutor.setString(3, cod_reserva);
+
+                    sentenciatutor.executeUpdate();
+                }
+
+                //Vuelta
+                if (reserva.getVuelo_vuelta() != null) {
+                    PreparedStatement sentenciatutorvuelta;
+                    for (int bb = 0; bb < reserva.getaPasajerosBebes().size(); bb++) {
+                        String cod_reserva = reserva.getCod_reserva();
+                        int cod_bebe = reserva.getaPasajerosBebes().get(bb).getCod_bebe();
+                        int cod_tutor = reserva.getaPasajerosBebes().get(bb).getTutor_vuelta().getCodigo_pasajero();
+
+                        sentenciatutorvuelta = conex.prepareStatement("INSERT INTO tutor (COD_PASAJERO, COD_BEBE, COD_RESERVA, TIPO) VALUES(?, ?, ?, 'VUELTA')");
+                        sentenciatutorvuelta.setInt(1, cod_tutor);
+                        sentenciatutorvuelta.setInt(2, cod_bebe);
+                        sentenciatutorvuelta.setString(3, cod_reserva);
+
+                        sentenciatutorvuelta.executeUpdate();
+                    }
                 }
             }
 
@@ -590,12 +621,17 @@ public class Operacion {
                 //OcupacionVuelta
                 PreparedStatement sentenciaocuvuelta;
                 if (!reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().isEmpty()) {
-
-                    sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO) VALUES(?, 'VUELTA', ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                    sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
-                    sentenciaocuvuelta.setInt(2, reserva.getaPasajerosAdultos().get(j).getCodigo_pasajero());
-                    sentenciaocuvuelta.setInt(3, reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta());
-
+                    if(reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta() == 0){
+                        sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO) VALUES(?, 'VUELTA', ?)", Statement.RETURN_GENERATED_KEYS);
+                        sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
+                        sentenciaocuvuelta.setInt(2, reserva.getaPasajerosAdultos().get(j).getCodigo_pasajero());
+                    } else{
+                        sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO) VALUES(?, 'VUELTA', ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                        sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
+                        sentenciaocuvuelta.setInt(2, reserva.getaPasajerosAdultos().get(j).getCodigo_pasajero());
+                        sentenciaocuvuelta.setInt(3, reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta());
+                    }
+                    
                     sentenciaocuvuelta.executeUpdate();
                     int idOcuvuelta = 0;
                     ResultSet generatedIdocuvuelta = sentenciaocuvuelta.getGeneratedKeys();
@@ -629,7 +665,7 @@ public class Operacion {
                         sentenciaocuida.setInt(2, reserva.getaPasajerosNinos().get(j).getCodigo_pasajero());
                         sentenciaocuida.setInt(3, reserva.getaPasajerosNinos().get(j).getAsiento_ida());
                     }
-                    
+
                     sentenciaocuida.executeUpdate();
                     int idOcuida = 0;
                     ResultSet generatedIdocuida = sentenciaocuida.getGeneratedKeys();
@@ -649,10 +685,17 @@ public class Operacion {
                     //OcupacionVuelta
                     PreparedStatement sentenciaocuvuelta;
                     if (!reserva.getaPasajerosNinos().get(j).getaServiciosVuelta().isEmpty()) {
-                        sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO) VALUES(?, 'VUELTA', ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                        sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
-                        sentenciaocuvuelta.setInt(2, reserva.getaPasajerosNinos().get(j).getCodigo_pasajero());
-                        sentenciaocuvuelta.setInt(3, reserva.getaPasajerosNinos().get(j).getAsiento_vuelta());
+                        if(reserva.getaPasajerosNinos().get(j).getAsiento_vuelta() == 0){
+                            sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO) VALUES(?, 'VUELTA', ?)", Statement.RETURN_GENERATED_KEYS);
+                            sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
+                            sentenciaocuvuelta.setInt(2, reserva.getaPasajerosNinos().get(j).getCodigo_pasajero());
+                        } else{
+                            sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO) VALUES(?, 'VUELTA', ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                            sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
+                            sentenciaocuvuelta.setInt(2, reserva.getaPasajerosNinos().get(j).getCodigo_pasajero());
+                            sentenciaocuvuelta.setInt(3, reserva.getaPasajerosNinos().get(j).getAsiento_vuelta());
+                        }
+                        
                         sentenciaocuvuelta.executeUpdate();
                         int idOcuvuelta = 0;
                         ResultSet generatedIdocuvuelta = sentenciaocuvuelta.getGeneratedKeys();

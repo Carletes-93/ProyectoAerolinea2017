@@ -126,7 +126,7 @@
                                                                 <td>
                                                                     <select id="<% out.print("bebe"+i); %>" name="<% out.print("bebe"+i); %>">
                                                                         <% for(int u = 0; u < aPasajerosAdultos.size(); u++){ %>
-                                                                        <option value="<% out.print(aPasajerosAdultos.get(i).getNif()); %>" ><% out.print(aPasajerosAdultos.get(i).getNombre()); %> <% out.print(aPasajerosAdultos.get(i).getApellidos()); %></option>
+                                                                        <option value="<% out.print(aPasajerosAdultos.get(u).getNif()); %>" ><% out.print(aPasajerosAdultos.get(u).getNombre()); %> <% out.print(aPasajerosAdultos.get(u).getApellidos()); %></option>
                                                                         <% } %>
                                                                     </select>
                                                                 </td>

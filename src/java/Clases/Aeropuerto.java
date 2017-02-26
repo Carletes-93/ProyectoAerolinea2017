@@ -1,6 +1,7 @@
 package Clases;
 
 public class Aeropuerto {
+    private int cod_aer;
     private String ciudad;
     private String pais;
     private String iata;
@@ -35,6 +36,14 @@ public class Aeropuerto {
 
     public void setIata(String iata) {
         this.iata = iata;
+    }
+
+    public int getCod_aer() {
+        return cod_aer;
+    }
+
+    public void setCod_aer(int cod_aer) {
+        this.cod_aer = cod_aer;
     }
 
     @Override

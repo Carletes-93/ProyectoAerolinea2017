@@ -6,15 +6,12 @@
 package Controlador;
 
 import Clases.Conexion;
+import Clases.Reserva;
 import Dao.Operacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Carlos
  */
-public class controladorBuscarReservaFacturar extends HttpServlet {
+public class controladorSacarReservaFacturar extends HttpServlet {
 
     Connection Conex;
 
@@ -44,30 +41,14 @@ public class controladorBuscarReservaFacturar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        ServletContext servletcont = getServletContext();
-        RequestDispatcher requestdisp;
+        HttpSession session=request.getSession(true);
+        String cod_reserva = session.getAttribute("cod_reserva_a_facturar").toString();
         
-        Boolean h;
-        String correo = request.getParameter("email");
-        String num_reserva = request.getParameter("pass");
-
         Operacion objop = new Operacion();
-
-        try {
-            h = objop.buscarReservaFacturar(Conex, correo, num_reserva);
-        } catch (SQLException ex) {
-            h = false;
-        }
-
-        if (h) {
-            HttpSession session=request.getSession(true);
-            session.setAttribute("cod_reserva_a_facturar", num_reserva);
-            requestdisp = servletcont.getRequestDispatcher("/controladorSacarReservaFacturar");
-            requestdisp.forward(request, response);
-        } else {
-            response.sendRedirect("errorFacturar.jsp");
-        }
-
+        Reserva reserva_facturar = new Reserva();
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

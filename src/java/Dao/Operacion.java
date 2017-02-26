@@ -741,4 +741,63 @@ public class Operacion {
 
         return h;
     }
+
+    public Reserva montarReservaFacturar(Connection conex, String cod_reserva) throws SQLException {
+        Reserva r1 = new Reserva();
+
+        //Sacar datos para reserva.
+        int cod_vuelo_ida = 0;
+        int cod_vuelo_vuelta = 0;
+        int cod_tarjeta = 0;
+        
+        
+        PreparedStatement sentenciareserva = conex.prepareStatement("SELECT * FROM reserva WHERE COD_RESERVA LIKE ?");
+        sentenciareserva.setString(1, cod_reserva);
+
+        ResultSet resultado1 = sentenciareserva.executeQuery();
+
+        while (resultado1.next()) {
+            cod_vuelo_ida = resultado1.getInt("COD_VUELO_IDA");
+            cod_vuelo_vuelta = resultado1.getInt("COD_VUELO_VUELTA");
+            cod_tarjeta = resultado1.getInt("TARJETA");
+            r1.setCodigo_reserva(resultado1.getInt("CODIGO_RESERVA"));
+            r1.setCod_reserva(resultado1.getString("COD_RESERVA"));
+            r1.setFacturada_ida(resultado1.getString("FACTURADA_IDA"));
+            r1.setFacturada_vuelta(resultado1.getString("FACTURADA_VUELTA"));
+            r1.setFecha(resultado1.getTimestamp("FECHA").toLocalDateTime());
+            r1.setNum_viajeros(resultado1.getInt("NUMERO_VIAJEROS"));
+            r1.setPrecio_total(resultado1.getInt("PRECIO_TOTAL"));
+        }
+        
+        //Vuelos
+        int conexion_ida = 0;
+        int aeropuerto_or_ida = 0;
+        int aeropuerto_de_ida = 0;
+        Vuelo vuelo_ida = new Vuelo();
+        int conexion_vuelta = 0;
+        int aeropuerto_or_vuelta = 0;
+        int aeropuerto_de_vuelta = 0;
+        Vuelo vuelo_vuelta = new Vuelo();
+            //Vuelo Ida
+            PreparedStatement sentenciavueloida = conex.prepareStatement("SELECT * FROM vuelo WHERE CODIGO_VUELO = ?");
+            sentenciavueloida.setInt(1, cod_vuelo_ida);
+            
+            ResultSet resultado2 = sentenciavueloida.executeQuery();
+            
+            while(resultado1.next()) {
+                vuelo_ida.setCodigo_vuelo(resultado2.getInt("CODIGO_VUELO"));
+                vuelo_ida.setAsientos_libres(resultado2.getInt("ASIENTOS_LIBRES"));
+                vuelo_ida.setConexion(resultado2.getInt("CONEXION"));
+                vuelo_ida.setFecha(LocalDate.parse(resultado2.getString("FECHA")));
+                vuelo_ida.setHora_llegada(LocalTime.parse(resultado2.getString("HORA_LLEGADA")));
+                vuelo_ida.setHora_salida(LocalTime.parse(resultado2.getString("HORA_SALIDA")));
+                vuelo_ida.setPrecio(resultado2.getInt("PRECIO"));
+                vuelo_ida.setNum_vuelo(resultado2.getString("NUMERO"));
+                conexion_ida = resultado2.getInt("CONEXION");
+            }
+            
+            
+
+        return r1;
+    }
 }

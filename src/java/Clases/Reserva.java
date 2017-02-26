@@ -25,6 +25,8 @@ public class Reserva {
     private ArrayList<Pasajero> aPasajerosNinos = new ArrayList();
     private ArrayList<Bebe> aPasajerosBebes = new ArrayList();
     private int precio_total;
+    private String facturada_ida;
+    private String facturada_vuelta;
 
     public Reserva() {
     }
@@ -132,6 +134,22 @@ public class Reserva {
 
     public void setaPasajerosBebes(ArrayList<Bebe> aPasajerosBebes) {
         this.aPasajerosBebes = aPasajerosBebes;
+    }
+
+    public String getFacturada_ida() {
+        return facturada_ida;
+    }
+
+    public void setFacturada_ida(String facturada_ida) {
+        this.facturada_ida = facturada_ida;
+    }
+
+    public String getFacturada_vuelta() {
+        return facturada_vuelta;
+    }
+
+    public void setFacturada_vuelta(String facturada_vuelta) {
+        this.facturada_vuelta = facturada_vuelta;
     }
     
     @Override

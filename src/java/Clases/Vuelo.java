@@ -16,6 +16,7 @@ public class Vuelo {
     private int conexion;
     private int asientos_libres;
     private int asientos_totales = 9;
+    private String num_vuelo;
 
     public Vuelo() {
     }
@@ -99,6 +100,22 @@ public class Vuelo {
 
     public void setAsientos_libres(int asientos_libres) {
         this.asientos_libres = asientos_libres;
+    }
+
+    public int getAsientos_totales() {
+        return asientos_totales;
+    }
+
+    public void setAsientos_totales(int asientos_totales) {
+        this.asientos_totales = asientos_totales;
+    }
+
+    public String getNum_vuelo() {
+        return num_vuelo;
+    }
+
+    public void setNum_vuelo(String num_vuelo) {
+        this.num_vuelo = num_vuelo;
     }
     
     @Override

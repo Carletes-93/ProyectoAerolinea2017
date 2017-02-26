@@ -528,7 +528,7 @@ public class Operacion {
             //Reserva
             PreparedStatement sentenciareserva;
             if (reserva.getVuelo_vuelta() != null) {
-                sentenciareserva = conex.prepareStatement("INSERT INTO reserva (COD_VUELO_IDA, COD_VUELO_VUELTA, COD_RESERVA, TARJETA, NUMERO_VIAJEROS, PRECIO_TOTAL) VALUES(?, ?, ?, ?, ?, ?)");
+                sentenciareserva = conex.prepareStatement("INSERT INTO reserva (COD_VUELO_IDA, COD_VUELO_VUELTA, COD_RESERVA, TARJETA, NUMERO_VIAJEROS, PRECIO_TOTAL, FACTURADA_VUELTA) VALUES(?, ?, ?, ?, ?, ?, 'N')");
                 sentenciareserva.setInt(1, reserva.getVuelo_ida().getCodigo_vuelo());
                 sentenciareserva.setInt(2, reserva.getVuelo_vuelta().getCodigo_vuelo());
                 sentenciareserva.setString(3, reserva.getCod_reserva());
@@ -621,17 +621,17 @@ public class Operacion {
                 //OcupacionVuelta
                 PreparedStatement sentenciaocuvuelta;
                 if (!reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().isEmpty()) {
-                    if(reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta() == 0){
+                    if (reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta() == 0) {
                         sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO) VALUES(?, 'VUELTA', ?)", Statement.RETURN_GENERATED_KEYS);
                         sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
                         sentenciaocuvuelta.setInt(2, reserva.getaPasajerosAdultos().get(j).getCodigo_pasajero());
-                    } else{
+                    } else {
                         sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO) VALUES(?, 'VUELTA', ?, ?)", Statement.RETURN_GENERATED_KEYS);
                         sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
                         sentenciaocuvuelta.setInt(2, reserva.getaPasajerosAdultos().get(j).getCodigo_pasajero());
                         sentenciaocuvuelta.setInt(3, reserva.getaPasajerosAdultos().get(j).getAsiento_vuelta());
                     }
-                    
+
                     sentenciaocuvuelta.executeUpdate();
                     int idOcuvuelta = 0;
                     ResultSet generatedIdocuvuelta = sentenciaocuvuelta.getGeneratedKeys();
@@ -685,17 +685,17 @@ public class Operacion {
                     //OcupacionVuelta
                     PreparedStatement sentenciaocuvuelta;
                     if (!reserva.getaPasajerosNinos().get(j).getaServiciosVuelta().isEmpty()) {
-                        if(reserva.getaPasajerosNinos().get(j).getAsiento_vuelta() == 0){
+                        if (reserva.getaPasajerosNinos().get(j).getAsiento_vuelta() == 0) {
                             sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO) VALUES(?, 'VUELTA', ?)", Statement.RETURN_GENERATED_KEYS);
                             sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
                             sentenciaocuvuelta.setInt(2, reserva.getaPasajerosNinos().get(j).getCodigo_pasajero());
-                        } else{
+                        } else {
                             sentenciaocuvuelta = conex.prepareStatement("INSERT INTO ocupacion (RESERVA, TIPO, PASAJERO, ASIENTO) VALUES(?, 'VUELTA', ?, ?)", Statement.RETURN_GENERATED_KEYS);
                             sentenciaocuvuelta.setString(1, reserva.getCod_reserva());
                             sentenciaocuvuelta.setInt(2, reserva.getaPasajerosNinos().get(j).getCodigo_pasajero());
                             sentenciaocuvuelta.setInt(3, reserva.getaPasajerosNinos().get(j).getAsiento_vuelta());
                         }
-                        
+
                         sentenciaocuvuelta.executeUpdate();
                         int idOcuvuelta = 0;
                         ResultSet generatedIdocuvuelta = sentenciaocuvuelta.getGeneratedKeys();
@@ -721,6 +721,22 @@ public class Operacion {
         } catch (SQLException ex) {
             conex.rollback();
             h = false;
+        }
+
+        return h;
+    }
+
+    public Boolean buscarReservaFacturar(Connection conex, String correo, String pass) throws SQLException {
+        Boolean h = false;
+
+        PreparedStatement sentencia = conex.prepareStatement("SELECT reserva.`*` FROM reserva, pagador, tarjeta WHERE pagador.EMAIL LIKE ? AND tarjeta.COD_PAGADOR=pagador.CODIGO_PAGADOR AND tarjeta.CODIGO_TARJETA=reserva.TARJETA AND reserva.COD_RESERVA LIKE ?");
+        sentencia.setString(1, correo);
+        sentencia.setString(2, pass);
+
+        ResultSet resultado = sentencia.executeQuery();
+
+        while (resultado.next()) {
+            h = true;
         }
 
         return h;

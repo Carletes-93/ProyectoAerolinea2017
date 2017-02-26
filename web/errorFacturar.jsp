@@ -1,11 +1,12 @@
 <%-- 
-    Document   : facturacion
-    Created on : 06-jun-2016, 17:30:34
+    Document   : errorFacturar
+    Created on : 26-feb-2017, 14:16:17
     Author     : Carlos
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
+
 <html>
 	<head>
 		<title>AB Airline</title>
@@ -56,33 +57,8 @@
 			<div id="content" class="container">
 				<section>
                                     <header>
-                                        <h2>Facturar Reserva</h2>
+                                        <h2>Error Facturar</h2>
                                     </header>
-                                    <div id="contenido">
-                                        <form action="controladorBuscarReservaFacturar" name="form16">
-                                            <table class="facturarInicio">
-                                                <tr>
-                                                    <th>
-                                                        Correo electronico 
-                                                    </th>
-                                                    <td>
-                                                        <input type="email" name="email" size="40" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>
-                                                        Numero de Reserva 
-                                                    </th>
-                                                    <td>
-                                                        <input type="text" name="pass" size="40" required>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <button type="submit" class="accion" name="pagadorfacturar" value="pagadorfacturar">
-                                                Continuar
-                                            </button>
-                                        </form>
-                                    </div>
 				</section>
 			</div>
 		</div>

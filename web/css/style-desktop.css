@@ -266,6 +266,22 @@
                 width: 900px;
         }
         
+        .facturarInicio
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 650px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
+/*        input.facturarInicio
+        {
+            size: 100;
+        }*/
+        
 
 /*********************************************************************************/
 /* Footer                                                                        */

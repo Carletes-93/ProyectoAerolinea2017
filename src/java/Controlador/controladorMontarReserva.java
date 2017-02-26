@@ -73,7 +73,7 @@ public class controladorMontarReserva extends HttpServlet {
                 precio_total=precio_total + reserva.getaPasajerosAdultos().get(i).getaServiciosIda().get(j).getPrecio();
             }
             if(!reserva.getaPasajerosAdultos().get(i).getaServiciosVuelta().isEmpty()){
-                for (int u = 0; u < reserva.getaPasajerosAdultos().get(i).getaServiciosIda().size(); u++) {
+                for (int u = 0; u < reserva.getaPasajerosAdultos().get(i).getaServiciosVuelta().size(); u++) {
                     precio_total=precio_total + reserva.getaPasajerosAdultos().get(i).getaServiciosVuelta().get(u).getPrecio();
                 }
             }
@@ -84,7 +84,7 @@ public class controladorMontarReserva extends HttpServlet {
                     precio_total=precio_total + reserva.getaPasajerosNinos().get(i).getaServiciosIda().get(j).getPrecio();
                 }
                 if(!reserva.getaPasajerosNinos().get(i).getaServiciosVuelta().isEmpty()){
-                    for (int u = 0; u < reserva.getaPasajerosNinos().get(i).getaServiciosIda().size(); u++) {
+                    for (int u = 0; u < reserva.getaPasajerosNinos().get(i).getaServiciosVuelta().size(); u++) {
                         precio_total=precio_total + reserva.getaPasajerosNinos().get(i).getaServiciosVuelta().get(u).getPrecio();
                     }
                 }

@@ -6,27 +6,28 @@
 package Controlador;
 
 import Clases.Conexion;
-import Clases.Pagador;
 import Dao.Operacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Carlos
  */
-public class controladorPagadorFacturar extends HttpServlet {
+public class controladorBuscarReservaFacturar extends HttpServlet {
 
     Connection Conex;
+
     @Override
     public void init() throws ServletException {
         try {
@@ -37,7 +38,7 @@ public class controladorPagadorFacturar extends HttpServlet {
         } catch (SQLException sqle) {
         }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,40 +46,25 @@ public class controladorPagadorFacturar extends HttpServlet {
         ServletContext servletcont = getServletContext();
         RequestDispatcher requestdisp;
         
+        Boolean h;
+        String correo = request.getParameter("email");
+        String num_reserva = request.getParameter("pass");
+
         Operacion objop = new Operacion();
-        
-        String nif = request.getParameter("nif");
-        String pass = request.getParameter("pass");
-        
-        Pagador p1 = new Pagador();
-        String h;
-        
-        try{
-            p1 = objop.buscarPagador(Conex, nif, pass);
-            
-            h="Existe";
-            
-            if(p1==null){
-                h="No existe";
-            }
-            
-        }catch(SQLException errsql){
-            h="Error SQL";
+
+        try {
+            h = objop.buscarReservaFacturar(Conex, correo, num_reserva);
+        } catch (SQLException ex) {
+            h = false;
         }
-        
-        if(h.equals("Existe")){
-            HttpSession session=request.getSession(true);
-            session.setAttribute("pagador", p1);
-            requestdisp = servletcont.getRequestDispatcher("/controladorSacarReservas");
+
+        if (h) {
+            requestdisp = servletcont.getRequestDispatcher("/controladorSacarReservaFacturar");
             requestdisp.forward(request, response);
+        } else {
+            response.sendRedirect("errorFacturar.jsp");
         }
-        if(h.equals("No existe")){
-            response.sendRedirect("errorPagador.jsp");
-        }
-        if(h.equals("Error SQL")){
-            response.sendRedirect("errorSQL.jsp");
-        }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

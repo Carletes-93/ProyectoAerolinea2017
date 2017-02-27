@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +49,21 @@ public class controladorSacarReservaFacturar extends HttpServlet {
         Operacion objop = new Operacion();
         Reserva reserva_facturar = new Reserva();
         
+        Boolean h;
         
+        try {
+            reserva_facturar = objop.montarReservaFacturar(Conex, cod_reserva);
+            h = true;
+        } catch (SQLException ex) {
+            h = false;
+        }
+        
+        if(h){
+            session.setAttribute("reserva_a_facturar", reserva_facturar);
+            response.sendRedirect("facturarReserva.jsp");
+        } else {
+            response.sendRedirect("errorSQL.jsp");
+        }
         
     }
 

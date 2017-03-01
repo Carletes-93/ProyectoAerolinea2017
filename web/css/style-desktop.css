@@ -288,6 +288,17 @@
                 border-spacing: 10px;
         }
         
+        table.tablaBilletes
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 600px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
 
 /*********************************************************************************/
 /* Footer                                                                        */

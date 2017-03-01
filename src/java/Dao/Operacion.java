@@ -218,9 +218,12 @@ public class Operacion {
         sentenciaasientos1.setInt(1, cod_vuelo);
 
         ResultSet resultado = sentenciaasientos1.executeQuery();
-
+        
         while (resultado.next()) {
-            aNum.add(resultado.getInt("ASIENTO"));
+            if(resultado.getInt("ASIENTO") !=0 ){
+                aNum.add(resultado.getInt("ASIENTO"));
+            }
+            
         }
 
         PreparedStatement sentenciaasientos2 = conex.prepareStatement("SELECT ocupacion.ASIENTO FROM ocupacion INNER JOIN reserva ON ocupacion.RESERVA=reserva.COD_RESERVA WHERE reserva.COD_VUELO_VUELTA=? AND ocupacion.TIPO='VUELTA'");
@@ -229,7 +232,9 @@ public class Operacion {
         ResultSet resultado2 = sentenciaasientos2.executeQuery();
 
         while (resultado2.next()) {
-            aNum.add(resultado2.getInt("ASIENTO"));
+            if(resultado2.getInt("ASIENTO") != 0){
+                aNum.add(resultado2.getInt("ASIENTO"));
+            }
         }
 
         for (int i = 0; i < aNum.size(); i++) {

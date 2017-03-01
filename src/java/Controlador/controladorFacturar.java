@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -43,15 +44,38 @@ public class controladorFacturar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-         HttpSession session=request.getSession(true);
-         Reserva r1fact = (Reserva) session.getAttribute("reserva_a_facturar");
+        HttpSession session=request.getSession(true);
+        Reserva r1fact = (Reserva) session.getAttribute("reserva_a_facturar");
          
-         Operacion objop = new Operacion();
-         Boolean h;
-         
+        Operacion objop = new Operacion();
+        Boolean h;
+        ArrayList<Boolean> aB = new ArrayList();
+        ArrayList aAsi = new ArrayList();
+        int cod = r1fact.getVuelo_ida().getCodigo_vuelo();
+        
+        try {
+            aB = objop.sacarAsientosLibres(Conex, cod);
+        } catch (SQLException ex) {
+            
+        }
+        
         if(request.getParameter("facturar").equals("facturarida")){
             try {
+                
+                
+                
+                        for(int u = 0; u < aB.size(); u++){
+                            if(aB.get(u)){
+                                aAsi.add(u+1);
+                            }
+                        }
                 h = objop.facturarIda(Conex, r1fact);
+                for(int i = 0; i < r1fact.getaPasajerosAdultos().size(); i++){
+                    if(r1fact.getaPasajerosAdultos().get(i).getAsiento_ida() == 0){
+                        r1fact.getaPasajerosAdultos().get(i).setAsiento_ida((int)aAsi.get(i));
+                    }
+                }
+                
             } catch (SQLException ex) {
                 h = false;
             }

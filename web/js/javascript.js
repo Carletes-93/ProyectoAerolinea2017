@@ -302,3 +302,111 @@ $(function () {
         collapsible: true
     });
 });
+
+//Imprimir
+
+function imprimir0(){
+    var objeto=document.getElementById('pdf0');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir1(){
+    var objeto=document.getElementById('pdf1');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir2(){
+    var objeto=document.getElementById('pdf2');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir3(){
+    var objeto=document.getElementById('pdf3');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir4(){
+    var objeto=document.getElementById('pdf4');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir5(){
+    var objeto=document.getElementById('pdf5');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir6(){
+    var objeto=document.getElementById('pdf6');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+
+function imprimir0n(){
+    var objeto=document.getElementById('pdf0n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir1n(){
+    var objeto=document.getElementById('pdf1n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir2n(){
+    var objeto=document.getElementById('pdf2n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir3n(){
+    var objeto=document.getElementById('pdf3n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir4n(){
+    var objeto=document.getElementById('pdf4n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+function imprimir5n(){
+    var objeto=document.getElementById('pdf5n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}

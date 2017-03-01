@@ -96,6 +96,10 @@
         <servlet-name>controladorSacarReservaFacturar</servlet-name>
         <servlet-class>Controlador.controladorSacarReservaFacturar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>controladorFacturar</servlet-name>
+        <servlet-class>Controlador.controladorFacturar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/dispatcher</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>controladorSacarReservaFacturar</servlet-name>
         <url-pattern>/controladorSacarReservaFacturar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controladorFacturar</servlet-name>
+        <url-pattern>/controladorFacturar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

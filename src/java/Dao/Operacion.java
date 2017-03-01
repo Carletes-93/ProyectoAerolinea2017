@@ -1100,4 +1100,62 @@ public class Operacion {
         
         return r1;
     }
+    
+    public Boolean facturarIda(Connection conex, Reserva r1) throws SQLException {
+        String cod_reserva = r1.getCod_reserva();
+        Boolean h;
+        
+        try{
+            conex.setAutoCommit(false);
+            
+            PreparedStatement sentenciafactida = conex.prepareStatement("UPDATE reserva SET FACTURADA_IDA = 'S' WHERE COD_RESERVA LIKE ?");
+            sentenciafactida.setString(1, cod_reserva);
+            
+            int rows = -1;
+            
+            rows = sentenciafactida.executeUpdate();
+            
+            if(rows == 1){
+                h = true;
+            } else {
+                h = false;
+            }
+            
+            conex.commit();
+        } catch (SQLException ex) {
+            conex.rollback();
+            h = false;
+        }
+        
+        return h;
+    }
+    
+    public Boolean facturarVuelta(Connection conex, Reserva r1) throws SQLException {
+        String cod_reserva = r1.getCod_reserva();
+        Boolean h;
+        
+        try{
+            conex.setAutoCommit(false);
+            
+            PreparedStatement sentenciafactvuelta = conex.prepareStatement("UPDATE reserva SET FACTURADA_VUELTA = 'S' WHERE COD_RESERVA LIKE ?");
+            sentenciafactvuelta.setString(1, cod_reserva);
+            
+            int rows = -1;
+            
+            rows = sentenciafactvuelta.executeUpdate();
+            
+            if(rows == 1){
+                h = true;
+            } else {
+                h = false;
+            }
+            
+            conex.commit();
+        } catch (SQLException ex) {
+            conex.rollback();
+            h = false;
+        }
+        
+        return h;
+    }
 }

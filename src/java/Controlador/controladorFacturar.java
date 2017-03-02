@@ -55,17 +55,17 @@ public class controladorFacturar extends HttpServlet {
         
         try {
             aB = objop.sacarAsientosLibres(Conex, cod);
+            for(int u = 0; u < aB.size(); u++){
+                if(aB.get(u)){
+                    aAsi.add(u+1);
+                }
+            }
         } catch (SQLException ex) {
             
         }
         
         if(request.getParameter("facturar").equals("facturarida")){
             try {
-                for(int u = 0; u < aB.size(); u++){
-                    if(aB.get(u)){
-                        aAsi.add(u+1);
-                    }
-                }
                 h = objop.facturarIda(Conex, r1fact);
                 for(int i = 0; i < r1fact.getaPasajerosAdultos().size(); i++){
                     if(r1fact.getaPasajerosAdultos().get(i).getAsiento_ida() == 0){

@@ -72,7 +72,7 @@
                                         <form action="controladorServiciosPasajerosVuelta" name="form5">
                                             <% if(aPasajerosAdultos !=null){%>
                                                 <% for(int i=0; i<aPasajerosAdultos.size(); i++){%>
-                                                    <div class="datos">
+                                                    <div class="datos, acordeondatos">
                                                         <h3>Servicios de <% out.print(aPasajerosAdultos.get(i).getNombre()+" "+aPasajerosAdultos.get(i).getApellidos()); %></h3>
                                                         <table class="serviciospasajeros">
                                                             <% for(int u=0; u<aServicios.size(); u++){%> 
@@ -88,14 +88,13 @@
                                                             <% }%>
                                                         </table>
                                                         <% if(aPasajerosAdultos.size()>0){%>
-                                                        <hr>
                                                         <% }%>
                                                     </div>
                                                 <% }%>
                                             <% }%>
                                             <% if(aPasajerosNinos !=null){%>
                                                 <% for(int i=0; i<aPasajerosNinos.size(); i++){%>
-                                                    <div class="datos">
+                                                    <div class="datos, acordeondatos">
                                                         <h3>Servicios de <% out.print(aPasajerosNinos.get(i).getNombre()+" "+aPasajerosNinos.get(i).getApellidos()); %></h3>
                                                         <table class="serviciospasajeros">
                                                             <% for(int u=0; u<aServicios.size(); u++){%>
@@ -109,14 +108,13 @@
                                                             <% }%>
                                                         </table>
                                                         <% if(aPasajerosNinos.size()>0){%>
-                                                        <hr>
                                                         <% }%>
                                                     </div>
                                                 <% }%>
                                             <% }%>
                                             <% if(aPasajerosBebes != null){%>
                                                 <% for(int i=0; i<aPasajerosBebes.size(); i++){%>
-                                                    <div class="datos">
+                                                    <div class="datos, acordeondatos">
                                                         <h3>Tutos del bebe <% out.print(aPasajerosBebes.get(i).getNombre()+" "+aPasajerosBebes.get(i).getApellidos()); %></h3>
                                                         <table class="serviciospasajeros">
                                                             <tr>
@@ -133,7 +131,6 @@
                                                             </tr>
                                                         </table>
                                                         <% if(aPasajerosBebes.size()>0){%>
-                                                        <hr>
                                                         <% }%>
                                                     </div>
                                                 <% }%>

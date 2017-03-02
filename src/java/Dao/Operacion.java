@@ -1163,4 +1163,34 @@ public class Operacion {
         
         return h;
     }
+    
+    public Boolean asignarAsientoFacturacionIda(Connection conex, Pasajero p1, String cod_reserva) throws SQLException {
+        int cod_pasajero = p1.getCodigo_pasajero();
+        int asiento = p1.getAsiento_ida();
+        
+        PreparedStatement sentenciaasida = conex.prepareStatement("UPDATE ocupacion SET ocupacion.ASIENTO = ? WHERE ocupacion.PASAJERO = ? AND ocupacion.RESERVA LIKE ? AND TIPO LIKE 'IDA'");
+        sentenciaasida.setInt(1, asiento);
+        sentenciaasida.setInt(2, cod_pasajero);
+        sentenciaasida.setString(3, cod_reserva);
+        
+        int resultado = sentenciaasida.executeUpdate();
+        
+        if(resultado != 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void asignarAsientoFacturacionVuelta(Connection conex, Pasajero p1, String cod_reserva) throws SQLException {
+        int cod_pasajero = p1.getCodigo_pasajero();
+        int asiento = p1.getAsiento_vuelta();
+        
+        PreparedStatement sentenciaasvuelta = conex.prepareStatement("UPDATE ocupacion SET ocupacion.ASIENTO = ? WHERE ocupacion.PASAJERO = ? AND ocupacion.RESERVA LIKE ? AND TIPO LIKE 'VUELTA'");
+        sentenciaasvuelta.setInt(1, asiento);
+        sentenciaasvuelta.setInt(2, cod_pasajero);
+        sentenciaasvuelta.setString(3, cod_reserva);
+        
+        sentenciaasvuelta.executeUpdate();
+    }
 }

@@ -144,6 +144,10 @@
                 border-spacing: 10px;
         }
         
+        .acordeondatos table{
+            margin: 0 auto;
+        }
+        
         .tablabebe
         {
                 margin: 0 auto;

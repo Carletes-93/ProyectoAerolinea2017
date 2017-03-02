@@ -67,7 +67,7 @@
                                         <form action="controladorDatosPasajeros" name="form3">
                                             <% if(numadultos!=0){%>
                                                 <% for(int i=1; i<=numadultos;i++){%>
-                                                    <div class="datos">
+                                                    <div class="datos, acordeondatos">
                                                         <h3>Datos pasajero Adulto <% out.print(i); %></h3>
                                                         <table class="datospasajeros">
                                                             <tr>
@@ -123,14 +123,13 @@
                                                             </tr>
                                                         </table>
                                                         <% if(numadultos>0){%>
-                                                        <hr>
                                                         <% }%>
                                                     </div>
                                                 <% }%>
                                             <% }%>
                                             <% if(numninos!=0){%>
                                                 <% for(int i=1; i<=numninos;i++){%>
-                                                    <div class="datos">
+                                                    <div class="datos, acordeondatos">
                                                         <h3>Datos pasajero Niño <% out.print(i); %></h3>
                                                         <table class="datospasajeros">
                                                             <tr>
@@ -186,14 +185,13 @@
                                                             </tr>
                                                         </table>
                                                         <% if(numninos>0){%>
-                                                        <hr>
                                                         <% }%>
                                                     </div>
                                                 <% }%>
                                             <% }%>
                                             <% if(numbebes!=0){%>
                                                 <% for(int i=1; i<=numbebes;i++){%>
-                                                    <div class="datos">
+                                                    <div class="datos, acordeondatos">
                                                         <h3>Datos pasajero Bebe <% out.print(i); %></h3>
                                                         <table class="datospasajeros">
                                                             <tr>
@@ -241,7 +239,6 @@
                                                             </tr>
                                                         </table>
                                                         <% if(numbebes>0){%>
-                                                        <hr>
                                                         <% }%>
                                                     </div>
                                                 <% }%>

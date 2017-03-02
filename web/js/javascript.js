@@ -297,9 +297,16 @@ function datosBebe(evento) {
 
 //Acordeones
 $(function () {
-    $(".acordeon").accordion({
+    $(".acordeondatos").accordion({
         heightStyle: "content",
         collapsible: true
+    });
+});
+$(function () {
+    $(".acordeondatos").accordion({
+        heightStyle: "content",
+        collapsible: true,
+        active: 1
     });
 });
 
@@ -404,6 +411,15 @@ function imprimir4n(){
 }
 function imprimir5n(){
     var objeto=document.getElementById('pdf5n');  //obtenemos el objeto a imprimir
+    var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+    ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+    ventana.document.close();  //cerramos el documento
+    ventana.print();  //imprimimos la ventana
+    ventana.close();  //cerramos la ventana
+}
+
+function imprimirResumen(){
+    var objeto=document.getElementById('contenidoresumen');  //obtenemos el objeto a imprimir
     var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
     ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
     ventana.document.close();  //cerramos el documento

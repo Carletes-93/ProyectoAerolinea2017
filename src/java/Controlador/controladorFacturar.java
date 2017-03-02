@@ -66,13 +66,23 @@ public class controladorFacturar extends HttpServlet {
         
         if(request.getParameter("facturar").equals("facturarida")){
             try {
-                h = objop.facturarIda(Conex, r1fact);
+                int cont = 0;
                 for(int i = 0; i < r1fact.getaPasajerosAdultos().size(); i++){
                     if(r1fact.getaPasajerosAdultos().get(i).getAsiento_ida() == 0){
-                        r1fact.getaPasajerosAdultos().get(i).setAsiento_ida((int)aAsi.get(i));
+                        r1fact.getaPasajerosAdultos().get(i).setAsiento_ida((int)aAsi.get(cont));
+                        objop.asignarAsientoFacturacionIda(Conex, r1fact.getaPasajerosAdultos().get(i), r1fact.getCod_reserva());
+                        cont++;
+                    }
+                }
+                for(int j = 0; j < r1fact.getaPasajerosNinos().size(); j++){
+                    if(r1fact.getaPasajerosNinos().get(j).getAsiento_ida() == 0){
+                        r1fact.getaPasajerosNinos().get(j).setAsiento_ida((int)aAsi.get(cont));
+                        objop.asignarAsientoFacturacionIda(Conex, r1fact.getaPasajerosNinos().get(j), r1fact.getCod_reserva());
+                        cont++;
                     }
                 }
                 
+                h = objop.facturarIda(Conex, r1fact);
             } catch (SQLException ex) {
                 h = false;
             }
@@ -88,6 +98,22 @@ public class controladorFacturar extends HttpServlet {
         
         if(request.getParameter("facturar").equals("facturarvuelta")){
             try {
+                int cont = 0;
+                for(int i = 0; i < r1fact.getaPasajerosAdultos().size(); i++){
+                    if(r1fact.getaPasajerosAdultos().get(i).getAsiento_vuelta() == 0){
+                        r1fact.getaPasajerosAdultos().get(i).setAsiento_vuelta((int)aAsi.get(cont));
+                        objop.asignarAsientoFacturacionVuelta(Conex, r1fact.getaPasajerosAdultos().get(i), r1fact.getCod_reserva());
+                        cont++;
+                    }
+                }
+                for(int j = 0; j < r1fact.getaPasajerosNinos().size(); j++){
+                    if(r1fact.getaPasajerosNinos().get(j).getAsiento_vuelta() == 0){
+                        r1fact.getaPasajerosNinos().get(j).setAsiento_vuelta((int)aAsi.get(cont));
+                        objop.asignarAsientoFacturacionVuelta(Conex, r1fact.getaPasajerosNinos().get(j), r1fact.getCod_reserva());
+                        cont++;
+                    }
+                }
+                
                 h = objop.facturarVuelta(Conex, r1fact);
             } catch (SQLException ex) {
                 h = false;

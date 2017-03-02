@@ -1,6 +1,6 @@
 <%-- 
-    Document   : qrIda
-    Created on : 01-mar-2017, 17:32:17
+    Document   : qrVuelta
+    Created on : 02-mar-2017, 14:43:35
     Author     : Carlos
 --%>
 
@@ -74,21 +74,21 @@
                                         <b><% out.print(reserva.getaPasajerosAdultos().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosAdultos().get(i).getApellidos()); %></b>
                                     </th>
                                     <td>
-                                        Nº Vuelo: <b><% out.print(reserva.getVuelo_ida().getNum_vuelo()); %></b>
+                                        Nº Vuelo: <b><% out.print(reserva.getVuelo_vuelta().getNum_vuelo()); %></b>
                                     </td>
                                     <td>
-                                        <b><% out.print(reserva.getVuelo_ida().getOrigen().getIata()); %></b> ----> <b><% out.print(reserva.getVuelo_ida().getDestino().getIata()); %></b>
+                                        <b><% out.print(reserva.getVuelo_vuelta().getOrigen().getIata()); %></b> ----> <b><% out.print(reserva.getVuelo_vuelta().getDestino().getIata()); %></b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Fecha: <b><% out.print(reserva.getVuelo_ida().getFecha().toString()); %></b>
+                                        Fecha: <b><% out.print(reserva.getVuelo_vuelta().getFecha().toString()); %></b>
                                     </td>
                                     <td>
-                                        Hora Salida: <b><% out.print(reserva.getVuelo_ida().getHora_salida().toString()); %></b>
+                                        Hora Salida: <b><% out.print(reserva.getVuelo_vuelta().getHora_salida().toString()); %></b>
                                     </td>
                                     <td>
-                                        Hora Llegada: <b><% out.print(reserva.getVuelo_ida().getHora_llegada().toString()); %> (Aprox.)</b>
+                                        Hora Llegada: <b><% out.print(reserva.getVuelo_vuelta().getHora_llegada().toString()); %> (Aprox.)</b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -96,11 +96,11 @@
                                         Pasajero: <b>Adulto</b>
                                     </td>
                                     <td>
-                                        Asiento: <b><% out.print(reserva.getaPasajerosAdultos().get(i).getAsiento_ida()); %></b>
+                                        Asiento: <b><% out.print(reserva.getaPasajerosAdultos().get(i).getAsiento_vuelta()); %></b>
                                     </td>
                                     <td>
-                                        <% for(int b = 0; b < reserva.getaPasajerosAdultos().get(i).getaServiciosIda().size(); b++){ %>
-                                        <%      if(reserva.getaPasajerosAdultos().get(i).getaServiciosIda().get(b).getNombre().equals("Bebe")){ %>
+                                        <% for(int b = 0; b < reserva.getaPasajerosAdultos().get(i).getaServiciosVuelta().size(); b++){ %>
+                                        <%      if(reserva.getaPasajerosAdultos().get(i).getaServiciosVuelta().get(b).getNombre().equals("Bebe")){ %>
                                                     Bebe: <b>Si</b>
                                         <%      } %>
                                         <% } %>
@@ -135,21 +135,21 @@
                                         <b><% out.print(reserva.getaPasajerosNinos().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosNinos().get(i).getApellidos()); %></b>
                                     </th>
                                     <td>
-                                        Nº Vuelo: <b><% out.print(reserva.getVuelo_ida().getNum_vuelo()); %></b>
+                                        Nº Vuelo: <b><% out.print(reserva.getVuelo_vuelta().getNum_vuelo()); %></b>
                                     </td>
                                     <td>
-                                        <b><% out.print(reserva.getVuelo_ida().getOrigen().getIata()); %></b> ----> <b><% out.print(reserva.getVuelo_ida().getDestino().getIata()); %></b>
+                                        <b><% out.print(reserva.getVuelo_vuelta().getOrigen().getIata()); %></b> ----> <b><% out.print(reserva.getVuelo_vuelta().getDestino().getIata()); %></b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Fecha: <b><% out.print(reserva.getVuelo_ida().getFecha().toString()); %></b>
+                                        Fecha: <b><% out.print(reserva.getVuelo_vuelta().getFecha().toString()); %></b>
                                     </td>
                                     <td>
-                                        Hora Salida: <b><% out.print(reserva.getVuelo_ida().getHora_salida().toString()); %></b>
+                                        Hora Salida: <b><% out.print(reserva.getVuelo_vuelta().getHora_salida().toString()); %></b>
                                     </td>
                                     <td>
-                                        Hora Llegada: <b><% out.print(reserva.getVuelo_ida().getHora_llegada().toString()); %> (Aprox.)</b>
+                                        Hora Llegada: <b><% out.print(reserva.getVuelo_vuelta().getHora_llegada().toString()); %> (Aprox.)</b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -157,7 +157,7 @@
                                         Pasajero: <b>Niño</b>
                                     </td>
                                     <td>
-                                        Asiento: <b><% out.print(reserva.getaPasajerosNinos().get(i).getAsiento_ida()); %></b>
+                                        Asiento: <b><% out.print(reserva.getaPasajerosNinos().get(i).getAsiento_vuelta()); %></b>
                                     </td>
                                     <td>
                                         

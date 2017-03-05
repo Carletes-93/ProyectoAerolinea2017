@@ -108,11 +108,14 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" id="qr<% out.print(i); %>">
+                                        <% String texto = "Nombre: " + reserva.getaPasajerosAdultos().get(i).getNombre() + " " + reserva.getaPasajerosAdultos().get(i).getApellidos() + "\n";
+                                                            texto += "NIF: " + reserva.getaPasajerosAdultos().get(i).getNif() + "\n";
+                                                ; %>
                                         <img id="qr<% out.print(i); %>">
                                             <script>
                                                 $('#qr<% out.print(i); %>').qrcode({
                                                     size: 150,
-                                                    text: "<% out.print(reserva.getaPasajerosAdultos().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosAdultos().get(i).getApellidos()); %>",
+                                                    text: '<% out.print(texto); %>',
                                                     mode: 0,
                                                     ecLevel: 'H',
                                                     render: 'image',
@@ -165,11 +168,18 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" id="qr<% out.print(i); %>n">
+                                        <% String texto = "Nombre: " + reserva.getaPasajerosNinos().get(i).getNombre() + " " + reserva.getaPasajerosNinos().get(i).getApellidos() + "\n";
+                                                    texto += "NIF: " + reserva.getaPasajerosNinos().get(i).getNif() + "\n";
+                                                    texto += "Nº Vuelo: " + reserva.getVuelo_ida().getNum_vuelo() + "\n";
+                                                    texto += "Fecha: " + reserva.getVuelo_ida().getFecha().toString() + "\n";
+                                                    texto += "Hora Salida: " + reserva.getVuelo_ida().getHora_salida().toString() + "\n";
+                                                    texto += "Asiento: " + reserva.getaPasajerosNinos().get(i).getAsiento_ida();
+                                                 %>
                                         <img id="qr<% out.print(i); %>n">
                                             <script>
                                                 $('#qr<% out.print(i); %>n').qrcode({
                                                     size: 150,
-                                                    text: "<% out.print(reserva.getaPasajerosNinos().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosNinos().get(i).getApellidos()); %>",
+                                                    text: '<% out.print(texto); %>',
                                                     mode: 0,
                                                     ecLevel: 'H',
                                                     render: 'image',

@@ -103,6 +103,15 @@ $(function () {
     );
 });
 
+$(function () {
+    $.datepicker.setDefaults($.datepicker.regional["es"]);
+    $(".datepicker").datepicker({
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true}
+    );
+});
+
 
 $(function () {
     $("#button").buttonset();

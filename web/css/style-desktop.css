@@ -303,6 +303,17 @@
                 border-spacing: 10px;
         }
         
+                .tablafinvuelo
+        {
+                margin: 0 auto;
+                text-align: center;
+                width: 350px;
+                border-collapse: collapse;
+                /*border: 1px #000000 solid;*/
+                border-collapse: separate;
+                border-spacing: 10px;
+        }
+        
 
 /*********************************************************************************/
 /* Footer                                                                        */

@@ -65,7 +65,7 @@
                         <h2>Billetes</h2>
                     </header>
                     <div id="contenido">
-                        <h2>Belletes de la reserva: </h2><h1><b><% out.print(reserva.getCod_reserva()); %></b></h1>
+                        <h2>Billetes de la reserva: </h2><h1><b><% out.print(reserva.getCod_reserva()); %></b></h1>
                         <% for(int i = 0; i < reserva.getaPasajerosAdultos().size(); i++) { %>
                         <div id="pdf<% out.print(i); %>"> 
                             <table class="tablaBilletes">
@@ -108,14 +108,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" id="qr<% out.print(i); %>">
-                                        <% String texto = "Nombre: " + reserva.getaPasajerosAdultos().get(i).getNombre() + " " + reserva.getaPasajerosAdultos().get(i).getApellidos() + "\n";
-                                                            texto += "NIF: " + reserva.getaPasajerosAdultos().get(i).getNif() + "\n";
-                                                ; %>
                                         <img id="qr<% out.print(i); %>">
                                             <script>
                                                 $('#qr<% out.print(i); %>').qrcode({
                                                     size: 150,
-                                                    text: '<% out.print(texto); %>',
+                                                    text: "Nombre: <% out.print(reserva.getaPasajerosAdultos().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosAdultos().get(i).getApellidos()); %>\nNIF: <% out.print(reserva.getaPasajerosAdultos().get(i).getNif()); %>\nNºVuelo: <% out.print(reserva.getVuelo_ida().getNum_vuelo()); %>\nFecha: <% out.print(reserva.getVuelo_ida().getFecha().toString()); %>\nHora Salida: <% out.print(reserva.getVuelo_ida().getHora_salida()); %>\nAsiento: <% out.print(reserva.getaPasajerosAdultos().get(i).getAsiento_ida()); %>", 
                                                     mode: 0,
                                                     ecLevel: 'H',
                                                     render: 'image',
@@ -168,18 +165,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="3" id="qr<% out.print(i); %>n">
-                                        <% String texto = "Nombre: " + reserva.getaPasajerosNinos().get(i).getNombre() + " " + reserva.getaPasajerosNinos().get(i).getApellidos() + "\n";
-                                                    texto += "NIF: " + reserva.getaPasajerosNinos().get(i).getNif() + "\n";
-                                                    texto += "Nº Vuelo: " + reserva.getVuelo_ida().getNum_vuelo() + "\n";
-                                                    texto += "Fecha: " + reserva.getVuelo_ida().getFecha().toString() + "\n";
-                                                    texto += "Hora Salida: " + reserva.getVuelo_ida().getHora_salida().toString() + "\n";
-                                                    texto += "Asiento: " + reserva.getaPasajerosNinos().get(i).getAsiento_ida();
-                                                 %>
                                         <img id="qr<% out.print(i); %>n">
                                             <script>
                                                 $('#qr<% out.print(i); %>n').qrcode({
                                                     size: 150,
-                                                    text: '<% out.print(texto); %>',
+                                                    text: "Nombre: <% out.print(reserva.getaPasajerosNinos().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosNinos().get(i).getApellidos()); %>\nNIF: <% out.print(reserva.getaPasajerosNinos().get(i).getNif()); %>\nNºVuelo: <% out.print(reserva.getVuelo_ida().getNum_vuelo()); %>\nFecha: <% out.print(reserva.getVuelo_ida().getFecha().toString()); %>\nHora Salida: <% out.print(reserva.getVuelo_ida().getHora_salida()); %>\nAsiento: <% out.print(reserva.getaPasajerosNinos().get(i).getAsiento_ida()); %>", 
                                                     mode: 0,
                                                     ecLevel: 'H',
                                                     render: 'image',

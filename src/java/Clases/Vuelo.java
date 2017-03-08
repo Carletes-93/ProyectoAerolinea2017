@@ -17,6 +17,7 @@ public class Vuelo {
     private int asientos_libres;
     private int asientos_totales = 9;
     private String num_vuelo;
+    private String avion;
 
     public Vuelo() {
     }
@@ -116,6 +117,14 @@ public class Vuelo {
 
     public void setNum_vuelo(String num_vuelo) {
         this.num_vuelo = num_vuelo;
+    }
+
+    public String getAvion() {
+        return avion;
+    }
+
+    public void setAvion(String avion) {
+        this.avion = avion;
     }
     
     @Override

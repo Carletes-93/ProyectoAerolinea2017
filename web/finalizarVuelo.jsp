@@ -37,7 +37,7 @@
                 <nav id="nav">
                     <ul>
                         <li><a href="index.jsp">Inicio</a></li>
-                        <li><a href="">Mis Vuelos</a></li>
+                        <li><a href="finalizarVuelo.jsp">Mis Vuelos</a></li>
                         <li><a href="facturacion.jsp">Facturacion</a></li>
                     </ul>
                 </nav>
@@ -64,10 +64,10 @@
                             <table class="tablafinvuelo">
                                 <tr>
                                     <th>
-                                        Codigo de Vuelo 
+                                        Número de Vuelo 
                                     </th>
                                     <td>
-                                        <input type="number" name="num" size="40" required>
+                                        <input type="text" name="num" size="20" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -79,8 +79,8 @@
                                     </td>
                                 </tr>
                             </table>
-                            <button type="submit" class="accion" name="pagadorfacturar" value="pagadorfacturar">
-                                Continuar
+                            <button type="submit" class="accion" name="buscarVolar" value="buscarVolar">
+                                Volar
                             </button>
                         </form>
                     </div>

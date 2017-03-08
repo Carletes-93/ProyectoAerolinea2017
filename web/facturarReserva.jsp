@@ -74,7 +74,7 @@
                 <nav id="nav">
                     <ul>
                         <li><a href="index.jsp">Inicio</a></li>
-                        <li><a href="">Mis Vuelos</a></li>
+                        <li><a href="finalizarVuelo.jsp">Mis Vuelos</a></li>
                         <li><a href="facturacion.jsp">Facturacion</a></li>
                     </ul>
                 </nav>

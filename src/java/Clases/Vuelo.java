@@ -18,6 +18,7 @@ public class Vuelo {
     private int asientos_totales = 9;
     private String num_vuelo;
     private String avion;
+    private LocalTime duracion;
 
     public Vuelo() {
     }
@@ -125,6 +126,14 @@ public class Vuelo {
 
     public void setAvion(String avion) {
         this.avion = avion;
+    }
+
+    public LocalTime getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(LocalTime duracion) {
+        this.duracion = duracion;
     }
     
     @Override

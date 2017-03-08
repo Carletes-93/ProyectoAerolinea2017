@@ -27,6 +27,8 @@ public class Pasajero {
     private Bebe bebe;
     private int asiento_ida;
     private int asiento_vuelta;
+    private int codocuida;
+    private int codocuvuelta;
 
     public Pasajero() {
     }
@@ -143,6 +145,22 @@ public class Pasajero {
 
     public void setAsiento_vuelta(int asiento_vuelta) {
         this.asiento_vuelta = asiento_vuelta;
+    }
+
+    public int getCodocuida() {
+        return codocuida;
+    }
+
+    public void setCodocuida(int codocuida) {
+        this.codocuida = codocuida;
+    }
+
+    public int getCodocuvuelta() {
+        return codocuvuelta;
+    }
+
+    public void setCodocuvuelta(int codocuvuelta) {
+        this.codocuvuelta = codocuvuelta;
     }
 
     @Override

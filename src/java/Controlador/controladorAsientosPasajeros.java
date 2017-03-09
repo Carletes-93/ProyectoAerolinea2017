@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 public class controladorAsientosPasajeros extends HttpServlet {
 
     Connection Conex;
+
     @Override
     public void init() throws ServletException {
         try {
@@ -35,37 +36,45 @@ public class controladorAsientosPasajeros extends HttpServlet {
         } catch (SQLException sqle) {
         }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session=request.getSession(true);
+
+        HttpSession session = request.getSession(true);
         ArrayList<Pasajero> aPasajerosAdultos = (ArrayList<Pasajero>) session.getAttribute("pasajerosadultos");
         ArrayList<Pasajero> aPasajerosNinos = (ArrayList<Pasajero>) session.getAttribute("pasajerosninos");
         ArrayList<Boolean> aAsientosVuelta = (ArrayList<Boolean>) session.getAttribute("asientos vuelta");
-        
+
         String adultoida = "asientoidaadult";
         String adultovuelta = "asientovueltaadult";
         String ninoida = "asientoidanino";
         String ninovuelta = "asientovueltanino";
-        
+
         for (int i = 0; i < aPasajerosAdultos.size(); i++) {
-            aPasajerosAdultos.get(i).setAsiento_ida(Integer.parseInt(request.getParameter(adultoida+String.valueOf(i))));
-            if(!aAsientosVuelta.isEmpty()){
-                aPasajerosAdultos.get(i).setAsiento_vuelta(Integer.parseInt(request.getParameter(adultovuelta+String.valueOf(i))));
+            for (int s = 0; s < aPasajerosAdultos.get(i).getaServiciosIda().size(); s++) {
+                if (aPasajerosAdultos.get(i).getaServiciosIda().get(s).getNombre().equals("Asiento reservado")) {
+                    aPasajerosAdultos.get(i).setAsiento_ida(Integer.parseInt(request.getParameter(adultoida + String.valueOf(i))));
+                }
+            }
+            if (!aAsientosVuelta.isEmpty()) {
+                aPasajerosAdultos.get(i).setAsiento_vuelta(Integer.parseInt(request.getParameter(adultovuelta + String.valueOf(i))));
             }
         }
-        
-        if(!aPasajerosNinos.isEmpty()){
+
+        if (!aPasajerosNinos.isEmpty()) {
             for (int i = 0; i < aPasajerosNinos.size(); i++) {
-                aPasajerosNinos.get(i).setAsiento_ida(Integer.parseInt(request.getParameter(ninoida+String.valueOf(i))));
-                if(!aAsientosVuelta.isEmpty()){
-                    aPasajerosNinos.get(i).setAsiento_vuelta(Integer.parseInt(request.getParameter(ninovuelta+String.valueOf(i))));
+                for (int s = 0; s < aPasajerosNinos.get(i).getaServiciosIda().size(); s++) {
+                    if (aPasajerosNinos.get(i).getaServiciosIda().get(s).getNombre().equals("Asiento reservado")) {
+                        aPasajerosNinos.get(i).setAsiento_ida(Integer.parseInt(request.getParameter(adultoida + String.valueOf(i))));
+                    }
+                }
+                if (!aAsientosVuelta.isEmpty()) {
+                    aPasajerosNinos.get(i).setAsiento_vuelta(Integer.parseInt(request.getParameter(ninovuelta + String.valueOf(i))));
                 }
             }
         }
-        
+
         response.sendRedirect("procesoPagar.jsp");
     }
 

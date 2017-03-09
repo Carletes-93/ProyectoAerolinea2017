@@ -49,7 +49,7 @@ public class controladorBuscarReservasVolar extends HttpServlet {
 
         String num_vuelo = request.getParameter("num");
         String fechas = request.getParameter("fecha");
-        
+
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha = LocalDate.parse(fechas, formato);
 
@@ -77,42 +77,59 @@ public class controladorBuscarReservasVolar extends HttpServlet {
             response.sendRedirect("errorSQL.jsp");
         }
 
-        
-            if (!aReservasSoloIda.isEmpty()) {
-                for (Reserva r1 : aReservasSoloIda) {
-                    try {
-                        objop.reservaBackupSoloIda(Conex, r1);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(controladorBuscarReservasVolar.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        Boolean soloida = false;
+        Boolean ida = false;
+        Boolean vuelta = false;
+        Boolean volar = false;
+
+        if (!aReservasSoloIda.isEmpty()) {
+            for (Reserva r1 : aReservasSoloIda) {
+                try {
+                    soloida = objop.reservaBackupSoloIda(Conex, r1);
+                } catch (SQLException ex) {
+                    soloida = false;
                 }
             }
-            if (!aReservasIda.isEmpty()) {
-                for (Reserva r1 : aReservasIda) {
-                    try {
-                        objop.reservaBackupIda(Conex, r1);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(controladorBuscarReservasVolar.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            if (!aReservasVuelta.isEmpty()) {
-                for (Reserva r1 : aReservasVuelta) {
-                    try {
-                        objop.reservaBackupVuelta(Conex, r1);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(controladorBuscarReservasVolar.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            
-        try {
-            objop.borrarVuelo(Conex, vuelo);
-        } catch (SQLException ex) {
-            Logger.getLogger(controladorBuscarReservasVolar.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            soloida = true;
         }
-            
+        if (!aReservasIda.isEmpty()) {
+            for (Reserva r1 : aReservasIda) {
+                try {
+                    ida = objop.reservaBackupIda(Conex, r1);
+                } catch (SQLException ex) {
+                    ida = false;
+                }
+            }
+        } else {
+            ida = true;
+        }
+        if (!aReservasVuelta.isEmpty()) {
+            for (Reserva r1 : aReservasVuelta) {
+                try {
+                    vuelta = objop.reservaBackupVuelta(Conex, r1);
+                } catch (SQLException ex) {
+                    vuelta = false;
+                }
+            }
+        } else {
+            vuelta = true;
+        }
+
+        if (soloida & ida & vuelta) {
+            try {
+                volar = objop.borrarVuelo(Conex, vuelo);
+            } catch (SQLException ex) {
+                volar = false;
+            }
+        } else {
+            volar = false;
+        }
+        
+        if(volar){
             response.sendRedirect("exitoVolar.jsp");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

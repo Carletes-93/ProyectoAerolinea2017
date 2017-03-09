@@ -38,7 +38,7 @@ public class Operacion {
 
     public ArrayList<Aeropuerto> cargarDestinos(Connection conex, String IATA_origen) throws SQLException {
 
-        String sentencia = "SELECT * FROM aeropuerto WHERE CODIGO_IATA NOT LIKE '" + IATA_origen + "' ORDER BY CIUDAD";
+        String sentencia = "SELECT * FROM aeropuerto WHERE CIUDAD NOT LIKE '" + IATA_origen + "' ORDER BY CIUDAD";
 
         PreparedStatement prepStm = conex.prepareStatement(sentencia);
         ResultSet res = prepStm.executeQuery();
@@ -556,6 +556,11 @@ public class Operacion {
             sentenciaplazaslibres.setInt(1, reserva.getNum_viajeros());
             sentenciaplazaslibres.setInt(2, reserva.getVuelo_ida().getCodigo_vuelo());
             sentenciaplazaslibres.executeUpdate();
+            PreparedStatement sentenciaplazaslibresv;
+            sentenciaplazaslibresv = conex.prepareStatement("UPDATE vuelo SET vuelo.ASIENTOS_LIBRES=vuelo.ASIENTOS_LIBRES-? WHERE vuelo.CODIGO_VUELO=?");
+            sentenciaplazaslibresv.setInt(1, reserva.getNum_viajeros());
+            sentenciaplazaslibresv.setInt(2, reserva.getVuelo_vuelta().getCodigo_vuelo());
+            sentenciaplazaslibresv.executeUpdate();
 
             //Tutor
             if (!reserva.getaPasajerosBebes().isEmpty()) {
@@ -860,7 +865,7 @@ public class Operacion {
         //Pasajeros Adultos
         ArrayList<Pasajero> aAdultos = new ArrayList();
 
-        PreparedStatement sentenciapasajerosa = conex.prepareStatement("SELECT p.*, o.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=p.CODIGO_PASAJERO AND p.TIPO LIKE 'adulto' GROUP BY p.CODIGO_PASAJERO");
+        PreparedStatement sentenciapasajerosa = conex.prepareStatement("SELECT DISTINCT p.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=p.CODIGO_PASAJERO AND p.TIPO LIKE 'adulto'");
         sentenciapasajerosa.setString(1, cod_reserva);
 
         ResultSet resultado7 = sentenciapasajerosa.executeQuery();
@@ -898,7 +903,7 @@ public class Operacion {
         //Pasajeros Niños
         ArrayList<Pasajero> aNinos = new ArrayList();
 
-        PreparedStatement sentenciapasajerosn = conex.prepareStatement("SELECT p.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=p.CODIGO_PASAJERO AND p.TIPO LIKE 'niño' GROUP BY p.CODIGO_PASAJERO");
+        PreparedStatement sentenciapasajerosn = conex.prepareStatement("SELECT DISTINCT p.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=p.CODIGO_PASAJERO AND p.TIPO LIKE 'niño'");
         sentenciapasajerosn.setString(1, cod_reserva);
 
         ResultSet resultado8 = sentenciapasajerosn.executeQuery();
@@ -1322,7 +1327,7 @@ public class Operacion {
         return aReservas;
     }
 
-    public void reservaBackupSoloIda(Connection conex, Reserva reserva) throws SQLException {
+    public Boolean reservaBackupSoloIda(Connection conex, Reserva reserva) throws SQLException {
         try {
             conex.setAutoCommit(false);
 
@@ -1431,12 +1436,14 @@ public class Operacion {
             borrarreserva.executeUpdate();
 
             conex.commit();
+            return true;
         } catch (SQLException ex) {
             conex.rollback();
+            return false;
         }
     }
 
-    public void reservaBackupIda(Connection conex, Reserva reserva) throws SQLException {
+    public Boolean reservaBackupIda(Connection conex, Reserva reserva) throws SQLException {
         try {
             conex.setAutoCommit(false);
 
@@ -1544,12 +1551,14 @@ public class Operacion {
             update.executeUpdate();
 
             conex.commit();
+            return true;
         } catch (SQLException ex) {
             conex.rollback();
+            return false;
         }
     }
 
-    public void reservaBackupVuelta(Connection conex, Reserva reserva) throws SQLException {
+    public Boolean reservaBackupVuelta(Connection conex, Reserva reserva) throws SQLException {
         try {
             conex.setAutoCommit(false);
 
@@ -1653,14 +1662,17 @@ public class Operacion {
             borrarreserva.executeUpdate();
 
             conex.commit();
+            return true;
         } catch (SQLException ex) {
             conex.rollback();
+            return false;
         }
     }
 
-    public void borrarVuelo(Connection conex, Vuelo vuelo) throws SQLException {
+    public Boolean borrarVuelo(Connection conex, Vuelo vuelo) throws SQLException {
         try {
             conex.setAutoCommit(false);
+            
             PreparedStatement vueloback = conex.prepareStatement("INSERT INTO vuelo_backup (CODIGO_VUELO, CONEXION, FECHA, HORA_SALIDA, HORA_LLEGADA, DURACION, ASIENTOS_LIBRES, NUMERO, AVION, PRECIO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             vueloback.setInt(1, vuelo.getCodigo_vuelo());
             vueloback.setInt(2, vuelo.getConexion());
@@ -1679,8 +1691,10 @@ public class Operacion {
             borrarvuelo.executeUpdate();
 
             conex.commit();
+            return true;
         } catch (SQLException ex) {
             conex.rollback();
+            return false;
         }
     }
 }

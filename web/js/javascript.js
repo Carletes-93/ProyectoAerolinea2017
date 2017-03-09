@@ -306,7 +306,7 @@ function datosBebe(evento) {
 
 //Acordeones
 $(function () {
-    $(".acordeondatos").accordion({
+    $(".acordeon").accordion({
         heightStyle: "content",
         collapsible: true
     });

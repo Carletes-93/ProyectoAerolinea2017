@@ -13,10 +13,10 @@
     Boolean ida;
     String vuelta;
     LocalDate fecha_ida = reserva.getVuelo_ida().getFecha();
-    LocalDate fecha_vuelta = reserva.getVuelo_vuelta().getFecha();
+    LocalDate fecha_vuelta;
     LocalDate fecha_ahora = LocalDate.now();
     Date d_ida = Date.from(fecha_ida.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    Date d_vuelta = Date.from(fecha_vuelta.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    
     Date d_ahora = Date.from(fecha_ahora.atStartOfDay(ZoneId.systemDefault()).toInstant());
     
     final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -30,6 +30,8 @@
     }
     
     if(reserva.getVuelo_vuelta() != null){
+        fecha_vuelta = reserva.getVuelo_vuelta().getFecha();
+        Date d_vuelta = Date.from(fecha_vuelta.atStartOfDay(ZoneId.systemDefault()).toInstant());
         long dif_vuelta = (d_vuelta.getTime() - d_ahora.getTime()) / MILLSECS_PER_DAY;
         if(dif_vuelta <= 5){
             vuelta = "Si";
@@ -116,26 +118,32 @@
                                         <% } %>
                                     </td>
                                 </tr>
+                                <% if(reserva.getVuelo_vuelta()!=null) { %>
                                 <tr>
                                     <th>
                                         Facturar Vuelta
                                     </th>
                                     <td>
-                                        <% if(vuelta.equals("Si")) { %>
-                                            <% if(reserva.getFacturada_vuelta().equals("N")) { %>
-                                                <button type="submit" class="accion" name="facturar" value="facturarvuelta">Facturar</button>
+                                        <% if(reserva.getFacturada_ida().equals("N")) { %>
+                                            <% if(vuelta.equals("Si")) { %>
+                                                <% if(reserva.getFacturada_vuelta().equals("N")) { %>
+                                                    <button type="submit" class="accion" name="facturar" value="facturarvuelta">Facturar</button>
+                                                <% }  %>
                                             <% }  %>
-                                        <% }  %>
-                                        <% if(vuelta.equals("No")) { %>
-                                            <% if(reserva.getFacturada_vuelta().equals("N")) { %>
-                                                Todavía no se puede facturar (La facturación se permite cuando faltan 5 días para volar).
+                                            <% if(vuelta.equals("No")) { %>
+                                                <% if(reserva.getFacturada_vuelta().equals("N")) { %>
+                                                    Todavía no se puede facturar (La facturación se permite cuando faltan 5 días para volar).
+                                                <% } %>
                                             <% } %>
-                                        <% } %>
-                                        <% if(vuelta.equals("No tiene")) { %>
-                                            
+                                            <% if(vuelta.equals("No tiene")) { %>
+
+                                            <% } %>
+                                        <% } else { %>
+                                        Vuelta Facturada.
                                         <% } %>
                                     </td>
                                 </tr>
+                                <% }  %>
                             </table>
                         </form>
                         <br>
@@ -144,14 +152,18 @@
                         <% } else { %>
                                 
                         <% } %>
-                        <% if(reserva.getFacturada_vuelta().equals("S")) { %>
-                                <a href="qrVuelta.jsp"><button>Billetes Vuelta</button></a>
-                        <% }  %>
-                        <% if(reserva.getFacturada_vuelta().equals("N")) { %>
-                                
-                        <% } %>
-                        <% if(vuelta.equals("No tiene")) { %>
-                                
+                        <% if(reserva.getVuelo_vuelta()!=null) { %>
+                            <% if(reserva.getFacturada_vuelta().equals("S")) { %>
+                                    <a href="qrVuelta.jsp"><button>Billetes Vuelta</button></a>
+                            <% }  %>
+                            <% if(reserva.getFacturada_vuelta().equals("N")) { %>
+
+                            <% } %>
+                            <% if(vuelta.equals("No tiene")) { %>
+
+                            <% } %>
+                        <% } else {%>
+                            
                         <% } %>
                         <br>
                         <a href="facturacion.jsp"><button>Volver</button></a>

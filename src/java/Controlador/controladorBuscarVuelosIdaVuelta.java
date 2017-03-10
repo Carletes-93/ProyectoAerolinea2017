@@ -94,9 +94,13 @@ public class controladorBuscarVuelosIdaVuelta extends HttpServlet {
             response.sendRedirect("eleccionVuelo.jsp");
         }
         if(h.equals("No hay vuelos de ida") && j.equals("No hay vuelos de vuelta")){
-            response.sendRedirect("errorNoVuelos.jsp");
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 8);
+            response.sendRedirect("errorSQL.jsp");
         }
         if(h.equals("Error SQL") || j.equals("Error SQL")){
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 7);
             response.sendRedirect("errorSQL.jsp");
         }
         

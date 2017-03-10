@@ -314,6 +314,12 @@
                 border-spacing: 10px;
         }
         
+        #mapaasientos
+        {
+            position: relative;
+            float: left;
+        }
+        
 
 /*********************************************************************************/
 /* Footer                                                                        */

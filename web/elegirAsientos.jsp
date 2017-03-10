@@ -160,6 +160,9 @@
                                                     <% } %>        
                                                 <% }%>
                                             <% }%>
+                                            <div id="mapaasientos">
+                                                <img src="images/asientosmapa.jpg">
+                                            </div>
                                             <button type="submit" class="accion" name="asientospasajeros" value="asientospasajeros">
                                                 Continuar
                                             </button>

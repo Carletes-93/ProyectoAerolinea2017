@@ -62,7 +62,7 @@ public class controladorBuscarVuelosIda extends HttpServlet {
         try {
             vuelosida=objop.buscarVuelosIda(Conex, origen, destino, fechaida, num_viajeros);
             if(vuelosida.isEmpty()){
-                h="No hay Vuelos";
+                h="No hay vuelos";
             }
             else{
                 h="Hay vuelos";
@@ -81,10 +81,14 @@ public class controladorBuscarVuelosIda extends HttpServlet {
             response.sendRedirect("eleccionVuelo.jsp");
         }
         if (h.equals("Error SQL")) {
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 7);
             response.sendRedirect("errorSQL.jsp");
         }
         if (h.equals("No hay vuelos")) {
-            response.sendRedirect("errorNoVuelos.jsp");
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 8);
+            response.sendRedirect("errorSQL.jsp");
         }
         
     }

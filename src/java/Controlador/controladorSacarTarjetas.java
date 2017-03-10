@@ -67,9 +67,11 @@ public class controladorSacarTarjetas extends HttpServlet {
             response.sendRedirect("eleccionTarjeta.jsp");
         }
         if(h.equals("No hay tarjetas")){
-            response.sendRedirect("errorTarjeta.jsp");
+            session.setAttribute("error", 16);
+            response.sendRedirect("errorSQL.jsp");
         }
         if(h.equals("Error SQL")){
+            session.setAttribute("error", 17);
             response.sendRedirect("errorSQL.jsp");
         }
     }

@@ -98,6 +98,10 @@ public class controladorCargarAsientos extends HttpServlet {
 
                 response.sendRedirect("elegirAsientos.jsp");
             }
+            if (h.equals("Error SQL")) {
+                session.setAttribute("error", 9);
+                response.sendRedirect("errorSQL.jsp");
+            }
         }
 
     }

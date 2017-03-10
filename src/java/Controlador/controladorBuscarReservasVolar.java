@@ -63,6 +63,8 @@ public class controladorBuscarReservasVolar extends HttpServlet {
             vuelo = objop.sacarVueloVolar(Conex, num_vuelo, fecha);
         } catch (SQLException ex) {
             vuelo = null;
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 6);
             response.sendRedirect("errorSQL.jsp");
         }
 
@@ -74,6 +76,7 @@ public class controladorBuscarReservasVolar extends HttpServlet {
             aReservasIda = objop.sacarReservasIdaVolar(Conex, vuelo);
             aReservasVuelta = objop.sacarReservasVueltaVolar(Conex, vuelo);
         } catch (SQLException ex) {
+            session.setAttribute("error", 4);
             response.sendRedirect("errorSQL.jsp");
         }
 
@@ -125,50 +128,57 @@ public class controladorBuscarReservasVolar extends HttpServlet {
         } else {
             volar = false;
         }
-        
-        if(volar){
+
+        if (volar) {
             response.sendRedirect("exitoVolar.jsp");
+        } else {
+            session.setAttribute("error", 5);
+            response.sendRedirect("errorSQL.jsp");
         }
+
+        }
+
+        // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+        /**
+         * Handles the HTTP <code>GET</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doGet
+        (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            processRequest(request, response);
+        }
+
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            processRequest(request, response);
+        }
+
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
         
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

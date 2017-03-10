@@ -209,7 +209,7 @@ public class Operacion {
     }
 
     public ArrayList<Boolean> sacarAsientosLibres(Connection conex, int cod_vuelo) throws SQLException {
-        ArrayList<Boolean> aBoolean = new ArrayList<Boolean>(Arrays.asList(new Boolean[9]));
+        ArrayList<Boolean> aBoolean = new ArrayList<Boolean>(Arrays.asList(new Boolean[12]));
         Collections.fill(aBoolean, Boolean.TRUE);
 
         ArrayList<Integer> aNum = new ArrayList();
@@ -556,11 +556,13 @@ public class Operacion {
             sentenciaplazaslibres.setInt(1, reserva.getNum_viajeros());
             sentenciaplazaslibres.setInt(2, reserva.getVuelo_ida().getCodigo_vuelo());
             sentenciaplazaslibres.executeUpdate();
-            PreparedStatement sentenciaplazaslibresv;
-            sentenciaplazaslibresv = conex.prepareStatement("UPDATE vuelo SET vuelo.ASIENTOS_LIBRES=vuelo.ASIENTOS_LIBRES-? WHERE vuelo.CODIGO_VUELO=?");
-            sentenciaplazaslibresv.setInt(1, reserva.getNum_viajeros());
-            sentenciaplazaslibresv.setInt(2, reserva.getVuelo_vuelta().getCodigo_vuelo());
-            sentenciaplazaslibresv.executeUpdate();
+            if(reserva.getVuelo_vuelta()!=null){
+                PreparedStatement sentenciaplazaslibresv;
+                sentenciaplazaslibresv = conex.prepareStatement("UPDATE vuelo SET vuelo.ASIENTOS_LIBRES=vuelo.ASIENTOS_LIBRES-? WHERE vuelo.CODIGO_VUELO=?");
+                sentenciaplazaslibresv.setInt(1, reserva.getNum_viajeros());
+                sentenciaplazaslibresv.setInt(2, reserva.getVuelo_vuelta().getCodigo_vuelo());
+                sentenciaplazaslibresv.executeUpdate();
+            }
 
             //Tutor
             if (!reserva.getaPasajerosBebes().isEmpty()) {

@@ -56,6 +56,7 @@ public class controladorConfirmarPago extends HttpServlet {
             response.sendRedirect("exitoReserva.jsp");
         }
         else{
+            session.setAttribute("error", 12);
             response.sendRedirect("errorSQL.jsp");
         }
     }

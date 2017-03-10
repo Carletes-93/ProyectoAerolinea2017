@@ -59,7 +59,7 @@
                                         <h2>Rellena los datos</h2>
                                     </header>
                                     <div id="contenido">
-                                        <form action="controladorPagadorNuevo" name="form9">
+                                        <form action="controladorPagadorNuevo" id="form" name="form9" onsubmit="validarPass()">
                                             <table class="pagadornuevo">
                                                 <tr>
                                                     <th>
@@ -123,6 +123,14 @@
                                                     </th>
                                                     <td>
                                                         <input type="password" name="pass" required>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        Repetir Contraseña
+                                                    </th>
+                                                    <td>
+                                                        <input type="password" name="passr" required>
                                                     </td>
                                                 </tr>
                                             </table>

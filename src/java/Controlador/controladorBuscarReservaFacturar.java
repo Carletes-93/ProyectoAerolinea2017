@@ -65,7 +65,9 @@ public class controladorBuscarReservaFacturar extends HttpServlet {
             requestdisp = servletcont.getRequestDispatcher("/controladorSacarReservaFacturar");
             requestdisp.forward(request, response);
         } else {
-            response.sendRedirect("errorFacturar.jsp");
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 3);
+            response.sendRedirect("errorSQL.jsp");
         }
 
     }

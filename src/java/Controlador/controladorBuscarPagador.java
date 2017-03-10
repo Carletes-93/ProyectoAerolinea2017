@@ -65,15 +65,18 @@ public class controladorBuscarPagador extends HttpServlet {
         }
         
         if(h.equals("Existe")){
-            
             HttpSession session=request.getSession(true);
             session.setAttribute("pagador", p1);
             response.sendRedirect("procesoTarjeta.jsp");
         }
         if(h.equals("No existe")){
-            response.sendRedirect("errorPagador.jsp");
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 1);
+            response.sendRedirect("errorSQL.jsp");
         }
         if(h.equals("Error SQL")){
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 2);
             response.sendRedirect("errorSQL.jsp");
         }
         

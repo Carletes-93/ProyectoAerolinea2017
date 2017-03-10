@@ -65,9 +65,13 @@ public class controladorCargarServicios extends HttpServlet {
             response.sendRedirect("elegirServiciosIda.jsp");
         }
         if(h.equals("No hay Servicios")){
-            response.sendRedirect("errorNoServicios.jsp");
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 10);
+            response.sendRedirect("errorSQL.jsp");
         }
         if(h.equals("Error SQL")){
+            HttpSession session=request.getSession(true);
+            session.setAttribute("error", 11);
             response.sendRedirect("errorSQL.jsp");
         }
         

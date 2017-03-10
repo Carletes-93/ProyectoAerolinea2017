@@ -62,6 +62,7 @@ public class controladorSacarReservaFacturar extends HttpServlet {
             session.setAttribute("reserva_a_facturar", reserva_facturar);
             response.sendRedirect("facturarReserva.jsp");
         } else {
+            session.setAttribute("error", 15);
             response.sendRedirect("errorSQL.jsp");
         }
         

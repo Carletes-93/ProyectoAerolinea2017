@@ -131,6 +131,10 @@
                     <p>Error al sacar las tarjetas antiguas del pagador.</p>
                     <h5>Codigo de error: <% out.print(codigo); %></h5>
                     <% }%>
+                    <% if (codigo == 100) {%>
+                    <p>No existen vuelos entre las fechas indicadas de esa conexion.</p>
+                    <h5>Codigo de error: <% out.print(codigo); %></h5>
+                    <% }%>
                 </div>
             </div>
         </div>

@@ -14,6 +14,7 @@ public class Servicio {
     private String nombre;
     private String descripcion;
     private int precio;
+    private int suma = 0;
 
     public Servicio() {
     }
@@ -54,6 +55,14 @@ public class Servicio {
 
     public void setPrecio(int precio) {
         this.precio = precio;
+    }
+
+    public int getSuma() {
+        return suma;
+    }
+
+    public void setSuma(int suma) {
+        this.suma = suma;
     }
 
     @Override

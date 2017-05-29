@@ -34,6 +34,7 @@
 						<li><a href="index.jsp">Inicio</a></li>
 						<li><a href="finalizarVuelo.jsp">Volar</a></li>
 						<li><a href="facturacion.jsp">Facturacion</a></li>
+                                                <li><a href="estadisticas.jsp">Estadisticas</a></li>
 					</ul>
 				</nav>
 			</div>

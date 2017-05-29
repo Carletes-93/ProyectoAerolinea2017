@@ -104,6 +104,10 @@
         <servlet-name>controladorBuscarReservasVolar</servlet-name>
         <servlet-class>Controlador.controladorBuscarReservasVolar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>controladorEstadisticas</servlet-name>
+        <servlet-class>Controlador.controladorEstadisticas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/dispatcher</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>controladorBuscarReservasVolar</servlet-name>
         <url-pattern>/controladorBuscarReservasVolar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controladorEstadisticas</servlet-name>
+        <url-pattern>/controladorEstadisticas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

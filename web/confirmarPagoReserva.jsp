@@ -281,6 +281,29 @@
                                                             </table>
                                                         </div>
                                                     <% }%>
+                                                    <% for(int i=0; i< reserva.getaPasajerosBebes().size(); i++){%>
+                                                        <h3><% out.print(reserva.getaPasajerosBebes().get(i).getNombre()); %> <% out.print(reserva.getaPasajerosBebes().get(i).getApellidos()); %></h3>
+                                                        <div>
+                                                            <table class="resumen">
+                                                                <tr>
+                                                                    <th>
+                                                                        DNI
+                                                                    </th>
+                                                                    <th>
+                                                                        Fecha Nacimiento
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <% out.print(reserva.getaPasajerosBebes().get(i).getNif()); %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <% out.print(reserva.getaPasajerosBebes().get(i).getFecha_nac()); %>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    <% }%>
                                                 </div>
                                                 <h3>Servicios</h3>
                                                 <div>

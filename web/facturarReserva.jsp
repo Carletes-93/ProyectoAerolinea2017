@@ -108,11 +108,8 @@
                                     </th>
                                     <td>
                                         <% if(reserva.getFacturada_ida().equals("N")) { %>
-                                            <% if(ida) { %>
                                                 <button type="submit" class="accion" name="facturar" value="facturarida">Facturar</button>
-                                            <% } else { %>
-                                                Todavía no se puede facturar (La facturación se permite cuando faltan 5 días para volar).
-                                            <% } %>
+                                            
                                         <% } else { %>
                                             Ida Facturada.
                                         <% } %>
@@ -130,11 +127,6 @@
                                                     <button type="submit" class="accion" name="facturar" value="facturarvuelta">Facturar</button>
                                                 <% }  %>
                                             <% }  %>
-                                            <% if(vuelta.equals("No")) { %>
-                                                <% if(reserva.getFacturada_vuelta().equals("N")) { %>
-                                                    Todavía no se puede facturar (La facturación se permite cuando faltan 5 días para volar).
-                                                <% } %>
-                                            <% } %>
                                             <% if(vuelta.equals("No tiene")) { %>
 
                                             <% } %>

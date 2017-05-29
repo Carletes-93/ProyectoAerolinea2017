@@ -390,16 +390,8 @@ public class Operacion {
 
             //Pasajeros Adultos
             for (int i = 0; i < reserva.getaPasajerosAdultos().size(); i++) {
-                ArrayList aX = buscarPasajero(conex, reserva.getaPasajerosAdultos().get(i));
-                Boolean x = (Boolean) aX.get(0);
                 PreparedStatement sentenciapasajero;
-                if (x) {
-                    reserva.getaPasajerosAdultos().get(i).setCodigo_pasajero((int) aX.get(1));
-                    String fecha = reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().toString();
-                    sentenciapasajero = conex.prepareStatement("UPDATE pasajero SET pasajero.CADUCIDAD_NIF=? WHERE pasajero.NIF LIKE ?");
-                    sentenciapasajero.setString(1, fecha);
-                    sentenciapasajero.setString(2, reserva.getaPasajerosAdultos().get(i).getNif());
-                } else {
+                
                     sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     sentenciapasajero.setString(1, reserva.getaPasajerosAdultos().get(i).getTratamiento());
                     sentenciapasajero.setString(2, reserva.getaPasajerosAdultos().get(i).getNombre());
@@ -408,29 +400,20 @@ public class Operacion {
                     sentenciapasajero.setString(5, reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().toString());
                     sentenciapasajero.setString(6, reserva.getaPasajerosAdultos().get(i).getFecha_nac().toString());
                     sentenciapasajero.setString(7, reserva.getaPasajerosAdultos().get(i).getTipo());
-                }
+                
                 sentenciapasajero.executeUpdate();
-                if (!x) {
-                    ResultSet generatedIdpasajero = sentenciapasajero.getGeneratedKeys();
-                    if (generatedIdpasajero.next()) {
-                        reserva.getaPasajerosAdultos().get(i).setCodigo_pasajero(generatedIdpasajero.getInt(1));
-                    }
+                
+                ResultSet generatedIdpasajero = sentenciapasajero.getGeneratedKeys();
+                if (generatedIdpasajero.next()) {
+                    reserva.getaPasajerosAdultos().get(i).setCodigo_pasajero(generatedIdpasajero.getInt(1));
                 }
             }
 
             //Pasajeros Niños
             if (!reserva.getaPasajerosNinos().isEmpty()) {
                 for (int i = 0; i < reserva.getaPasajerosNinos().size(); i++) {
-                    ArrayList aX = buscarPasajero(conex, reserva.getaPasajerosNinos().get(i));
-                    Boolean x = (Boolean) aX.get(0);
                     PreparedStatement sentenciapasajero;
-                    if (x) {
-                        reserva.getaPasajerosNinos().get(i).setCodigo_pasajero((int) aX.get(1));
-                        String fecha = reserva.getaPasajerosNinos().get(i).getFecha_caducidad().toString();
-                        sentenciapasajero = conex.prepareStatement("UPDATE pasajero SET pasajero.CADUCIDAD_NIF=? WHERE pasajero.NIF LIKE ?");
-                        sentenciapasajero.setString(1, fecha);
-                        sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNif());
-                    } else {
+                    
                         sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                         sentenciapasajero.setString(1, reserva.getaPasajerosNinos().get(i).getTratamiento());
                         sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNombre());
@@ -439,13 +422,12 @@ public class Operacion {
                         sentenciapasajero.setString(5, reserva.getaPasajerosNinos().get(i).getFecha_caducidad().toString());
                         sentenciapasajero.setString(6, reserva.getaPasajerosNinos().get(i).getFecha_nac().toString());
                         sentenciapasajero.setString(7, reserva.getaPasajerosNinos().get(i).getTipo());
-                    }
+                    
                     sentenciapasajero.executeUpdate();
-                    if (!x) {
-                        ResultSet generatedIdpasajeronino = sentenciapasajero.getGeneratedKeys();
-                        if (generatedIdpasajeronino.next()) {
-                            reserva.getaPasajerosNinos().get(i).setCodigo_pasajero(generatedIdpasajeronino.getInt(1));
-                        }
+                    
+                    ResultSet generatedIdpasajeronino = sentenciapasajero.getGeneratedKeys();
+                    if (generatedIdpasajeronino.next()) {
+                        reserva.getaPasajerosNinos().get(i).setCodigo_pasajero(generatedIdpasajeronino.getInt(1));
                     }
                 }
             }
@@ -453,28 +435,19 @@ public class Operacion {
             //Bebes
             if (!reserva.getaPasajerosBebes().isEmpty()) {
                 for (int i = 0; i < reserva.getaPasajerosBebes().size(); i++) {
-                    ArrayList aX = buscarBebe(conex, reserva.getaPasajerosBebes().get(i));
-                    Boolean x = (Boolean) aX.get(0);
                     PreparedStatement sentenciapasajero;
-                    if (x) {
-                        reserva.getaPasajerosBebes().get(i).setCod_bebe((int) aX.get(1));
-                        String nombre = reserva.getaPasajerosBebes().get(i).getNombre();
-                        sentenciapasajero = conex.prepareStatement("UPDATE bebe SET bebe.NOMBRE=? WHERE bebe.NIF LIKE ?");
-                        sentenciapasajero.setString(1, nombre);
-                        sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getNif());
-                    } else {
+                    
                         sentenciapasajero = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                         sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
                         sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getApellidos());
                         sentenciapasajero.setString(3, reserva.getaPasajerosBebes().get(i).getNif());
                         sentenciapasajero.setString(4, reserva.getaPasajerosBebes().get(i).getFecha_nac().toString());
-                    }
+                    
                     sentenciapasajero.executeUpdate();
-                    if (!x) {
-                        ResultSet generatedIdpasajerobebe = sentenciapasajero.getGeneratedKeys();
-                        if (generatedIdpasajerobebe.next()) {
-                            reserva.getaPasajerosBebes().get(i).setCod_bebe(generatedIdpasajerobebe.getInt(1));
-                        }
+                    
+                    ResultSet generatedIdpasajerobebe = sentenciapasajero.getGeneratedKeys();
+                    if (generatedIdpasajerobebe.next()) {
+                        reserva.getaPasajerosBebes().get(i).setCod_bebe(generatedIdpasajerobebe.getInt(1));
                     }
                 }
             }
@@ -556,7 +529,7 @@ public class Operacion {
             sentenciaplazaslibres.setInt(1, reserva.getNum_viajeros());
             sentenciaplazaslibres.setInt(2, reserva.getVuelo_ida().getCodigo_vuelo());
             sentenciaplazaslibres.executeUpdate();
-            if(reserva.getVuelo_vuelta()!=null){
+            if (reserva.getVuelo_vuelta() != null) {
                 PreparedStatement sentenciaplazaslibresv;
                 sentenciaplazaslibresv = conex.prepareStatement("UPDATE vuelo SET vuelo.ASIENTOS_LIBRES=vuelo.ASIENTOS_LIBRES-? WHERE vuelo.CODIGO_VUELO=?");
                 sentenciaplazaslibresv.setInt(1, reserva.getNum_viajeros());
@@ -882,7 +855,7 @@ public class Operacion {
             p1.setNombre(resultado7.getString("NOMBRE"));
             p1.setTipo(resultado7.getString("TIPO"));
             p1.setTratamiento(resultado7.getString("TRATAMIENTO"));
-            
+
             PreparedStatement sentenciacodocu = conex.prepareStatement("SELECT o.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'IDA' GROUP BY o.CODIGO_OCUPACION");
             sentenciacodocu.setString(1, cod_reserva);
             sentenciacodocu.setInt(2, p1.getCodigo_pasajero());
@@ -890,7 +863,7 @@ public class Operacion {
             while (res.next()) {
                 p1.setCodocuida(res.getInt("CODIGO_OCUPACION"));
             }
-            
+
             PreparedStatement sentenciacodocu2 = conex.prepareStatement("SELECT o.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'VUELTA' GROUP BY o.CODIGO_OCUPACION");
             sentenciacodocu2.setString(1, cod_reserva);
             sentenciacodocu2.setInt(2, p1.getCodigo_pasajero());
@@ -920,7 +893,7 @@ public class Operacion {
             p1.setNombre(resultado8.getString("NOMBRE"));
             p1.setTipo(resultado8.getString("TIPO"));
             p1.setTratamiento(resultado8.getString("TRATAMIENTO"));
-            
+
             PreparedStatement sentenciacodocu = conex.prepareStatement("SELECT o.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'IDA' GROUP BY o.CODIGO_OCUPACION");
             sentenciacodocu.setString(1, cod_reserva);
             sentenciacodocu.setInt(2, p1.getCodigo_pasajero());
@@ -928,7 +901,7 @@ public class Operacion {
             while (res.next()) {
                 p1.setCodocuida(res.getInt("CODIGO_OCUPACION"));
             }
-            
+
             PreparedStatement sentenciacodocu2 = conex.prepareStatement("SELECT o.* FROM reserva r, ocupacion o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'VUELTA' GROUP BY o.CODIGO_OCUPACION");
             sentenciacodocu2.setString(1, cod_reserva);
             sentenciacodocu2.setInt(2, p1.getCodigo_pasajero());
@@ -936,7 +909,7 @@ public class Operacion {
             while (res2.next()) {
                 p1.setCodocuvuelta(res2.getInt("CODIGO_OCUPACION"));
             }
-            
+
             aNinos.add(p1);
         }
 
@@ -1142,12 +1115,12 @@ public class Operacion {
                 }
             }
         }
-        
+
         //Tarjeta
         PreparedStatement sentenciatar = conex.prepareStatement("SELECT t.* FROM tarjeta t, reserva r WHERE t.CODIGO_TARJETA=r.TARJETA AND r.COD_RESERVA LIKE ?");
         sentenciatar.setString(1, cod_reserva);
         ResultSet res = sentenciatar.executeQuery();
-        while(res.next()){
+        while (res.next()) {
             Tarjeta t1 = new Tarjeta();
             t1.setCaducidad(LocalDate.parse(res.getString("CADUCIDAD")));
             t1.setCod_seguridad(res.getString("CODSEGURIDAD"));
@@ -1250,7 +1223,7 @@ public class Operacion {
         sentenciaasvuelta.setString(3, cod_reserva);
 
         int resultado = sentenciaasvuelta.executeUpdate();
-        
+
         if (resultado != 0) {
             return true;
         } else {
@@ -1674,7 +1647,7 @@ public class Operacion {
     public Boolean borrarVuelo(Connection conex, Vuelo vuelo) throws SQLException {
         try {
             conex.setAutoCommit(false);
-            
+
             PreparedStatement vueloback = conex.prepareStatement("INSERT INTO vuelo_backup (CODIGO_VUELO, CONEXION, FECHA, HORA_SALIDA, HORA_LLEGADA, DURACION, ASIENTOS_LIBRES, NUMERO, AVION, PRECIO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             vueloback.setInt(1, vuelo.getCodigo_vuelo());
             vueloback.setInt(2, vuelo.getConexion());
@@ -1698,5 +1671,389 @@ public class Operacion {
             conex.rollback();
             return false;
         }
+    }
+
+    public int sacarConexion(Connection conex, String or, String des) throws SQLException {
+        int conexion = 0;
+        String iataOr = "";
+        String iataDes = "";
+
+        PreparedStatement sent1 = conex.prepareStatement("SELECT aeropuerto.CODIGO_IATA FROM aeropuerto WHERE aeropuerto.CIUDAD = ?");
+        sent1.setString(1, or);
+        ResultSet res1 = sent1.executeQuery();
+        while (res1.next()) {
+            iataOr = res1.getString("CODIGO_IATA");
+        }
+
+        PreparedStatement sent2 = conex.prepareStatement("SELECT aeropuerto.CODIGO_IATA FROM aeropuerto WHERE aeropuerto.CIUDAD = ?");
+        sent2.setString(1, des);
+        ResultSet res2 = sent2.executeQuery();
+        while (res2.next()) {
+            iataDes = res2.getString("CODIGO_IATA");
+        }
+
+        PreparedStatement sent3 = conex.prepareStatement("SELECT conexion.CODIGO_CONEXION FROM conexion WHERE conexion.ORIGEN LIKE ? AND conexion.DESTINO LIKE ?");
+        sent3.setString(1, iataOr);
+        sent3.setString(2, iataDes);
+        ResultSet res3 = sent3.executeQuery();
+        while (res3.next()) {
+            conexion = res3.getInt("CODIGO_CONEXION");
+        }
+
+        return conexion;
+    }
+    
+    public ArrayList<Vuelo> sacarVuelosEst(Connection conex, int conexion, LocalDate fechaI, LocalDate fechaF) throws SQLException {
+        ArrayList<Vuelo> vuelos = new ArrayList();
+
+        PreparedStatement sentencia = conex.prepareStatement("SELECT vuelo_backup.* FROM vuelo_backup WHERE vuelo_backup.FECHA BETWEEN ? AND ? AND vuelo_backup.CONEXION = ?");
+        sentencia.setString(1, fechaI.toString());
+        sentencia.setString(2, fechaF.toString());
+        sentencia.setInt(3, conexion);
+
+        ResultSet res = sentencia.executeQuery();
+
+        while (res.next()) {
+            Vuelo v1 = new Vuelo();
+            v1.setCodigo_vuelo(res.getInt("CODIGO_VUELO"));
+            v1.setAsientos_libres(res.getInt("ASIENTOS_LIBRES"));
+            v1.setConexion(res.getInt("CONEXION"));
+            v1.setFecha(LocalDate.parse(res.getString("FECHA")));
+            v1.setHora_llegada(LocalTime.parse(res.getString("HORA_LLEGADA")));
+            v1.setHora_salida(LocalTime.parse(res.getString("HORA_SALIDA")));
+            v1.setDuracion(LocalTime.parse(res.getString("DURACION")));
+            v1.setNum_vuelo(res.getString("NUMERO"));
+            v1.setPrecio(res.getInt("PRECIO"));
+            v1.setAvion(res.getString("AVION"));
+            vuelos.add(v1);
+        }
+
+        return vuelos;
+    }
+    
+    public Reserva montarReservaEst(Connection conex, String cod_reserva) throws SQLException {
+        Reserva r1 = new Reserva();
+
+        //Sacar datos para reserva.
+        int cod_vuelo_ida = 0;
+        int cod_vuelo_vuelta = 0;
+
+        PreparedStatement sentenciareserva = conex.prepareStatement("SELECT * FROM reserva_backup WHERE COD_RESERVA LIKE ?");
+        sentenciareserva.setString(1, cod_reserva);
+
+        ResultSet resultado1 = sentenciareserva.executeQuery();
+
+        while (resultado1.next()) {
+            cod_vuelo_ida = resultado1.getInt("COD_VUELO_IDA");
+            cod_vuelo_vuelta = resultado1.getInt("COD_VUELO_VUELTA");
+            r1.setCodigo_reserva(resultado1.getInt("CODIGO_RESERVA"));
+            r1.setCod_reserva(resultado1.getString("COD_RESERVA"));
+            r1.setFacturada_ida(resultado1.getString("FACTURADA_IDA"));
+            r1.setFacturada_vuelta(resultado1.getString("FACTURADA_VUELTA"));
+            r1.setFecha(resultado1.getTimestamp("FECHA").toLocalDateTime());
+            r1.setNum_viajeros(resultado1.getInt("NUMERO_VIAJEROS"));
+            r1.setPrecio_total(resultado1.getInt("PRECIO_TOTAL"));
+        }
+
+        //Pasajeros Adultos
+        ArrayList<Pasajero> aAdultos = new ArrayList();
+
+        PreparedStatement sentenciapasajerosa = conex.prepareStatement("SELECT DISTINCT p.* FROM reserva_backup r, ocupacion_backup o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=p.CODIGO_PASAJERO AND p.TIPO LIKE 'adulto'");
+        sentenciapasajerosa.setString(1, cod_reserva);
+
+        ResultSet resultado7 = sentenciapasajerosa.executeQuery();
+
+        while (resultado7.next()) {
+            Pasajero p1 = new Pasajero();
+            p1.setApellidos(resultado7.getString("APELLIDOS"));
+            p1.setCodigo_pasajero(resultado7.getInt("CODIGO_PASAJERO"));
+            p1.setFecha_caducidad(LocalDate.parse(resultado7.getString("CADUCIDAD_NIF")));
+            p1.setFecha_nac(LocalDate.parse(resultado7.getString("FECHA_NAC")));
+            p1.setNif(resultado7.getString("NIF"));
+            p1.setNombre(resultado7.getString("NOMBRE"));
+            p1.setTipo(resultado7.getString("TIPO"));
+            p1.setTratamiento(resultado7.getString("TRATAMIENTO"));
+
+            PreparedStatement sentenciacodocu = conex.prepareStatement("SELECT o.* FROM reserva_backup r, ocupacion_backup o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'IDA' GROUP BY o.CODIGO_OCUPACION");
+            sentenciacodocu.setString(1, cod_reserva);
+            sentenciacodocu.setInt(2, p1.getCodigo_pasajero());
+            ResultSet res = sentenciacodocu.executeQuery();
+            while (res.next()) {
+                p1.setCodocuida(res.getInt("CODIGO_OCUPACION"));
+            }
+
+            PreparedStatement sentenciacodocu2 = conex.prepareStatement("SELECT o.* FROM reserva_backup r, ocupacion_backup o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'VUELTA' GROUP BY o.CODIGO_OCUPACION");
+            sentenciacodocu2.setString(1, cod_reserva);
+            sentenciacodocu2.setInt(2, p1.getCodigo_pasajero());
+            ResultSet res2 = sentenciacodocu2.executeQuery();
+            while (res2.next()) {
+                p1.setCodocuvuelta(res2.getInt("CODIGO_OCUPACION"));
+            }
+
+            aAdultos.add(p1);
+        }
+
+        //Pasajeros Niños
+        ArrayList<Pasajero> aNinos = new ArrayList();
+
+        PreparedStatement sentenciapasajerosn = conex.prepareStatement("SELECT DISTINCT p.* FROM reserva_backup r, ocupacion_backup o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=p.CODIGO_PASAJERO AND p.TIPO LIKE 'niño'");
+        sentenciapasajerosn.setString(1, cod_reserva);
+
+        ResultSet resultado8 = sentenciapasajerosn.executeQuery();
+
+        while (resultado8.next()) {
+            Pasajero p1 = new Pasajero();
+            p1.setApellidos(resultado8.getString("APELLIDOS"));
+            p1.setCodigo_pasajero(resultado8.getInt("CODIGO_PASAJERO"));
+            p1.setFecha_caducidad(LocalDate.parse(resultado8.getString("CADUCIDAD_NIF")));
+            p1.setFecha_nac(LocalDate.parse(resultado8.getString("FECHA_NAC")));
+            p1.setNif(resultado8.getString("NIF"));
+            p1.setNombre(resultado8.getString("NOMBRE"));
+            p1.setTipo(resultado8.getString("TIPO"));
+            p1.setTratamiento(resultado8.getString("TRATAMIENTO"));
+
+            PreparedStatement sentenciacodocu = conex.prepareStatement("SELECT o.* FROM reserva_backup r, ocupacion_backup o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'IDA' GROUP BY o.CODIGO_OCUPACION");
+            sentenciacodocu.setString(1, cod_reserva);
+            sentenciacodocu.setInt(2, p1.getCodigo_pasajero());
+            ResultSet res = sentenciacodocu.executeQuery();
+            while (res.next()) {
+                p1.setCodocuida(res.getInt("CODIGO_OCUPACION"));
+            }
+
+            PreparedStatement sentenciacodocu2 = conex.prepareStatement("SELECT o.* FROM reserva_backup r, ocupacion_backup o, pasajero p WHERE o.RESERVA LIKE ? AND o.PASAJERO=? AND o.TIPO LIKE 'VUELTA' GROUP BY o.CODIGO_OCUPACION");
+            sentenciacodocu2.setString(1, cod_reserva);
+            sentenciacodocu2.setInt(2, p1.getCodigo_pasajero());
+            ResultSet res2 = sentenciacodocu2.executeQuery();
+            while (res2.next()) {
+                p1.setCodocuvuelta(res2.getInt("CODIGO_OCUPACION"));
+            }
+
+            aNinos.add(p1);
+        }
+
+        //Pasajeros Bebes
+        ArrayList<Bebe> aBebes = new ArrayList();
+        Bebe b1 = new Bebe();
+
+        PreparedStatement sentenciapasajerosb = conex.prepareStatement("SELECT b.* FROM bebe b, tutor_backup t WHERE b.CODIGO_BEBE=t.COD_BEBE AND t.COD_RESERVA LIKE ? GROUP BY b.CODIGO_BEBE");
+        sentenciapasajerosb.setString(1, cod_reserva);
+
+        ResultSet resultado9 = sentenciapasajerosb.executeQuery();
+
+        while (resultado9.next()) {
+            b1.setApellidos(resultado9.getString("APELLIDOS"));
+            b1.setCod_bebe(resultado9.getInt("CODIGO_BEBE"));
+            b1.setFecha_nac(LocalDate.parse(resultado9.getString("FECHA_NAC")));
+            b1.setNif(resultado9.getString("NIF"));
+            b1.setNombre(resultado9.getString("NOMBRE"));
+            aBebes.add(b1);
+        }
+
+        //Asientos Pasajeros Adultos
+        if (!aAdultos.isEmpty()) {
+            for (int i = 0; i < aAdultos.size(); i++) {
+                int cod_pasajero = aAdultos.get(i).getCodigo_pasajero();
+
+                PreparedStatement sentenciaasientoida = conex.prepareStatement("SELECT * FROM ocupacion_backup WHERE PASAJERO = ? AND RESERVA LIKE ? AND TIPO LIKE 'IDA'");
+                sentenciaasientoida.setInt(1, cod_pasajero);
+                sentenciaasientoida.setString(2, cod_reserva);
+
+                ResultSet resultado10 = sentenciaasientoida.executeQuery();
+
+                while (resultado10.next()) {
+                    aAdultos.get(i).setAsiento_ida(resultado10.getInt("ASIENTO"));
+                    aAdultos.get(i).setCodocuida(resultado10.getInt("CODIGO_OCUPACION"));
+                }
+
+                if (cod_vuelo_vuelta != 0) {
+                    PreparedStatement sentenciaasientovuelta = conex.prepareStatement("SELECT * FROM ocupacion_backup WHERE PASAJERO = ? AND RESERVA LIKE ? AND TIPO LIKE 'VUELTA'");
+                    sentenciaasientovuelta.setInt(1, cod_pasajero);
+                    sentenciaasientovuelta.setString(2, cod_reserva);
+
+                    ResultSet resultado11 = sentenciaasientovuelta.executeQuery();
+
+                    while (resultado11.next()) {
+                        aAdultos.get(i).setAsiento_vuelta(resultado11.getInt("ASIENTO"));
+                        aAdultos.get(i).setCodocuvuelta(resultado11.getInt("CODIGO_OCUPACION"));
+                    }
+                }
+            }
+        }
+
+        //Asientos Pasajeros Niños
+        if (!aNinos.isEmpty()) {
+            for (int u = 0; u < aNinos.size(); u++) {
+                int cod_pasajero = aNinos.get(u).getCodigo_pasajero();
+
+                PreparedStatement sentenciaasientonida = conex.prepareStatement("SELECT * FROM ocupacion_backup WHERE PASAJERO = ? AND RESERVA LIKE ? AND TIPO LIKE 'IDA'");
+                sentenciaasientonida.setInt(1, cod_pasajero);
+                sentenciaasientonida.setString(2, cod_reserva);
+
+                ResultSet resultado12 = sentenciaasientonida.executeQuery();
+
+                while (resultado12.next()) {
+                    aNinos.get(u).setAsiento_ida(resultado12.getInt("ASIENTO"));
+                    aNinos.get(u).setCodocuida(resultado12.getInt("CODIGO_OCUPACION"));
+                }
+
+                if (cod_vuelo_vuelta != 0) {
+                    PreparedStatement sentenciaasientonvuelta = conex.prepareStatement("SELECT * FROM ocupacion_backup WHERE PASAJERO = ? AND RESERVA LIKE ? AND TIPO LIKE 'VUELTA'");
+                    sentenciaasientonvuelta.setInt(1, cod_pasajero);
+                    sentenciaasientonvuelta.setString(2, cod_reserva);
+
+                    ResultSet resultado13 = sentenciaasientonvuelta.executeQuery();
+
+                    while (resultado13.next()) {
+                        aNinos.get(u).setAsiento_vuelta(resultado13.getInt("ASIENTO"));
+                        aNinos.get(u).setCodocuvuelta(resultado13.getInt("CODIGO_OCUPACION"));
+                    }
+                }
+            }
+        }
+
+        //Tutores
+        if (!aBebes.isEmpty()) {
+            for (int j = 0; j < aBebes.size(); j++) {
+                PreparedStatement sentenciatutorida = conex.prepareStatement("SELECT DISTINCT p.* FROM bebe b, pasajero p, tutor_backup t WHERE t.COD_BEBE = ? AND t.COD_PASAJERO=p.CODIGO_PASAJERO AND t.COD_RESERVA LIKE ? AND t.TIPO LIKE 'IDA'");
+                sentenciatutorida.setInt(1, aBebes.get(j).getCod_bebe());
+                sentenciatutorida.setString(2, cod_reserva);
+
+                ResultSet resultado14 = sentenciatutorida.executeQuery();
+
+                while (resultado14.next()) {
+                    int codpasaj = resultado14.getInt("CODIGO_PASAJERO");
+                    for (int k = 0; k < aAdultos.size(); k++) {
+                        if (aAdultos.get(k).getCodigo_pasajero() == codpasaj) {
+                            aBebes.get(j).setTutor_ida(aAdultos.get(k));
+                        }
+                    }
+                }
+
+                if (cod_vuelo_vuelta != 0) {
+                    PreparedStatement sentenciatutorvuelta = conex.prepareStatement("SELECT DISTINCT p.* FROM bebe b, pasajero p, tutor t WHERE t.COD_BEBE = ? AND t.COD_PASAJERO=p.CODIGO_PASAJERO AND t.COD_RESERVA LIKE ? AND t.TIPO LIKE 'VUELTA'");
+                    sentenciatutorvuelta.setInt(1, aBebes.get(j).getCod_bebe());
+                    sentenciatutorvuelta.setString(2, cod_reserva);
+
+                    ResultSet resultado15 = sentenciatutorvuelta.executeQuery();
+
+                    while (resultado15.next()) {
+                        int codpasaj = resultado15.getInt("CODIGO_PASAJERO");
+                        for (int f = 0; f < aAdultos.size(); f++) {
+                            if (aAdultos.get(f).getCodigo_pasajero() == codpasaj) {
+                                aBebes.get(j).setTutor_vuelta(aAdultos.get(f));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //Servicios Pasajeros Adultos
+        if (!aAdultos.isEmpty()) {
+            for (int i2 = 0; i2 < aAdultos.size(); i2++) {
+                ArrayList<Servicio> aServiciosIda = new ArrayList();
+                PreparedStatement sentenciaservida = conex.prepareStatement("SELECT s.* FROM servicio s, reserva_servicio_backup rs WHERE rs.COD_OCUPACION=(SELECT o.CODIGO_OCUPACION FROM ocupacion_backup o WHERE o.PASAJERO=? AND o.RESERVA LIKE ? AND o.TIPO LIKE 'IDA') AND s.CODIGO_SERVICIO=rs.COD_SERVICIO");
+                sentenciaservida.setInt(1, aAdultos.get(i2).getCodigo_pasajero());
+                sentenciaservida.setString(2, cod_reserva);
+
+                ResultSet resultado16 = sentenciaservida.executeQuery();
+
+                while (resultado16.next()) {
+                    Servicio s1 = new Servicio();
+                    s1.setCodigo_servicio(resultado16.getInt("CODIGO_SERVICIO"));
+                    s1.setDescripcion(resultado16.getString("DESCRIPCION"));
+                    s1.setNombre(resultado16.getString("NOMBRE"));
+                    s1.setPrecio(resultado16.getInt("PRECIO"));
+                    aServiciosIda.add(s1);
+                }
+
+                aAdultos.get(i2).setaServiciosIda(aServiciosIda);
+
+                if (cod_vuelo_vuelta != 0) {
+                    ArrayList<Servicio> aServiciosVuelta = new ArrayList();
+                    PreparedStatement sentenciaservvuelta = conex.prepareStatement("SELECT s.* FROM servicio s, reserva_servicio_backup rs WHERE rs.COD_OCUPACION=(SELECT o.CODIGO_OCUPACION FROM ocupacion_backup o WHERE o.PASAJERO=? AND o.RESERVA LIKE ? AND o.TIPO LIKE 'VUELTA') AND s.CODIGO_SERVICIO=rs.COD_SERVICIO");
+                    sentenciaservvuelta.setInt(1, aAdultos.get(i2).getCodigo_pasajero());
+                    sentenciaservvuelta.setString(2, cod_reserva);
+
+                    ResultSet resultado17 = sentenciaservvuelta.executeQuery();
+
+                    while (resultado17.next()) {
+                        Servicio s1 = new Servicio();
+                        s1.setCodigo_servicio(resultado17.getInt("CODIGO_SERVICIO"));
+                        s1.setDescripcion(resultado17.getString("DESCRIPCION"));
+                        s1.setNombre(resultado17.getString("NOMBRE"));
+                        s1.setPrecio(resultado17.getInt("PRECIO"));
+                        aServiciosVuelta.add(s1);
+                    }
+
+                    aAdultos.get(i2).setaServiciosVuelta(aServiciosVuelta);
+                }
+            }
+        }
+
+        //Servicios Pasajeros Niños
+        if (!aNinos.isEmpty()) {
+            for (int i2 = 0; i2 < aNinos.size(); i2++) {
+                ArrayList<Servicio> aServiciosIda = new ArrayList();
+                PreparedStatement sentenciaservida = conex.prepareStatement("SELECT s.* FROM servicio s, reserva_servicio_backup rs WHERE rs.COD_OCUPACION=(SELECT o.CODIGO_OCUPACION FROM ocupacion_backup o WHERE o.PASAJERO=? AND o.RESERVA LIKE ? AND o.TIPO LIKE 'IDA') AND s.CODIGO_SERVICIO=rs.COD_SERVICIO");
+                sentenciaservida.setInt(1, aNinos.get(i2).getCodigo_pasajero());
+                sentenciaservida.setString(2, cod_reserva);
+
+                ResultSet resultado18 = sentenciaservida.executeQuery();
+
+                while (resultado18.next()) {
+                    Servicio s1 = new Servicio();
+                    s1.setCodigo_servicio(resultado18.getInt("CODIGO_SERVICIO"));
+                    s1.setDescripcion(resultado18.getString("DESCRIPCION"));
+                    s1.setNombre(resultado18.getString("NOMBRE"));
+                    s1.setPrecio(resultado18.getInt("PRECIO"));
+                    aServiciosIda.add(s1);
+                }
+
+                aNinos.get(i2).setaServiciosIda(aServiciosIda);
+
+                if (cod_vuelo_vuelta != 0) {
+                    ArrayList<Servicio> aServiciosVuelta = new ArrayList();
+                    PreparedStatement sentenciaservvuelta = conex.prepareStatement("SELECT s.* FROM servicio s, reserva_servicio_backup rs WHERE rs.COD_OCUPACION=(SELECT o.CODIGO_OCUPACION FROM ocupacion_backup o WHERE o.PASAJERO=? AND o.RESERVA LIKE ? AND o.TIPO LIKE 'VUELTA') AND s.CODIGO_SERVICIO=rs.COD_SERVICIO");
+                    sentenciaservvuelta.setInt(1, aNinos.get(i2).getCodigo_pasajero());
+                    sentenciaservvuelta.setString(2, cod_reserva);
+
+                    ResultSet resultado19 = sentenciaservvuelta.executeQuery();
+
+                    while (resultado19.next()) {
+                        Servicio s1 = new Servicio();
+                        s1.setCodigo_servicio(resultado19.getInt("CODIGO_SERVICIO"));
+                        s1.setDescripcion(resultado19.getString("DESCRIPCION"));
+                        s1.setNombre(resultado19.getString("NOMBRE"));
+                        s1.setPrecio(resultado19.getInt("PRECIO"));
+                        aServiciosVuelta.add(s1);
+                    }
+
+                    aNinos.get(i2).setaServiciosVuelta(aServiciosVuelta);
+                }
+            }
+        }
+
+        r1.setaPasajerosAdultos(aAdultos);
+        r1.setaPasajerosNinos(aNinos);
+        r1.setaPasajerosBebes(aBebes);
+
+        return r1;
+    }
+    
+    public ArrayList<Reserva> sacarReservasEst(Connection conex, Vuelo vuelo) throws SQLException {
+        ArrayList<Reserva> aReservas = new ArrayList();
+
+        PreparedStatement sentencia = conex.prepareStatement("SELECT * FROM reserva_backup WHERE COD_VUELO_IDA=? OR COD_VUELO_VUELTA=?");
+        sentencia.setInt(1, vuelo.getCodigo_vuelo());
+        sentencia.setInt(2, vuelo.getCodigo_vuelo());
+
+        ResultSet res = sentencia.executeQuery();
+
+        while (res.next()) {
+            aReservas.add(montarReservaEst(conex, res.getString("COD_RESERVA")));
+        }
+
+        return aReservas;
     }
 }

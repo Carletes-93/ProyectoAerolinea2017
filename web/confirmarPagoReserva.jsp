@@ -4,6 +4,7 @@
     Author     : Carlos
 --%>
 
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import= "Clases.*" %>
 <%@page import= "java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,6 +19,7 @@
 %>
 
 <% Reserva reserva = (Reserva) session.getAttribute("reserva");%>
+<% DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy"); %>
 
 <!DOCTYPE HTML>
 <html>
@@ -112,7 +114,7 @@
                                                                     <% out.print(reserva.getVuelo_ida().getDestino().getCiudad()); %>
                                                                 </td>
                                                                 <td>
-                                                                    <% out.print(reserva.getVuelo_ida().getFecha()); %>
+                                                                    <% out.print(reserva.getVuelo_ida().getFecha().format(formato).toString()); %>
                                                                 </td>
                                                                 <td>
                                                                     <% out.print(reserva.getVuelo_ida().getHora_salida()); %>
@@ -158,7 +160,7 @@
                                                                         <% out.print(reserva.getVuelo_vuelta().getDestino().getCiudad()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getVuelo_vuelta().getFecha()); %>
+                                                                        <% out.print(reserva.getVuelo_vuelta().getFecha().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
                                                                         <% out.print(reserva.getVuelo_vuelta().getHora_salida()); %>
@@ -199,10 +201,10 @@
                                                                         <% out.print(reserva.getaPasajerosAdultos().get(i).getNif()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_nac()); %>
+                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_nac().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_caducidad()); %>
+                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
                                                                         <% out.print(reserva.getaPasajerosAdultos().get(i).getTipo()); %>
@@ -238,7 +240,7 @@
                                                                                 <% out.print(reserva.getaPasajerosAdultos().get(i).getBebe().getNif()); %>
                                                                             </td>
                                                                             <td>
-                                                                                <% out.print(reserva.getaPasajerosAdultos().get(i).getBebe().getFecha_nac()); %>
+                                                                                <% out.print(reserva.getaPasajerosAdultos().get(i).getBebe().getFecha_nac().format(formato).toString()); %>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -269,10 +271,10 @@
                                                                         <% out.print(reserva.getaPasajerosNinos().get(i).getNif()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_nac()); %>
+                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_nac().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_caducidad()); %>
+                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_caducidad().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
                                                                         <% out.print(reserva.getaPasajerosNinos().get(i).getTipo()); %>
@@ -298,7 +300,7 @@
                                                                         <% out.print(reserva.getaPasajerosBebes().get(i).getNif()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosBebes().get(i).getFecha_nac()); %>
+                                                                        <% out.print(reserva.getaPasajerosBebes().get(i).getFecha_nac().format(formato).toString()); %>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -452,7 +454,7 @@
                                                                     <% out.print(reserva.getPagador().getNif()); %>
                                                                 </td>
                                                                 <td>
-                                                                    <% out.print(reserva.getPagador().getFecha_nac()); %>
+                                                                    <% out.print(reserva.getPagador().getFecha_nac().format(formato).toString()); %>
                                                                 </td>
                                                                 <td>
                                                                     <% out.print(reserva.getPagador().getPoblacion()); %>
@@ -536,7 +538,7 @@
                                                                     <% out.print(reserva.getVuelo_ida().getDestino().getCiudad()); %>
                                                                 </td>
                                                                 <td>
-                                                                    <% out.print(reserva.getVuelo_ida().getFecha()); %>
+                                                                    <% out.print(reserva.getVuelo_ida().getFecha().format(formato).toString()); %>
                                                                 </td>
                                                                 <td>
                                                                     <% out.print(reserva.getVuelo_ida().getHora_salida()); %>
@@ -582,7 +584,7 @@
                                                                         <% out.print(reserva.getVuelo_vuelta().getDestino().getCiudad()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getVuelo_vuelta().getFecha()); %>
+                                                                        <% out.print(reserva.getVuelo_vuelta().getFecha().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
                                                                         <% out.print(reserva.getVuelo_vuelta().getHora_salida()); %>
@@ -623,10 +625,10 @@
                                                                         <% out.print(reserva.getaPasajerosAdultos().get(i).getNif()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_nac()); %>
+                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_nac().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_caducidad()); %>
+                                                                        <% out.print(reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
                                                                         <% out.print(reserva.getaPasajerosAdultos().get(i).getTipo()); %>
@@ -662,7 +664,7 @@
                                                                                 <% out.print(reserva.getaPasajerosAdultos().get(i).getBebe().getNif()); %>
                                                                             </td>
                                                                             <td>
-                                                                                <% out.print(reserva.getaPasajerosAdultos().get(i).getBebe().getFecha_nac()); %>
+                                                                                <% out.print(reserva.getaPasajerosAdultos().get(i).getBebe().getFecha_nac().format(formato).toString()); %>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -693,10 +695,10 @@
                                                                         <% out.print(reserva.getaPasajerosNinos().get(i).getNif()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_nac()); %>
+                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_nac().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
-                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_caducidad()); %>
+                                                                        <% out.print(reserva.getaPasajerosNinos().get(i).getFecha_caducidad().format(formato).toString()); %>
                                                                     </td>
                                                                     <td>
                                                                         <% out.print(reserva.getaPasajerosNinos().get(i).getTipo()); %>
@@ -853,7 +855,7 @@
                                                                     <% out.print(reserva.getPagador().getNif()); %>
                                                                 </td>
                                                                 <td>
-                                                                    <% out.print(reserva.getPagador().getFecha_nac()); %>
+                                                                    <% out.print(reserva.getPagador().getFecha_nac().format(formato).toString()); %>
                                                                 </td>
                                                                 <td>
                                                                     <% out.print(reserva.getPagador().getPoblacion()); %>

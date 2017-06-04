@@ -4,6 +4,7 @@
     Author     : Carlos
 --%>
 
+<%@page import="java.time.format.DateTimeFormatter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 
@@ -12,6 +13,7 @@
 
 <% ArrayList<Vuelo> aVuelosIda = (ArrayList<Vuelo>) session.getAttribute("vuelosida"); %>
 <% ArrayList<Vuelo> aVuelosVuelta = (ArrayList<Vuelo>) session.getAttribute("vuelosvuelta"); %>
+<% DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy"); %>
 
 <html>
 	<head>
@@ -105,7 +107,7 @@
                                                                 <input type="radio" name="vueloida" value="<% out.print(i);%>" required>
                                                             </td>
                                                             <td>
-                                                                <% out.print(aVuelosIda.get(i).getFecha().toString());%>
+                                                                <% out.print(aVuelosIda.get(i).getFecha().format(formato).toString());%>
                                                             </td>
                                                             <td>
                                                                 <% out.print(aVuelosIda.get(i).getOrigen().getCiudad());%>
@@ -161,7 +163,7 @@
                                                                 <input type="radio" name="vuelovuelta" value="<% out.print(i);%>" required>
                                                             </td>
                                                             <td>
-                                                                <% out.print(aVuelosVuelta.get(i).getFecha().toString());%>
+                                                                <% out.print(aVuelosVuelta.get(i).getFecha().format(formato).toString());%>
                                                             </td>
                                                             <td>
                                                                 <% out.print(aVuelosVuelta.get(i).getOrigen().getCiudad());%>

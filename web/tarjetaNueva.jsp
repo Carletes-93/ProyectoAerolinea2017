@@ -79,14 +79,6 @@
                                                 </tr>
                                                 <tr>
                                                     <th>
-                                                        PIN
-                                                    </th>
-                                                    <td>
-                                                        <input type="password" name="pin" required>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>
                                                         Codigo de seguridad
                                                     </th>
                                                     <td>

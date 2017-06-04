@@ -8,6 +8,7 @@ package Controlador;
 import Clases.Conexion;
 import Clases.Pagador;
 import Clases.Tarjeta;
+import Clases.Encriptacion;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -54,11 +55,17 @@ public class controladorTarjetaNueva extends HttpServlet {
         HttpSession session=request.getSession(true);
         Pagador p1 = (Pagador) session.getAttribute("pagador");
         
-        t1.setNum_tarjeta(request.getParameter("num"));
+        String numtarjeta = request.getParameter("num");
+        String parteencriptada = numtarjeta.substring(0, 12);
+        String partedesencriptada = numtarjeta.substring(12);
+        String encriptado = Encriptacion.Encriptar(parteencriptada);
+        String paramostrar = encriptado + partedesencriptada;
+        
+        
+        t1.setNum_tarjeta(paramostrar);
         LocalDate caducidad = LocalDate.parse(request.getParameter("cad"), formato);
         t1.setCaducidad(caducidad);
-        t1.setPin(Integer.parseInt(request.getParameter("pin")));
-        t1.setCod_seguridad(request.getParameter("seg"));
+        t1.setCod_seguridad(Encriptacion.Encriptar(request.getParameter("seg")));
         t1.setPagador(p1);
         t1.setTipo("nueva");
         

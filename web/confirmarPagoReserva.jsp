@@ -481,10 +481,16 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <% out.print(reserva.getTarjeta().getNum_tarjeta()); %>
+                                                                    <% 
+                                                                        String numencriptado = reserva.getTarjeta().getNum_tarjeta();
+                                                                        String ultimosdigitos = numencriptado.substring(24);
+                                                                        String numeromostrar = "************" + ultimosdigitos;
+
+                                                                        out.print(numeromostrar);
+                                                                    %>
                                                                 </td>
                                                                 <td>
-                                                                    <% out.print(reserva.getTarjeta().getCaducidad()); %>
+                                                                    <% out.print(reserva.getTarjeta().getCaducidad().format(formato).toString()); %>
                                                                 </td>
                                                                 <td>
                                                                     <% out.print(reserva.getTarjeta().getNum_usos()); %>
@@ -885,7 +891,7 @@
                                                                     <% out.print(reserva.getTarjeta().getNum_tarjeta()); %>
                                                                 </td>
                                                                 <td>
-                                                                    <% out.print(reserva.getTarjeta().getCaducidad()); %>
+                                                                    <% out.print(reserva.getTarjeta().getCaducidad().format(formato).toString()); %>
                                                                 </td>
                                                                 <td>
                                                                     <% out.print(reserva.getTarjeta().getNum_usos()); %>

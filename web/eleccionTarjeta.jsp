@@ -91,7 +91,13 @@
                                                                 <input type="radio" name="tarjeta" value="<% out.print(i);%>" required>
                                                             </td>
                                                             <td>
-                                                                <% out.print(aTarjetas.get(i).getNum_tarjeta());%>
+                                                                <% 
+                                                                    String numencriptado = aTarjetas.get(i).getNum_tarjeta();
+                                                                    String ultimosdigitos = numencriptado.substring(24);
+                                                                    String numeromostrar = "************" + ultimosdigitos;
+                                                                    
+                                                                    out.print(numeromostrar);
+                                                                %>
                                                             </td>
                                                             <td>
                                                                 <% out.print(aTarjetas.get(i).getCaducidad());%>

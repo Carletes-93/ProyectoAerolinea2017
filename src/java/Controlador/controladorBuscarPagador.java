@@ -6,6 +6,7 @@
 package Controlador;
 
 import Clases.Conexion;
+import Clases.Encriptacion;
 import Clases.Pagador;
 import Dao.Operacion;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class controladorBuscarPagador extends HttpServlet {
         Operacion objop = new Operacion();
         
         String correo = request.getParameter("correo");
-        String pass = request.getParameter("pass");
+        String pass = Encriptacion.Encriptar(request.getParameter("pass"));
         
         Pagador p1 = new Pagador();
         String h;

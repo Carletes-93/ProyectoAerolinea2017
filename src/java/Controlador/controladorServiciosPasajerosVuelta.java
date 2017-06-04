@@ -62,36 +62,39 @@ public class controladorServiciosPasajerosVuelta extends HttpServlet {
         for (int i = 0; i < aPasajerosAdultos.size(); i++) {
             ArrayList<Servicio> aServiciosVuelta = new ArrayList();
             String[] serv = request.getParameterValues(name+i);
-            int[] servicios = new int[serv.length];
-            for (int j = 0; j < servicios.length; j++) {
-                servicios[j]=Integer.parseInt(serv[j]);
-            }
-            for (int u = 0; u < servicios.length; u++) {
-                aServiciosVuelta.add(aServicios.get(servicios[u]));
-            }
-            
-            for(int f = 0; f < aPasajerosAdultos.get(i).getaServiciosIda().size(); f++){
-                if(aPasajerosAdultos.get(i).getaServiciosIda().get(f).getNombre().equals("Asiento reservado")){
-                    for(int sv = 0; sv < aServicios.size(); sv++){
-                        if(aServicios.get(sv).getNombre().equals("Asiento reservado")){
-                            aServiciosVuelta.add(aServicios.get(sv));
+            if(serv.length != 0){
+                int[] servicios = new int[serv.length];
+                for (int j = 0; j < servicios.length; j++) {
+                    servicios[j]=Integer.parseInt(serv[j]);
+                }
+                for (int u = 0; u < servicios.length; u++) {
+                    aServiciosVuelta.add(aServicios.get(servicios[u]));
+                }
+
+                for(int f = 0; f < aPasajerosAdultos.get(i).getaServiciosIda().size(); f++){
+                    if(aPasajerosAdultos.get(i).getaServiciosIda().get(f).getNombre().equals("Asiento reservado")){
+                        for(int sv = 0; sv < aServicios.size(); sv++){
+                            if(aServicios.get(sv).getNombre().equals("Asiento reservado")){
+                                aServiciosVuelta.add(aServicios.get(sv));
+                            }
                         }
                     }
                 }
-            }
-            
-            if (!aPasajerosBebes.isEmpty()) {
-                for(int b = 0; b < aPasajerosBebes.size(); b++){
-                    if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
-                        aPasajerosBebes.get(b).setTutor_vuelta(aPasajerosAdultos.get(i));
-                        for(int s = 0; s < aServicios.size(); s++){
-                            if(aServicios.get(s).getNombre().equals("Bebe")){
-                                aServiciosVuelta.add(aServicios.get(s));
+
+                if (!aPasajerosBebes.isEmpty()) {
+                    for(int b = 0; b < aPasajerosBebes.size(); b++){
+                        if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
+                            aPasajerosBebes.get(b).setTutor_vuelta(aPasajerosAdultos.get(i));
+                            for(int s = 0; s < aServicios.size(); s++){
+                                if(aServicios.get(s).getNombre().equals("Bebe")){
+                                    aServiciosVuelta.add(aServicios.get(s));
+                                }
                             }
                         }
                     }
                 }
             }
+            
             aPasajerosAdultos.get(i).setaServiciosVuelta(aServiciosVuelta);
         }
         
@@ -99,24 +102,26 @@ public class controladorServiciosPasajerosVuelta extends HttpServlet {
             for (int i = 0; i < aPasajerosNinos.size(); i++) {
                 ArrayList<Servicio> aServiciosVuelta = new ArrayList();
                 String[] serv = request.getParameterValues(namen+i);
-                int[] servicios = new int[serv.length];
-                for (int j = 0; j < servicios.length; j++) {
-                    servicios[j]=Integer.parseInt(serv[j]);
-                }
-                
-                for (int u = 0; u < servicios.length; u++) {
-                    aServiciosVuelta.add(aServicios.get(servicios[u]));
-                }
-                
-                for(int f = 0; f < aPasajerosNinos.get(i).getaServiciosIda().size(); f++){
-                if(aPasajerosNinos.get(i).getaServiciosIda().get(f).getNombre().equals("Asiento reservado")){
-                    for(int sv = 0; sv < aServicios.size(); sv++){
-                        if(aServicios.get(sv).getNombre().equals("Asiento reservado")){
-                            aServiciosVuelta.add(aServicios.get(sv));
+                if(serv.length != 0){
+                    int[] servicios = new int[serv.length];
+                    for (int j = 0; j < servicios.length; j++) {
+                        servicios[j]=Integer.parseInt(serv[j]);
+                    }
+
+                    for (int u = 0; u < servicios.length; u++) {
+                        aServiciosVuelta.add(aServicios.get(servicios[u]));
+                    }
+
+                    for(int f = 0; f < aPasajerosNinos.get(i).getaServiciosIda().size(); f++){
+                        if(aPasajerosNinos.get(i).getaServiciosIda().get(f).getNombre().equals("Asiento reservado")){
+                            for(int sv = 0; sv < aServicios.size(); sv++){
+                                if(aServicios.get(sv).getNombre().equals("Asiento reservado")){
+                                    aServiciosVuelta.add(aServicios.get(sv));
+                                }
+                            }
                         }
                     }
                 }
-            }
                 
                 aPasajerosNinos.get(i).setaServiciosVuelta(aServiciosVuelta);
             }

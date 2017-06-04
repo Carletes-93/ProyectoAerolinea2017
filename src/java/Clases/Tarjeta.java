@@ -17,7 +17,6 @@ public class Tarjeta {
     private Pagador pagador;
     private String cod_seguridad;
     private LocalDate caducidad;
-    private int pin;
     private int num_usos;
     private String tipo;
 
@@ -29,7 +28,6 @@ public class Tarjeta {
         this.pagador = pagador;
         this.cod_seguridad = cod_seguridad;
         this.caducidad = caducidad;
-        this.pin = pin;
     }
 
     public int getCodigo_tarjeta() {
@@ -72,14 +70,6 @@ public class Tarjeta {
         this.caducidad = caducidad;
     }
 
-    public int getPin() {
-        return pin;
-    }
-
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
     public int getNum_usos() {
         return num_usos;
     }
@@ -98,6 +88,6 @@ public class Tarjeta {
     
     @Override
     public String toString() {
-        return "Tarjeta{" + "codigo_tarjeta=" + codigo_tarjeta + ", num_tarjeta=" + num_tarjeta + ", pagador=" + pagador + ", cod_seguridad=" + cod_seguridad + ", caducidad=" + caducidad + ", pin=" + pin + ", num_usos=" + num_usos + '}';
+        return "Tarjeta{" + "codigo_tarjeta=" + codigo_tarjeta + ", num_tarjeta=" + num_tarjeta + ", pagador=" + pagador + ", cod_seguridad=" + cod_seguridad + ", caducidad=" + caducidad + ", num_usos=" + num_usos + '}';
     }
 }

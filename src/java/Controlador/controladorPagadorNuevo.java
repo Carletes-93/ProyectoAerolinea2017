@@ -6,6 +6,7 @@
 package Controlador;
 
 import Clases.Conexion;
+import Clases.Encriptacion;
 import Clases.Pagador;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,7 +54,7 @@ public class controladorPagadorNuevo extends HttpServlet {
         p1.setPoblacion(request.getParameter("pob"));
         p1.setNif(request.getParameter("nif"));
         p1.setEmail(request.getParameter("email"));
-        p1.setPass(request.getParameter("pass"));
+        p1.setPass(Encriptacion.Encriptar(request.getParameter("pass")));
         p1.setTipo("nuevo");
         
         HttpSession session=request.getSession(true);

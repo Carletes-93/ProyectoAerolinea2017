@@ -63,27 +63,29 @@ public class controladorServiciosPasajerosIda extends HttpServlet {
         for (int i = 0; i < aPasajerosAdultos.size(); i++) {
             ArrayList<Servicio> aServiciosIda = new ArrayList();
             String[] serv = request.getParameterValues(name + i);
-            int[] servicios = new int[serv.length];
-            for (int j = 0; j < servicios.length; j++) {
-                servicios[j] = Integer.parseInt(serv[j]);
-            }
-            for (int u = 0; u < servicios.length; u++) {
-                aServiciosIda.add(aServicios.get(servicios[u]));
-            }
-            
-            if (!aPasajerosBebes.isEmpty()) {
-                for(int b = 0; b < aPasajerosBebes.size(); b++){
-                    if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
-                        aPasajerosBebes.get(b).setTutor_ida(aPasajerosAdultos.get(i));
-                        for(int s = 0; s < aServicios.size(); s++){
-                            if(aServicios.get(s).getNombre().equals("Bebe")){
-                                aServiciosIda.add(aServicios.get(s));
+            if(serv != null){
+                int[] servicios = new int[serv.length];
+                for (int j = 0; j < servicios.length; j++) {
+                    servicios[j] = Integer.parseInt(serv[j]);
+                }
+                for (int u = 0; u < servicios.length; u++) {
+                    aServiciosIda.add(aServicios.get(servicios[u]));
+                }
+
+                if (!aPasajerosBebes.isEmpty()) {
+                    for(int b = 0; b < aPasajerosBebes.size(); b++){
+                        if(request.getParameter("bebe"+b).equals(aPasajerosAdultos.get(i).getNif())){
+                            aPasajerosBebes.get(b).setTutor_ida(aPasajerosAdultos.get(i));
+                            for(int s = 0; s < aServicios.size(); s++){
+                                if(aServicios.get(s).getNombre().equals("Bebe")){
+                                    aServiciosIda.add(aServicios.get(s));
+                                }
                             }
                         }
                     }
                 }
             }
-
+            
             aPasajerosAdultos.get(i).setaServiciosIda(aServiciosIda);
         }
 
@@ -91,12 +93,14 @@ public class controladorServiciosPasajerosIda extends HttpServlet {
             for (int i = 0; i < aPasajerosNinos.size(); i++) {
                 ArrayList<Servicio> aServiciosIda = new ArrayList();
                 String[] serv = request.getParameterValues(namen + i);
-                int[] servicios = new int[serv.length];
-                for (int j = 0; j < servicios.length; j++) {
-                    servicios[j] = Integer.parseInt(serv[j]);
-                }
-                for (int u = 0; u < servicios.length; u++) {
-                    aServiciosIda.add(aServicios.get(servicios[u]));
+                if(serv.length != 0){
+                    int[] servicios = new int[serv.length];
+                    for (int j = 0; j < servicios.length; j++) {
+                        servicios[j] = Integer.parseInt(serv[j]);
+                    }
+                    for (int u = 0; u < servicios.length; u++) {
+                        aServiciosIda.add(aServicios.get(servicios[u]));
+                    }
                 }
                 aPasajerosNinos.get(i).setaServiciosIda(aServiciosIda);
             }

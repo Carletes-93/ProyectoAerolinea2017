@@ -285,7 +285,6 @@ public class Operacion {
             t1.setNum_tarjeta(resultado.getString("NUM_TARJETA"));
             t1.setPagador(pagador);
             t1.setCod_seguridad(resultado.getString("CODSEGURIDAD"));
-            t1.setPin(resultado.getInt("PIN"));
             t1.setNum_usos(resultado.getInt("NUM_USOS"));
             LocalDate fecha_cad = LocalDate.parse(resultado.getString("CADUCIDAD"));
             t1.setCaducidad(fecha_cad);
@@ -487,13 +486,12 @@ public class Operacion {
                 sentenciatarjeta.setString(1, reserva.getTarjeta().getCaducidad().toString());
                 sentenciatarjeta.setString(2, reserva.getTarjeta().getNum_tarjeta());
             } else {
-                sentenciatarjeta = conex.prepareStatement("INSERT INTO tarjeta (NUM_TARJETA, COD_PAGADOR, CODSEGURIDAD, CADUCIDAD, PIN, NUM_USOS) VALUES(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                sentenciatarjeta = conex.prepareStatement("INSERT INTO tarjeta (NUM_TARJETA, COD_PAGADOR, CODSEGURIDAD, CADUCIDAD, NUM_USOS) VALUES(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 sentenciatarjeta.setString(1, reserva.getTarjeta().getNum_tarjeta());
                 sentenciatarjeta.setInt(2, reserva.getPagador().getCodigo_pagador());
                 sentenciatarjeta.setString(3, reserva.getTarjeta().getCod_seguridad());
                 sentenciatarjeta.setString(4, reserva.getTarjeta().getCaducidad().toString());
-                sentenciatarjeta.setInt(5, reserva.getTarjeta().getPin());
-                sentenciatarjeta.setInt(6, reserva.getTarjeta().getNum_usos() + 1);
+                sentenciatarjeta.setInt(5, reserva.getTarjeta().getNum_usos() + 1);
             }
             sentenciatarjeta.executeUpdate();
             if (!z) {
@@ -1126,7 +1124,6 @@ public class Operacion {
             t1.setCod_seguridad(res.getString("CODSEGURIDAD"));
             t1.setCodigo_tarjeta(res.getInt("CODIGO_TARJETA"));
             t1.setNum_usos(res.getInt("NUM_USOS"));
-            t1.setPin(res.getInt("PIN"));
             r1.setTarjeta(t1);
         }
 

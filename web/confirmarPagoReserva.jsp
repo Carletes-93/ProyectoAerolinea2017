@@ -314,6 +314,7 @@
                                                         <div class="acordeon">
                                                             <h3>Servicios de ida</h3>
                                                             <div>
+                                                                <% if(!reserva.getaPasajerosAdultos().get(j).getaServiciosIda().isEmpty()){ %>
                                                                 <table class="resumen">
                                                                     <tr>
                                                                         <th>
@@ -334,10 +335,14 @@
                                                                     </tr>
                                                                     <% }%>
                                                                 </table>
+                                                                <% } else { %>
+                                                                <h3>El pasajero no ha contratado ningun servicio.</h3>
+                                                                <% } %>
                                                             </div>
-                                                            <% if(!reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().isEmpty()){%>
+                                                            <% if(reserva.getVuelo_vuelta() != null){%>
                                                                 <h3>Servicios de vuelta</h3>
                                                                 <div>
+                                                                    <% if(!reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().isEmpty()){ %>
                                                                     <table class="resumen">
                                                                         <tr>
                                                                             <th>
@@ -358,8 +363,11 @@
                                                                         </tr>
                                                                         <% }%>
                                                                     </table>
+                                                                    <% } else { %>
+                                                                    <h3>El pasajero no ha contratado ningun servicio.</h3>
+                                                                    <% } %>
                                                                 </div>
-                                                            <% }%>
+                                                            <% } %>
                                                         </div>
                                                     <% }%>
                                                     <% if(reserva.getaPasajerosNinos()!=null){%>

@@ -93,7 +93,7 @@ public class controladorServiciosPasajerosIda extends HttpServlet {
             for (int i = 0; i < aPasajerosNinos.size(); i++) {
                 ArrayList<Servicio> aServiciosIda = new ArrayList();
                 String[] serv = request.getParameterValues(namen + i);
-                if(serv.length != 0){
+                if(serv != null){
                     int[] servicios = new int[serv.length];
                     for (int j = 0; j < servicios.length; j++) {
                         servicios[j] = Integer.parseInt(serv[j]);

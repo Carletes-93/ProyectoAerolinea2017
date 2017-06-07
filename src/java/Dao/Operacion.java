@@ -188,7 +188,7 @@ public class Operacion {
         return aVuelos;
     }
 
-    public ArrayList<Servicio> sacarServicios(Connection conex) throws SQLException {
+    public static ArrayList<Servicio> sacarServicios(Connection conex) throws SQLException {
         ArrayList<Servicio> aServicios = new ArrayList();
 
         PreparedStatement sentenciaservicios = conex.prepareStatement("SELECT s.* FROM servicio s");
@@ -345,6 +345,22 @@ public class Operacion {
         return h;
     }
 
+    public static Boolean buscarServicioBackup(Connection conex, Servicio servicio) throws SQLException {
+        Boolean h = false;
+
+        PreparedStatement sentencia = conex.prepareStatement("SELECT servicio_backup.* FROM servicio_backup WHERE servicio_backup.NOMBRE LIKE ? AND servicio_backup.PRECIO = ?");
+        sentencia.setString(1, servicio.getNombre());
+        sentencia.setInt(2, servicio.getPrecio());
+
+        ResultSet resultado = sentencia.executeQuery();
+
+        while (resultado.next()) {
+            h = true;
+        }
+
+        return h;
+    }
+
     public Boolean buscarTarjeta2(Connection conex, Tarjeta tarjeta) throws SQLException {
         Boolean h = false;
 
@@ -390,18 +406,18 @@ public class Operacion {
             //Pasajeros Adultos
             for (int i = 0; i < reserva.getaPasajerosAdultos().size(); i++) {
                 PreparedStatement sentenciapasajero;
-                
-                    sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                    sentenciapasajero.setString(1, reserva.getaPasajerosAdultos().get(i).getTratamiento());
-                    sentenciapasajero.setString(2, reserva.getaPasajerosAdultos().get(i).getNombre());
-                    sentenciapasajero.setString(3, reserva.getaPasajerosAdultos().get(i).getApellidos());
-                    sentenciapasajero.setString(4, reserva.getaPasajerosAdultos().get(i).getNif());
-                    sentenciapasajero.setString(5, reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().toString());
-                    sentenciapasajero.setString(6, reserva.getaPasajerosAdultos().get(i).getFecha_nac().toString());
-                    sentenciapasajero.setString(7, reserva.getaPasajerosAdultos().get(i).getTipo());
-                
+
+                sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                sentenciapasajero.setString(1, reserva.getaPasajerosAdultos().get(i).getTratamiento());
+                sentenciapasajero.setString(2, reserva.getaPasajerosAdultos().get(i).getNombre());
+                sentenciapasajero.setString(3, reserva.getaPasajerosAdultos().get(i).getApellidos());
+                sentenciapasajero.setString(4, reserva.getaPasajerosAdultos().get(i).getNif());
+                sentenciapasajero.setString(5, reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().toString());
+                sentenciapasajero.setString(6, reserva.getaPasajerosAdultos().get(i).getFecha_nac().toString());
+                sentenciapasajero.setString(7, reserva.getaPasajerosAdultos().get(i).getTipo());
+
                 sentenciapasajero.executeUpdate();
-                
+
                 ResultSet generatedIdpasajero = sentenciapasajero.getGeneratedKeys();
                 if (generatedIdpasajero.next()) {
                     reserva.getaPasajerosAdultos().get(i).setCodigo_pasajero(generatedIdpasajero.getInt(1));
@@ -412,18 +428,18 @@ public class Operacion {
             if (!reserva.getaPasajerosNinos().isEmpty()) {
                 for (int i = 0; i < reserva.getaPasajerosNinos().size(); i++) {
                     PreparedStatement sentenciapasajero;
-                    
-                        sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                        sentenciapasajero.setString(1, reserva.getaPasajerosNinos().get(i).getTratamiento());
-                        sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNombre());
-                        sentenciapasajero.setString(3, reserva.getaPasajerosNinos().get(i).getApellidos());
-                        sentenciapasajero.setString(4, reserva.getaPasajerosNinos().get(i).getNif());
-                        sentenciapasajero.setString(5, reserva.getaPasajerosNinos().get(i).getFecha_caducidad().toString());
-                        sentenciapasajero.setString(6, reserva.getaPasajerosNinos().get(i).getFecha_nac().toString());
-                        sentenciapasajero.setString(7, reserva.getaPasajerosNinos().get(i).getTipo());
-                    
+
+                    sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    sentenciapasajero.setString(1, reserva.getaPasajerosNinos().get(i).getTratamiento());
+                    sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNombre());
+                    sentenciapasajero.setString(3, reserva.getaPasajerosNinos().get(i).getApellidos());
+                    sentenciapasajero.setString(4, reserva.getaPasajerosNinos().get(i).getNif());
+                    sentenciapasajero.setString(5, reserva.getaPasajerosNinos().get(i).getFecha_caducidad().toString());
+                    sentenciapasajero.setString(6, reserva.getaPasajerosNinos().get(i).getFecha_nac().toString());
+                    sentenciapasajero.setString(7, reserva.getaPasajerosNinos().get(i).getTipo());
+
                     sentenciapasajero.executeUpdate();
-                    
+
                     ResultSet generatedIdpasajeronino = sentenciapasajero.getGeneratedKeys();
                     if (generatedIdpasajeronino.next()) {
                         reserva.getaPasajerosNinos().get(i).setCodigo_pasajero(generatedIdpasajeronino.getInt(1));
@@ -435,15 +451,15 @@ public class Operacion {
             if (!reserva.getaPasajerosBebes().isEmpty()) {
                 for (int i = 0; i < reserva.getaPasajerosBebes().size(); i++) {
                     PreparedStatement sentenciapasajero;
-                    
-                        sentenciapasajero = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                        sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
-                        sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getApellidos());
-                        sentenciapasajero.setString(3, reserva.getaPasajerosBebes().get(i).getNif());
-                        sentenciapasajero.setString(4, reserva.getaPasajerosBebes().get(i).getFecha_nac().toString());
-                    
+
+                    sentenciapasajero = conex.prepareStatement("INSERT INTO bebe (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
+                    sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getApellidos());
+                    sentenciapasajero.setString(3, reserva.getaPasajerosBebes().get(i).getNif());
+                    sentenciapasajero.setString(4, reserva.getaPasajerosBebes().get(i).getFecha_nac().toString());
+
                     sentenciapasajero.executeUpdate();
-                    
+
                     ResultSet generatedIdpasajerobebe = sentenciapasajero.getGeneratedKeys();
                     if (generatedIdpasajerobebe.next()) {
                         reserva.getaPasajerosBebes().get(i).setCod_bebe(generatedIdpasajerobebe.getInt(1));
@@ -1302,6 +1318,69 @@ public class Operacion {
     public Boolean reservaBackupSoloIda(Connection conex, Reserva reserva) throws SQLException {
         try {
             conex.setAutoCommit(false);
+            //Pasajeros Adultos
+            for (int i = 0; i < reserva.getaPasajerosAdultos().size(); i++) {
+                PreparedStatement sentenciapasajero;
+
+                sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero_backup (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                sentenciapasajero.setString(1, reserva.getaPasajerosAdultos().get(i).getTratamiento());
+                sentenciapasajero.setString(2, reserva.getaPasajerosAdultos().get(i).getNombre());
+                sentenciapasajero.setString(3, reserva.getaPasajerosAdultos().get(i).getApellidos());
+                sentenciapasajero.setString(4, reserva.getaPasajerosAdultos().get(i).getNif());
+                sentenciapasajero.setString(5, reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().toString());
+                sentenciapasajero.setString(6, reserva.getaPasajerosAdultos().get(i).getFecha_nac().toString());
+                sentenciapasajero.setString(7, reserva.getaPasajerosAdultos().get(i).getTipo());
+
+                sentenciapasajero.executeUpdate();
+
+                ResultSet generatedIdpasajero = sentenciapasajero.getGeneratedKeys();
+                if (generatedIdpasajero.next()) {
+                    reserva.getaPasajerosAdultos().get(i).setCodigo_pasajero(generatedIdpasajero.getInt(1));
+                }
+            }
+
+            //Pasajeros Niños
+            if (!reserva.getaPasajerosNinos().isEmpty()) {
+                for (int i = 0; i < reserva.getaPasajerosNinos().size(); i++) {
+                    PreparedStatement sentenciapasajero;
+
+                    sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero_backup (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    sentenciapasajero.setString(1, reserva.getaPasajerosNinos().get(i).getTratamiento());
+                    sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNombre());
+                    sentenciapasajero.setString(3, reserva.getaPasajerosNinos().get(i).getApellidos());
+                    sentenciapasajero.setString(4, reserva.getaPasajerosNinos().get(i).getNif());
+                    sentenciapasajero.setString(5, reserva.getaPasajerosNinos().get(i).getFecha_caducidad().toString());
+                    sentenciapasajero.setString(6, reserva.getaPasajerosNinos().get(i).getFecha_nac().toString());
+                    sentenciapasajero.setString(7, reserva.getaPasajerosNinos().get(i).getTipo());
+
+                    sentenciapasajero.executeUpdate();
+
+                    ResultSet generatedIdpasajeronino = sentenciapasajero.getGeneratedKeys();
+                    if (generatedIdpasajeronino.next()) {
+                        reserva.getaPasajerosNinos().get(i).setCodigo_pasajero(generatedIdpasajeronino.getInt(1));
+                    }
+                }
+            }
+
+            //Bebes
+            if (!reserva.getaPasajerosBebes().isEmpty()) {
+                for (int i = 0; i < reserva.getaPasajerosBebes().size(); i++) {
+                    PreparedStatement sentenciapasajero;
+
+                    sentenciapasajero = conex.prepareStatement("INSERT INTO bebe_backup (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
+                    sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getApellidos());
+                    sentenciapasajero.setString(3, reserva.getaPasajerosBebes().get(i).getNif());
+                    sentenciapasajero.setString(4, reserva.getaPasajerosBebes().get(i).getFecha_nac().toString());
+
+                    sentenciapasajero.executeUpdate();
+
+                    ResultSet generatedIdpasajerobebe = sentenciapasajero.getGeneratedKeys();
+                    if (generatedIdpasajerobebe.next()) {
+                        reserva.getaPasajerosBebes().get(i).setCod_bebe(generatedIdpasajerobebe.getInt(1));
+                    }
+                }
+            }
 
             //Reserva
             PreparedStatement sentenciareserva;
@@ -1338,6 +1417,26 @@ public class Operacion {
                 }
             }
 
+            //Servicios a BackUp
+            PreparedStatement backupservicio;
+            ArrayList<Servicio> aServicios = sacarServicios(conex);
+            for (int se = 0; se < aServicios.size(); se++) {
+                Boolean ser1 = buscarServicioBackup(conex, aServicios.get(se));
+                if (!ser1) {
+                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)");
+                    backupservicio.setString(1, aServicios.get(se).getNombre());
+                    backupservicio.setString(2, aServicios.get(se).getDescripcion());
+                    backupservicio.setInt(3, aServicios.get(se).getPrecio());
+                    backupservicio.executeUpdate();
+
+                    ResultSet generatedIdservicio = backupservicio.getGeneratedKeys();
+                    if (generatedIdservicio.next()) {
+                        aServicios.get(se).setCodigo_servicio(generatedIdservicio.getInt(1));
+                    }
+                }
+
+            }
+
             //Ocupacion y servicios Adultos
             for (int j = 0; j < reserva.getaPasajerosAdultos().size(); j++) {
                 //OcupacionIda
@@ -1354,11 +1453,17 @@ public class Operacion {
                 }
                 //Servicios Ocupacion Ida
                 PreparedStatement sentenciaservida;
+                int codServBackupA = 0;
                 if (!reserva.getaPasajerosAdultos().get(j).getaServiciosIda().isEmpty()) {
                     for (int o = 0; o < reserva.getaPasajerosAdultos().get(j).getaServiciosIda().size(); o++) {
+                        for (int zx = 0; zx < aServicios.size(); zx++) {
+                            if (reserva.getaPasajerosAdultos().get(j).getaServiciosIda().get(o).getNombre().equals(aServicios.get(zx).getNombre())) {
+                                codServBackupA = aServicios.get(zx).getCodigo_servicio();
+                            }
+                        }
                         sentenciaservida = conex.prepareStatement("INSERT INTO reserva_servicio_backup (COD_OCUPACION, COD_SERVICIO) VALUES(?, ?)");
                         sentenciaservida.setInt(1, idOcuida);
-                        sentenciaservida.setInt(2, reserva.getaPasajerosAdultos().get(j).getaServiciosIda().get(o).getCodigo_servicio());
+                        sentenciaservida.setInt(2, codServBackupA);
                         sentenciaservida.executeUpdate();
                     }
                 }
@@ -1384,12 +1489,18 @@ public class Operacion {
                         idOcuida = generatedIdocuida.getInt(1);
                     }
                     //Servicios Ocupacion Ida
+                    int codServBackupN = 0;
                     PreparedStatement sentenciaservida;
                     if (!reserva.getaPasajerosNinos().get(j).getaServiciosIda().isEmpty()) {
                         for (int o = 0; o < reserva.getaPasajerosNinos().get(j).getaServiciosIda().size(); o++) {
+                            for (int zx = 0; zx < aServicios.size(); zx++) {
+                                if (reserva.getaPasajerosNinos().get(j).getaServiciosIda().get(o).getNombre().equals(aServicios.get(zx).getNombre())) {
+                                    codServBackupN = aServicios.get(zx).getCodigo_servicio();
+                                }
+                            }
                             sentenciaservida = conex.prepareStatement("INSERT INTO reserva_servicio_backup (COD_OCUPACION, COD_SERVICIO) VALUES(?, ?)");
                             sentenciaservida.setInt(1, idOcuida);
-                            sentenciaservida.setInt(2, reserva.getaPasajerosNinos().get(j).getaServiciosIda().get(o).getCodigo_servicio());
+                            sentenciaservida.setInt(2, codServBackupN);
                             sentenciaservida.executeUpdate();
                         }
                     }
@@ -1453,6 +1564,26 @@ public class Operacion {
                     borrartutor.executeUpdate();
                 }
             }
+            
+            //Servicios a BackUp
+            PreparedStatement backupservicio;
+            ArrayList<Servicio> aServicios = sacarServicios(conex);
+            for (int se = 0; se < aServicios.size(); se++) {
+                Boolean ser1 = buscarServicioBackup(conex, aServicios.get(se));
+                if (!ser1) {
+                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)");
+                    backupservicio.setString(1, aServicios.get(se).getNombre());
+                    backupservicio.setString(2, aServicios.get(se).getDescripcion());
+                    backupservicio.setInt(3, aServicios.get(se).getPrecio());
+                    backupservicio.executeUpdate();
+
+                    ResultSet generatedIdservicio = backupservicio.getGeneratedKeys();
+                    if (generatedIdservicio.next()) {
+                        aServicios.get(se).setCodigo_servicio(generatedIdservicio.getInt(1));
+                    }
+                }
+
+            }
 
             //Ocupacion y servicios Adultos
             for (int j = 0; j < reserva.getaPasajerosAdultos().size(); j++) {
@@ -1469,12 +1600,18 @@ public class Operacion {
                     idOcuida = generatedIdocuida.getInt(1);
                 }
                 //Servicios Ocupacion Ida
+                int codServBackupA = 0;
                 PreparedStatement sentenciaservida;
                 if (!reserva.getaPasajerosAdultos().get(j).getaServiciosIda().isEmpty()) {
                     for (int o = 0; o < reserva.getaPasajerosAdultos().get(j).getaServiciosIda().size(); o++) {
+                        for (int zx = 0; zx < aServicios.size(); zx++) {
+                            if (reserva.getaPasajerosAdultos().get(j).getaServiciosIda().get(o).getNombre().equals(aServicios.get(zx).getNombre())) {
+                                codServBackupA = aServicios.get(zx).getCodigo_servicio();
+                            }
+                        }
                         sentenciaservida = conex.prepareStatement("INSERT INTO reserva_servicio_backup (COD_OCUPACION, COD_SERVICIO) VALUES(?, ?)");
                         sentenciaservida.setInt(1, idOcuida);
-                        sentenciaservida.setInt(2, reserva.getaPasajerosAdultos().get(j).getaServiciosIda().get(o).getCodigo_servicio());
+                        sentenciaservida.setInt(2, codServBackupA);
                         sentenciaservida.executeUpdate();
                     }
                 }
@@ -1499,12 +1636,18 @@ public class Operacion {
                         idOcuida = generatedIdocuida.getInt(1);
                     }
                     //Servicios Ocupacion Ida
+                    int codServBackupN = 0;
                     PreparedStatement sentenciaservida;
                     if (!reserva.getaPasajerosNinos().get(j).getaServiciosIda().isEmpty()) {
                         for (int o = 0; o < reserva.getaPasajerosNinos().get(j).getaServiciosIda().size(); o++) {
+                            for (int zx = 0; zx < aServicios.size(); zx++) {
+                                if (reserva.getaPasajerosNinos().get(j).getaServiciosIda().get(o).getNombre().equals(aServicios.get(zx).getNombre())) {
+                                    codServBackupN = aServicios.get(zx).getCodigo_servicio();
+                                }
+                            }
                             sentenciaservida = conex.prepareStatement("INSERT INTO reserva_servicio_backup (COD_OCUPACION, COD_SERVICIO) VALUES(?, ?)");
                             sentenciaservida.setInt(1, idOcuida);
-                            sentenciaservida.setInt(2, reserva.getaPasajerosNinos().get(j).getaServiciosIda().get(o).getCodigo_servicio());
+                            sentenciaservida.setInt(2, codServBackupN);
                             sentenciaservida.executeUpdate();
                         }
                     }
@@ -1533,6 +1676,69 @@ public class Operacion {
     public Boolean reservaBackupVuelta(Connection conex, Reserva reserva) throws SQLException {
         try {
             conex.setAutoCommit(false);
+            //Pasajeros Adultos
+            for (int i = 0; i < reserva.getaPasajerosAdultos().size(); i++) {
+                PreparedStatement sentenciapasajero;
+
+                sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero_backup (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                sentenciapasajero.setString(1, reserva.getaPasajerosAdultos().get(i).getTratamiento());
+                sentenciapasajero.setString(2, reserva.getaPasajerosAdultos().get(i).getNombre());
+                sentenciapasajero.setString(3, reserva.getaPasajerosAdultos().get(i).getApellidos());
+                sentenciapasajero.setString(4, reserva.getaPasajerosAdultos().get(i).getNif());
+                sentenciapasajero.setString(5, reserva.getaPasajerosAdultos().get(i).getFecha_caducidad().toString());
+                sentenciapasajero.setString(6, reserva.getaPasajerosAdultos().get(i).getFecha_nac().toString());
+                sentenciapasajero.setString(7, reserva.getaPasajerosAdultos().get(i).getTipo());
+
+                sentenciapasajero.executeUpdate();
+
+                ResultSet generatedIdpasajero = sentenciapasajero.getGeneratedKeys();
+                if (generatedIdpasajero.next()) {
+                    reserva.getaPasajerosAdultos().get(i).setCodigo_pasajero(generatedIdpasajero.getInt(1));
+                }
+            }
+
+            //Pasajeros Niños
+            if (!reserva.getaPasajerosNinos().isEmpty()) {
+                for (int i = 0; i < reserva.getaPasajerosNinos().size(); i++) {
+                    PreparedStatement sentenciapasajero;
+
+                    sentenciapasajero = conex.prepareStatement("INSERT INTO pasajero_backup (TRATAMIENTO, NOMBRE, APELLIDOS, NIF, CADUCIDAD_NIF, FECHA_NAC, TIPO) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    sentenciapasajero.setString(1, reserva.getaPasajerosNinos().get(i).getTratamiento());
+                    sentenciapasajero.setString(2, reserva.getaPasajerosNinos().get(i).getNombre());
+                    sentenciapasajero.setString(3, reserva.getaPasajerosNinos().get(i).getApellidos());
+                    sentenciapasajero.setString(4, reserva.getaPasajerosNinos().get(i).getNif());
+                    sentenciapasajero.setString(5, reserva.getaPasajerosNinos().get(i).getFecha_caducidad().toString());
+                    sentenciapasajero.setString(6, reserva.getaPasajerosNinos().get(i).getFecha_nac().toString());
+                    sentenciapasajero.setString(7, reserva.getaPasajerosNinos().get(i).getTipo());
+
+                    sentenciapasajero.executeUpdate();
+
+                    ResultSet generatedIdpasajeronino = sentenciapasajero.getGeneratedKeys();
+                    if (generatedIdpasajeronino.next()) {
+                        reserva.getaPasajerosNinos().get(i).setCodigo_pasajero(generatedIdpasajeronino.getInt(1));
+                    }
+                }
+            }
+
+            //Bebes
+            if (!reserva.getaPasajerosBebes().isEmpty()) {
+                for (int i = 0; i < reserva.getaPasajerosBebes().size(); i++) {
+                    PreparedStatement sentenciapasajero;
+
+                    sentenciapasajero = conex.prepareStatement("INSERT INTO bebe_backup (NOMBRE, APELLIDOS, NIF, FECHA_NAC) VALUES(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    sentenciapasajero.setString(1, reserva.getaPasajerosBebes().get(i).getNombre());
+                    sentenciapasajero.setString(2, reserva.getaPasajerosBebes().get(i).getApellidos());
+                    sentenciapasajero.setString(3, reserva.getaPasajerosBebes().get(i).getNif());
+                    sentenciapasajero.setString(4, reserva.getaPasajerosBebes().get(i).getFecha_nac().toString());
+
+                    sentenciapasajero.executeUpdate();
+
+                    ResultSet generatedIdpasajerobebe = sentenciapasajero.getGeneratedKeys();
+                    if (generatedIdpasajerobebe.next()) {
+                        reserva.getaPasajerosBebes().get(i).setCod_bebe(generatedIdpasajerobebe.getInt(1));
+                    }
+                }
+            }
 
             //Reserva
             PreparedStatement update;
@@ -1563,6 +1769,26 @@ public class Operacion {
                     borrartutor.executeUpdate();
                 }
             }
+            
+            //Servicios a BackUp
+            PreparedStatement backupservicio;
+            ArrayList<Servicio> aServicios = sacarServicios(conex);
+            for (int se = 0; se < aServicios.size(); se++) {
+                Boolean ser1 = buscarServicioBackup(conex, aServicios.get(se));
+                if (!ser1) {
+                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)");
+                    backupservicio.setString(1, aServicios.get(se).getNombre());
+                    backupservicio.setString(2, aServicios.get(se).getDescripcion());
+                    backupservicio.setInt(3, aServicios.get(se).getPrecio());
+                    backupservicio.executeUpdate();
+
+                    ResultSet generatedIdservicio = backupservicio.getGeneratedKeys();
+                    if (generatedIdservicio.next()) {
+                        aServicios.get(se).setCodigo_servicio(generatedIdservicio.getInt(1));
+                    }
+                }
+
+            }
 
             //Ocupacion y servicios Adultos
             for (int j = 0; j < reserva.getaPasajerosAdultos().size(); j++) {
@@ -1579,12 +1805,18 @@ public class Operacion {
                     idOcuida = generatedIdocuida.getInt(1);
                 }
                 //Servicios Ocupacion Vuelta
+                int codServBackupA = 0;
                 PreparedStatement sentenciaservida;
                 if (!reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().isEmpty()) {
                     for (int o = 0; o < reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().size(); o++) {
+                        for (int zx = 0; zx < aServicios.size(); zx++) {
+                            if (reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().get(o).getNombre().equals(aServicios.get(zx).getNombre())) {
+                                codServBackupA = aServicios.get(zx).getCodigo_servicio();
+                            }
+                        }
                         sentenciaservida = conex.prepareStatement("INSERT INTO reserva_servicio_backup (COD_OCUPACION, COD_SERVICIO) VALUES(?, ?)");
                         sentenciaservida.setInt(1, idOcuida);
-                        sentenciaservida.setInt(2, reserva.getaPasajerosAdultos().get(j).getaServiciosVuelta().get(o).getCodigo_servicio());
+                        sentenciaservida.setInt(2, codServBackupA);
                         sentenciaservida.executeUpdate();
                     }
                 }
@@ -1610,12 +1842,18 @@ public class Operacion {
                         idOcuida = generatedIdocuida.getInt(1);
                     }
                     //Servicios Ocupacion Vuelta
+                    int codServBackupN = 0;
                     PreparedStatement sentenciaservida;
                     if (!reserva.getaPasajerosNinos().get(j).getaServiciosVuelta().isEmpty()) {
                         for (int o = 0; o < reserva.getaPasajerosNinos().get(j).getaServiciosVuelta().size(); o++) {
+                            for (int zx = 0; zx < aServicios.size(); zx++) {
+                                if (reserva.getaPasajerosNinos().get(j).getaServiciosVuelta().get(o).getNombre().equals(aServicios.get(zx).getNombre())) {
+                                    codServBackupN = aServicios.get(zx).getCodigo_servicio();
+                                }
+                            }
                             sentenciaservida = conex.prepareStatement("INSERT INTO reserva_servicio_backup (COD_OCUPACION, COD_SERVICIO) VALUES(?, ?)");
                             sentenciaservida.setInt(1, idOcuida);
-                            sentenciaservida.setInt(2, reserva.getaPasajerosNinos().get(j).getaServiciosVuelta().get(o).getCodigo_servicio());
+                            sentenciaservida.setInt(2, codServBackupN);
                             sentenciaservida.executeUpdate();
                         }
                     }
@@ -1699,7 +1937,7 @@ public class Operacion {
 
         return conexion;
     }
-    
+
     public ArrayList<Vuelo> sacarVuelosEst(Connection conex, int conexion, LocalDate fechaI, LocalDate fechaF) throws SQLException {
         ArrayList<Vuelo> vuelos = new ArrayList();
 
@@ -1727,7 +1965,7 @@ public class Operacion {
 
         return vuelos;
     }
-    
+
     public Reserva montarReservaEst(Connection conex, String cod_reserva) throws SQLException {
         Reserva r1 = new Reserva();
 
@@ -2037,7 +2275,7 @@ public class Operacion {
 
         return r1;
     }
-    
+
     public ArrayList<Reserva> sacarReservasEst(Connection conex, Vuelo vuelo) throws SQLException {
         ArrayList<Reserva> aReservas = new ArrayList();
 

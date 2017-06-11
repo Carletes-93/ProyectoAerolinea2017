@@ -1423,7 +1423,7 @@ public class Operacion {
             for (int se = 0; se < aServicios.size(); se++) {
                 Boolean ser1 = buscarServicioBackup(conex, aServicios.get(se));
                 if (!ser1) {
-                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)");
+                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     backupservicio.setString(1, aServicios.get(se).getNombre());
                     backupservicio.setString(2, aServicios.get(se).getDescripcion());
                     backupservicio.setInt(3, aServicios.get(se).getPrecio());
@@ -1571,7 +1571,7 @@ public class Operacion {
             for (int se = 0; se < aServicios.size(); se++) {
                 Boolean ser1 = buscarServicioBackup(conex, aServicios.get(se));
                 if (!ser1) {
-                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)");
+                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     backupservicio.setString(1, aServicios.get(se).getNombre());
                     backupservicio.setString(2, aServicios.get(se).getDescripcion());
                     backupservicio.setInt(3, aServicios.get(se).getPrecio());
@@ -1776,7 +1776,7 @@ public class Operacion {
             for (int se = 0; se < aServicios.size(); se++) {
                 Boolean ser1 = buscarServicioBackup(conex, aServicios.get(se));
                 if (!ser1) {
-                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)");
+                    backupservicio = conex.prepareStatement("INSERT INTO servicio_backup (NOMBRE, DESCRIPCION, PRECIO) VALUES(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     backupservicio.setString(1, aServicios.get(se).getNombre());
                     backupservicio.setString(2, aServicios.get(se).getDescripcion());
                     backupservicio.setInt(3, aServicios.get(se).getPrecio());

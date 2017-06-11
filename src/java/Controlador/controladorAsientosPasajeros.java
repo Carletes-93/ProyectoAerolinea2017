@@ -66,7 +66,7 @@ public class controladorAsientosPasajeros extends HttpServlet {
             for (int i = 0; i < aPasajerosNinos.size(); i++) {
                 for (int s = 0; s < aPasajerosNinos.get(i).getaServiciosIda().size(); s++) {
                     if (aPasajerosNinos.get(i).getaServiciosIda().get(s).getNombre().equals("Asiento reservado")) {
-                        aPasajerosNinos.get(i).setAsiento_ida(Integer.parseInt(request.getParameter(adultoida + String.valueOf(i))));
+                        aPasajerosNinos.get(i).setAsiento_ida(Integer.parseInt(request.getParameter(ninoida + String.valueOf(i))));
                     }
                 }
                 if (!aAsientosVuelta.isEmpty()) {

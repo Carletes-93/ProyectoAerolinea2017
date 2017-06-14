@@ -118,6 +118,37 @@ public class controladorBuscarReservasVolar extends HttpServlet {
         } else {
             vuelta = true;
         }
+        
+        if (!aReservasSoloIda.isEmpty()) {
+            for (Reserva r1 : aReservasSoloIda) {
+                try {
+                    objop.borrarReserva(Conex, r1);
+                } catch (SQLException ex) {
+                }
+            }
+        }
+        
+        if (!aReservasIda.isEmpty()) {
+            for (Reserva r1 : aReservasIda) {
+                if(r1.getVuelo_ida()!=null){
+                    
+                } else {
+                    try {
+                        objop.borrarReserva(Conex, r1);
+                    } catch (SQLException ex) {
+                    }
+                }
+            }
+        }
+        
+        if (!aReservasVuelta.isEmpty()) {
+            for (Reserva r1 : aReservasVuelta) {
+                try {
+                    objop.borrarReserva(Conex, r1);
+                } catch (SQLException ex) {
+                }
+            }
+        }
 
         if (soloida & ida & vuelta) {
             try {

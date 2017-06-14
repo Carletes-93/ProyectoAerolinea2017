@@ -14,6 +14,7 @@ import Clases.Servicio;
  * @author Carlos
  */
 public class Pasajero {
+    private int codigo_antiguo;
     private int codigo_pasajero;
     private String tratamiento;
     private String nombre;
@@ -43,6 +44,14 @@ public class Pasajero {
         this.tipo = tipo;
     }
 
+    public int getCodigo_antiguo() {
+        return codigo_antiguo;
+    }
+
+    public void setCodigo_antiguo(int codigo_antiguo) {
+        this.codigo_antiguo = codigo_antiguo;
+    }
+    
     public int getCodigo_pasajero() {
         return codigo_pasajero;
     }

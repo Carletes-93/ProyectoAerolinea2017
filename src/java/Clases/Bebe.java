@@ -12,6 +12,7 @@ import java.time.LocalDate;
  * @author Carlos
  */
 public class Bebe {
+    private int cod_antiguo;
     private int cod_bebe;
     private String nombre;
     private String apellidos;
@@ -30,6 +31,14 @@ public class Bebe {
         this.fecha_nac = fecha_nac;
     }
 
+    public int getCod_antiguo() {
+        return cod_antiguo;
+    }
+
+    public void setCod_antiguo(int cod_antiguo) {
+        this.cod_antiguo = cod_antiguo;
+    }
+    
     public int getCod_bebe() {
         return cod_bebe;
     }
